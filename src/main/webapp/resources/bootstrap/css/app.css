@@ -1,0 +1,61 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Dec 22, 2014, 10:30:23 PM
+    Author     : gervais
+*/
+
+/* Space out content a bit */
+body {
+    font-family: Ubuntu;
+    font-size: 12px;
+
+        padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+/* Everything but the jumbotron gets side spacing for mobile first views */
+.header,
+.marketing,
+.footer {
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+#header_menu{
+    height: 10px;
+    background-color: white;
+}
+
+.sidebar{
+    background-color: whitesmoke;
+}
+
+.pager{
+    margin: 0px 0px;
+}
+.pager_detail{
+    width: 50px;
+}
+
+.dropdown{
+    margin-bottom: 5px;
+}
+
+#accordion .panel-title{
+    font-size: 12px;
+}
+
+/* Show page */
+#table_show .table tr{
+    
+    border-style: hidden;
+}
+
+.row-align{
+    vertical-align: middle;
+    text-align: center;
+}
