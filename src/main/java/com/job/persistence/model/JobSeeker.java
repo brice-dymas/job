@@ -45,6 +45,9 @@ public class JobSeeker
     @NotBlank(message = "{blank.message}")
     private String telephone;
 
+    @NotBlank(message = "{blank.message}")
+    private String statut;
+
     @Email
     private String email;
 
@@ -80,6 +83,16 @@ public class JobSeeker
     public void setNumero(String numero)
     {
         this.numero = numero;
+    }
+
+    public String getStatut()
+    {
+        return statut;
+    }
+
+    public void setStatut(String statut)
+    {
+        this.statut = statut;
     }
 
     @Override

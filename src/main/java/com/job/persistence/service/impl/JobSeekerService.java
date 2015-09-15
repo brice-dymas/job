@@ -24,7 +24,8 @@ import org.springframework.stereotype.Service;
 @Service("jobSeekerService")
 public class JobSeekerService
         extends AbstractService<JobSeeker>
-        implements IJobSeekerService {
+        implements IJobSeekerService
+{
 
     @Autowired
     IJobSeekerDao dao;
@@ -36,10 +37,14 @@ public class JobSeekerService
     ISecteurDao secteurDao;
 
     @Override
-    public Page<JobSeeker> findByNom(String nom, int page, Integer size) {
-        if (nom.length() <= 0) {
+    public Page<JobSeeker> findByNom(String nom, int page, Integer size)
+    {
+        if (nom.length() <= 0)
+        {
             return dao.findAll(new PageRequest(page, size));
-        } else {
+        }
+        else
+        {
             System.out.println("ici daoJob param=" + nom);
             return dao.findByNom("%" + nom + "%", new PageRequest(page, size));
         }
@@ -48,56 +53,70 @@ public class JobSeekerService
 
     @Override
     public Page<JobSeeker> findIt(String nomJobSeeker, String numeroJobSeeker,
-            int page, Integer size) {
+            int page, Integer size)
+    {
         return dao.findIt(nomJobSeeker, numeroJobSeeker, new PageRequest(page, size));
     }
 
     @Override
     public Page<JobSeeker> search(String nomJobSeeker, String prenomJobSeeker, String numeroJobSeeker,
-            long secteur, int page, Integer size) {
-        if (secteur == -1) {
-            return dao.searchJobSeeker("%"+nomJobSeeker+"%", "%"+prenomJobSeeker+"%", "%"+numeroJobSeeker+"%", new PageRequest(page, size));
-        } else {
-            return dao.searchJobSeeker("%"+nomJobSeeker+"%", "%"+prenomJobSeeker+"%","%"+numeroJobSeeker+"%", secteur, new PageRequest(page, size));
+            long secteur, String statut, int page, Integer size)
+    {
+        if (secteur == -1)
+        {
+            return dao.searchJobSeeker("%" + nomJobSeeker + "%", "%" + prenomJobSeeker + "%", "%" + numeroJobSeeker + "%", statut, new PageRequest(page, size));
+        }
+        else
+        {
+            return dao.searchJobSeeker("%" + nomJobSeeker + "%", "%" + prenomJobSeeker + "%", "%" + numeroJobSeeker + "%", secteur, statut, new PageRequest(page, size));
         }
     }
 
     @Override
-    public Page<JobSeeker> findPaginated(String query, int i, Integer size) {
-        if (query == null) {
+    public Page<JobSeeker> findPaginated(String query, int i, Integer size)
+    {
+        if (query == null)
+        {
             System.out.println("Query = " + query);
             return super.findPaginated(i, size);
-        } else {
+        }
+        else
+        {
             System.out.println("Not null Query = " + query);
             return dao.findByNom('%' + query + '%', new PageRequest(i, size));
         }
     }
 
     @Override
-    public JobSeeker create(JobSeeker entity) {
+    public JobSeeker create(JobSeeker entity)
+    {
         List<Contact> adresses = entity.getContacts();
         List<Contact> createAdresses = new ArrayList<>();
         List<Secteur> secteurs = new ArrayList();
-        if (entity.getSecteursDemploi().size() > 0) {
-            for (Secteur secteur : entity.getSecteursDemploi()) {
+        if (entity.getSecteursDemploi().size() > 0)
+        {
+            for (Secteur secteur : entity.getSecteursDemploi())
+            {
                 secteurs.add(secteurDao.findOne(secteur.getId()));
             }
         }
         entity.setSecteursDemploi(secteurs);
-        if (adresses.size() > 0) {
-            for (Contact adresse : adresses) {
+        if (adresses.size() > 0)
+        {
+            for (Contact adresse : adresses)
+            {
                 adresseDao.save(adresse);
                 createAdresses.add(adresse);
             }
         }
         entity.setContacts(createAdresses);
-        
+
         String timeString = String.valueOf(new Date().getTime());
         String numero = entity.getNom().substring(0, 3);
         numero += entity.getPrenom().substring(0, 1);
-        numero += timeString.substring(timeString.length()-4,timeString.length());
+        numero += timeString.substring(timeString.length() - 4, timeString.length());
         entity.setNumero(numero.toUpperCase());
-        
+
         return dao.save(entity);
     }
 
@@ -127,22 +146,26 @@ public class JobSeekerService
      */
     @Override
     public Page<JobSeeker> findWithSecteurDactivite(String nomJobSeeker,
-            String nomSecteurDactivite, int page, Integer size) {
+            String nomSecteurDactivite, int page, Integer size)
+    {
         return dao.findByNom(nomJobSeeker, new PageRequest(page, size));
     }
 
     @Override
-    public JobSeeker findWithoutAdress(long id) {
+    public JobSeeker findWithoutAdress(long id)
+    {
         return null;
     }
 
     @Override
-    public JobSeeker update(JobSeeker entity) {
+    public JobSeeker update(JobSeeker entity)
+    {
         return super.update(entity);
     }
 
     @Override
-    protected PagingAndSortingRepository<JobSeeker, Long> getDao() {
+    protected PagingAndSortingRepository<JobSeeker, Long> getDao()
+    {
         return dao;
     }
 

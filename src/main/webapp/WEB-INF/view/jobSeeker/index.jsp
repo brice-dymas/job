@@ -41,19 +41,27 @@
                         <tr>
                             <th>
                                 <span class="btn">
+                                    <spring:message code="jobSeeker.numero" />
+                                </span>
+                            </th>
+                            <th>
+                                <span class="btn">
                                     <spring:message code="jobSeeker.nom" />
                                 </span>
                             </th>
-
                             <th>
                                 <span class="btn">
                                     <spring:message code="jobSeeker.prenom" />
                                 </span>
                             </th>
-
                             <th>
                                 <span class="btn">
                                     <spring:message code="jobSeeker.telephone" />
+                                </span>
+                            </th>
+                            <th>
+                                <span class="btn">
+                                    <spring:message code="jobSeeker.email" />
                                 </span>
                             </th>
                             <th>
@@ -108,6 +116,9 @@
                     <c:forEach items="${jobSeekers}" var="jobSeeker">
                         <tr>
                             <td>
+                                ${jobSeeker.numero}
+                            </td>
+                            <td>
                                 ${jobSeeker.nom}
                             </td>
                             <td>
@@ -115,6 +126,9 @@
                             </td>
                             <td>
                                 ${jobSeeker.telephone}
+                            </td>
+                            <td>
+                                ${jobSeeker.email}
                             </td>
                             <td class="text-center">
                                 <spring:url value="/jobSeeker/${jobSeeker.id}/edit" htmlEscape="true" var="jobSeeker_edit" />

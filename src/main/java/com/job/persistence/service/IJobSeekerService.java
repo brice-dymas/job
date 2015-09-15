@@ -23,8 +23,8 @@ public interface IJobSeekerService
             String nomSecteurDactivite, int page, Integer size);
 
     public Page<JobSeeker> findPaginated(String query, int page, Integer size);
-    
+
     public Page<JobSeeker> search(String nomJobSeeker, String prenomJobSeeker, String numeroJobSeeker,
-            long secteur, int page, Integer size);
+            long secteur, String statut, int page, Integer size);
 
 }

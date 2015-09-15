@@ -77,7 +77,6 @@ public class JobSeekerController
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String indexAction(final ModelMap model, final WebRequest webRequest)
     {
-
         final Integer page = webRequest.getParameter("page") != null
                 ? Integer.valueOf(webRequest.getParameter("page"))
                 : 0;
@@ -86,11 +85,6 @@ public class JobSeekerController
                 : 20;
 
         final Page<JobSeeker> resultPage = dao.findAll(new PageRequest(page, size));
-
-        final TreeMap<String, String> breadcrumb = getBreadcrumb();
-        breadcrumb.put("breadcrumb.jobSeeker.index", "");
-        model.addAttribute("breadcrumbs", breadcrumb);
-
         model.addAttribute("page", page);
         model.addAttribute("Totalpage", resultPage.getTotalPages());
         model.addAttribute("size", size);
@@ -115,6 +109,9 @@ public class JobSeekerController
         final String numero = webRequest.getParameter("querynumero") != null
                 ? webRequest.getParameter("querynumero")
                 : "";
+        final String statut = webRequest.getParameter("querystatut") != null
+                ? webRequest.getParameter("querystatut")
+                : "Disponible";
         final Integer page = webRequest.getParameter("page") != null
                 ? Integer.valueOf(webRequest.getParameter("page"))
                 : 0;
@@ -122,19 +119,16 @@ public class JobSeekerController
                 ? Integer.valueOf(webRequest.getParameter("size"))
                 : 20;
 
-        System.out.println("Les parametres de recherche sont nom=" + nom + " secteur=" + secteur + " numéro=" + numero + " size=" + size);
+        System.out.println("Les parametres de recherche sont nom=" + nom + " secteur=" + secteur + " statut=" + statut + " numéro=" + numero + " size=" + size);
         //Page<JobSeeker> resultPage = dao.findAll(new PageRequest(page, size));
-        Page<JobSeeker> resultPage = jobSeekerService.search(nom, prenom, numero, secteur, page, size);
+        Page<JobSeeker> resultPage = jobSeekerService.search(nom, prenom, numero, secteur, statut, page, size);
         System.out.println("taille resultPage is empty ? = " + resultPage.getContent().isEmpty());
-
-        final TreeMap<String, String> breadcrumb = getBreadcrumb();
-        breadcrumb.put("breadcrumb.jobSeeker.index", "");
-        model.addAttribute("breadcrumbs", breadcrumb);
 
         model.addAttribute("querynom", nom);
         model.addAttribute("queryprenom", prenom);
         model.addAttribute("querynumero", numero);
         model.addAttribute("querysecteur", secteur);
+        model.addAttribute("querystatut", statut);
         model.addAttribute("page", page);
         model.addAttribute("Totalpage", resultPage.getTotalPages());
         model.addAttribute("size", size);
@@ -295,5 +289,14 @@ public class JobSeekerController
             }
         }
         return new PageImpl<>(jobSeekers);
+    }
+
+    @ModelAttribute("LesStatuts")
+    public Map<Long, String> populateStatusField()
+    {
+        Map<Long, String> statuts = new HashMap<>();
+        statuts.put(1L, "Disponible");
+        statuts.put(2L, "Indisponible");
+        return statuts;
     }
 }

@@ -14,7 +14,7 @@ import org.springframework.data.repository.query.Param;
  */
 public interface IJobSeekerDao
         extends JpaSpecificationExecutor<JobSeeker>,
-                JpaRepository<JobSeeker, Long>
+        JpaRepository<JobSeeker, Long>
 {
 
     @Query("SELECT J FROM JobSeeker J WHERE J.nom LIKE :nom or J.prenom LIKE :nom")
@@ -24,16 +24,18 @@ public interface IJobSeekerDao
     Page<JobSeeker> findIt(@Param("nom") String nom,
             @Param("numero") String numero,
             Pageable pageable);
-    
-    
-    @Query("SELECT j FROM JobSeeker j join j.secteursDemploi s WHERE j.nom LIKE :nom AND j.prenom LIKE :prenom AND j.numero LIKE :numero AND s.id=:secteur")
-    Page<JobSeeker> searchJobSeeker(@Param("nom") String nom,@Param("prenom") String prenom,
-            @Param("numero") String numero,@Param("secteur") long secteur,
+
+    @Query("SELECT j FROM JobSeeker j join j.secteursDemploi s WHERE j.nom LIKE :nom AND j.prenom LIKE :prenom"
+            + " AND j.numero LIKE :numero AND s.id=:secteur AND j.statut LIKE :statut")
+    Page<JobSeeker> searchJobSeeker(@Param("nom") String nom, @Param("prenom") String prenom,
+            @Param("numero") String numero, @Param("secteur") long secteur,
+            @Param("statut") String statut,
             Pageable pageable);
-    
-    @Query("SELECT j FROM JobSeeker j WHERE j.nom LIKE :nom AND j.prenom LIKE :prenom AND j.numero LIKE :numero")
-    Page<JobSeeker> searchJobSeeker(@Param("nom") String nom,@Param("prenom") String prenom,
+
+    @Query("SELECT j FROM JobSeeker j WHERE j.nom LIKE :nom AND j.prenom LIKE :prenom AND j.numero LIKE :numero AND j.statut LIKE :statut")
+    Page<JobSeeker> searchJobSeeker(@Param("nom") String nom, @Param("prenom") String prenom,
             @Param("numero") String numero,
+            @Param("statut") String statut,
             Pageable pageable);
 
 }

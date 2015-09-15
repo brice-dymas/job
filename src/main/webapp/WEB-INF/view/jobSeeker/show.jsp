@@ -39,6 +39,8 @@
                             <td>${jobSeeker.email}</td>
                             <th><spring:message code="jobSeeker.telephone" /></th>
                             <td>${jobSeeker.telephone}</td>
+                            <th><spring:message code="jobSeeker.statut" /></th>
+                            <td>${jobSeeker.statut}</td>
                         </tr>
                         <tr>
                             <th>C.V.</th>
