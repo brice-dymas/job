@@ -74,16 +74,16 @@ public class JobSeekerController
         return "jobSeeker/show";
     }
 
-    @RequestMapping(value = "/search", method = RequestMethod.GET)
+    @RequestMapping(value = "/", method = RequestMethod.GET)
     public String indexAction(final ModelMap model, final WebRequest webRequest)
     {
 
         final Integer page = webRequest.getParameter("page") != null
-                             ? Integer.valueOf(webRequest.getParameter("page"))
-                             : 0;
+                ? Integer.valueOf(webRequest.getParameter("page"))
+                : 0;
         final Integer size = webRequest.getParameter("size") != null
-                             ? Integer.valueOf(webRequest.getParameter("size"))
-                             : 20;
+                ? Integer.valueOf(webRequest.getParameter("size"))
+                : 20;
 
         final Page<JobSeeker> resultPage = dao.findAll(new PageRequest(page, size));
 
@@ -98,54 +98,34 @@ public class JobSeekerController
         return "jobSeeker/index";
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.GET)
+    @RequestMapping(value = "/search", method = RequestMethod.GET)
     public String searchAction(final ModelMap model, final WebRequest webRequest)
     {
         System.out.println("dans search.jsp");
 
         final long secteur = webRequest.getParameter("querysecteur") != null && !webRequest.getParameter("querysecteur").equals("")
-                               ? Long.valueOf(webRequest.getParameter("querysecteur"))
-                               : -1;
+                ? Long.valueOf(webRequest.getParameter("querysecteur"))
+                : -1;
         final String nom = webRequest.getParameter("querynom") != null
-                           ? webRequest.getParameter("querynom")
-                           : "";
-         final String prenom = webRequest.getParameter("queryprenom") != null
-                           ? webRequest.getParameter("queryprenom")
-                           : "";
+                ? webRequest.getParameter("querynom")
+                : "";
+        final String prenom = webRequest.getParameter("queryprenom") != null
+                ? webRequest.getParameter("queryprenom")
+                : "";
         final String numero = webRequest.getParameter("querynumero") != null
-                              ? webRequest.getParameter("querynumero")
-                              : "";
+                ? webRequest.getParameter("querynumero")
+                : "";
         final Integer page = webRequest.getParameter("page") != null
-                             ? Integer.valueOf(webRequest.getParameter("page"))
-                             : 0;
+                ? Integer.valueOf(webRequest.getParameter("page"))
+                : 0;
         final Integer size = webRequest.getParameter("size") != null
-                             ? Integer.valueOf(webRequest.getParameter("size"))
-                             : 20;
+                ? Integer.valueOf(webRequest.getParameter("size"))
+                : 20;
 
         System.out.println("Les parametres de recherche sont nom=" + nom + " secteur=" + secteur + " numéro=" + numero + " size=" + size);
         //Page<JobSeeker> resultPage = dao.findAll(new PageRequest(page, size));
-         Page<JobSeeker> resultPage = jobSeekerService.search(nom, prenom, numero, secteur, page, size);
+        Page<JobSeeker> resultPage = jobSeekerService.search(nom, prenom, numero, secteur, page, size);
         System.out.println("taille resultPage is empty ? = " + resultPage.getContent().isEmpty());
-
-//        List<JobSeeker> jobSeekers = new ArrayList<>();
-//        if (nom.length() > 0 && secteur.length() > 0)
-//        {
-//            System.out.println("les deux parametres existent");
-//            resultPage = dao.findIt("%" + nom + "%", "%" + numero + "%", new PageRequest(page, size));
-//            resultPage = filterBySecteur(resultPage, secteur);
-//        }
-//        else
-//        {
-//            System.out.println("un seul parametre est donné");
-//            if (secteur.length() > 0)
-//            {
-//                resultPage = filterBySecteur(resultPage, secteur);
-//            }
-//            if (nom.length() > 0 | numero.length() > 0)
-//            {
-//                resultPage = dao.findIt("%" + nom + "%", "%" + numero + "%", new PageRequest(page, size));
-//            }
-//        }
 
         final TreeMap<String, String> breadcrumb = getBreadcrumb();
         breadcrumb.put("breadcrumb.jobSeeker.index", "");
@@ -195,7 +175,7 @@ public class JobSeekerController
                 processData(jobSeeker);
             }
             catch (IllegalStateException |
-                   IOException e)
+                    IOException e)
             {
                 System.out.println(e.getMessage());
             }
@@ -236,7 +216,7 @@ public class JobSeekerController
                 processData(jobSeeker);
             }
             catch (IllegalStateException |
-                   IOException e)
+                    IOException e)
             {
                 System.out.println(e.getMessage());
             }
@@ -267,7 +247,7 @@ public class JobSeekerController
 
     private void processData(JobSeeker jobSeeker)
             throws IllegalStateException,
-                   IOException
+            IOException
     {
         MultipartFile file = jobSeeker.getCvData();
         jobSeeker.setCv(file.getOriginalFilename());
@@ -292,7 +272,7 @@ public class JobSeekerController
 
     private void processFileData(MultipartFile file, String uploadDir)
             throws IllegalStateException,
-                   IOException
+            IOException
     {
 
         String filename = getSavedFileName(file, uploadDir);

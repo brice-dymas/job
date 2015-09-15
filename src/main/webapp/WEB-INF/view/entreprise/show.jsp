@@ -16,7 +16,7 @@
             <div class="col-md-8 col-md-offset-2">
                 <h4>
                     <span class="fa fa-institution fa-lg"></span>
-                    <spring:message code="secteur.afficher" />
+                    <spring:message code="entreprise.afficher" />
                 </h4>
                 <hr/>
             </div>
@@ -27,29 +27,44 @@
                 <table class="table table-condensed">
                     <tbody>
                         <tr>
-                            <th><spring:message code="secteur.libelle" /> : </th>
-                            <td>${secteur.libelle}</td>
+                            <th><spring:message code="entreprise.nom" /> : </th>
+                            <td>${entreprise.nom}</td>
+                        </tr>
+                        <tr>
+                            <th><spring:message code="entreprise.adresse" /> : </th>
+                            <td>${entreprise.adresse}</td>
+                        </tr>
+                        <tr>
+                            <th><spring:message code="entreprise.telephone" /> : </th>
+                            <td>${entreprise.telephone}</td>
+                        </tr>
+                        <tr>
+                            <th><spring:message code="entreprise.boitePostale" /> : </th>
+                            <td>${entreprise.boitePostale}</td>
+                        </tr>
+                        <tr>
+                            <th><spring:message code="entreprise.contact" /> : </th>
+                            <td>${entreprise.contact}</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
         </div>
 
-
         <div class="row">
             <div class="col-md-4 col-md-offset-4">
                 <hr/>
-                <spring:url value="/secteur/delete" var="secteur_delete"/>
-                <form:form method="post" commandName="secteur" action="${secteur_delete}">
+                <spring:url value="/entreprise/delete" var="entreprise_delete"/>
+                <form:form method="post" commandName="entreprise" action="${entreprise_delete}">
                     <form:hidden path="id"/>
                     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                    <spring:url value="/secteur/" var="secteur_home"/>
-                    <a href="${secteur_home}" class="btn btn-primary  btn-sm">
+                    <spring:url value="/entreprise/" var="entreprise_home"/>
+                    <a href="${entreprise_home}" class="btn btn-primary  btn-sm">
                         <span class="glyphicon glyphicon-list"></span>
-                        <spring:message code="secteur.liste" />
+                        <spring:message code="entreprise.liste" />
                     </a>
-                    <spring:url value="/secteur/${secteur.id}/edit" var="secteur_edit"/>
-                    <a href="${secteur_edit}" class="btn btn-default  btn-sm">
+                    <spring:url value="/entreprise/${entreprise.id}/edit" var="entreprise_edit"/>
+                    <a href="${entreprise_edit}" class="btn btn-default  btn-sm">
                         <span class="glyphicon glyphicon-edit"></span>
                         <spring:message code="action.modifier" />
                     </a>

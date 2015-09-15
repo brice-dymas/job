@@ -2,6 +2,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <nav class="navbar navbar-inverse" style="height:52px">
     <div class="container-fluid">
@@ -20,13 +21,13 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li 
+                <li
                     <c:if test="${fn:containsIgnoreCase(url, 'secteur')}">
                         class="active"
                     </c:if>
                     >
                     <a href="<spring:url value="/secteur/" />">
-                        <span class="fa fa-institution"></span> 
+                        <span class="fa fa-institution"></span>
                         <spring:message code="secteur.liste" />
                     </a>
                 </li>
@@ -36,21 +37,48 @@
                     </c:if>
                     >
                     <a href="<spring:url value="/jobSeeker/" />">
-                        <span class="fa fa-user"></span> 
+                        <span class="fa fa-user"></span>
                         <spring:message code="jobSeeker.liste" />
                     </a>
                 </li>
+
+                <li>
+                    <a href="<spring:url value="/user/" />">
+                        <span class="fa fa-android"></span>
+                        <spring:message code="user.title" />
+                    </a>
+                </li>
+                <li>
+                    <a href="<spring:url value="/entreprise/" />">
+                        <span class="fa fa-server"></span>
+                        <spring:message code="entreprise.liste" />
+                    </a>
+                </li>
+
             </ul>
 
             <ul class="nav navbar-nav navbar-right" >
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                        <span class="glyphicon glyphicon-user"></span>
-                        User<span class="caret"></span></a>
+                        <span class="glyphicon glyphicon-user">
+
+                        </span>
+                        <c:if test="${pageContext.request.userPrincipal.name != null}">
+                            <spring:message code="menu.bienvenu" />
+
+                            ${pageContext.request.userPrincipal.name}
+                        </c:if>
+                        <c:if test="${pageContext.request.userPrincipal.name == null}">
+                            Bonjour Visiteur!
+                        </c:if>
+                        <span class="caret"></span>
+                    </a>
                     <ul class="dropdown-menu">
                         <li>
-                            <a href="#">
-                                Profile
+                            <a href="<c:url value="/welcome" />">
+                                <span class="glyphicon glyphicon-user ">
+                                    <spring:message code="menu.profil" />
+                                </span>
                             </a>
                         </li>
                         <li>
@@ -60,8 +88,10 @@
                         </li>
                         <li class="divider"></li>
                         <li>
-                            <a href="#">
-                                Déconnexion
+                            <a href="<c:url value="/logout" />">
+                                <span class="glyphicon glyphicon-log-out">
+                                    Déconnexion
+                                </span>
                             </a>
                         </li>
                     </ul>
@@ -92,9 +122,17 @@
                             </c:when>
                             <c:otherwise>
                                 <spring:url   value="/${urlPart[i]}/" var="path_element"  htmlEscape="true" />
-                                <a href="${path_element}">
-                                    <spring:message code="${fn:toLowerCase((urlPart[i]))}" />
-                                </a>
+                                <c:choose>
+                                    <c:when test="${fn:containsIgnoreCase(urlPart[i], 'view')}">
+                                        <spring:message code="${fn:toLowerCase((urlPart[i]))}"/>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <a href="${path_element}">
+                                            <spring:message code="${fn:toLowerCase((urlPart[i]))}" />
+                                        </a>
+                                    </c:otherwise>
+                                </c:choose>
+
                             </c:otherwise>
                         </c:choose>
                     </li>

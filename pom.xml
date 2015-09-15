@@ -13,10 +13,14 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
+        <commons.fileupload.version>1.3.1</commons.fileupload.version>
+        <commons.io.version>2.4</commons.io.version>
         <!-- Web -->
         <jsp.version>2.2</jsp.version>
+        <spring.security.version>3.2.3.RELEASE</spring.security.version>
         <jstl.version>1.2</jstl.version>
-        <servlet.version>2.5</servlet.version>
+        <mysql.connector.version>5.1.30</mysql.connector.version>
+        <servlet.version>3.0.1</servlet.version>
         <tiles.version>3.0.5</tiles.version>
 
 
@@ -30,8 +34,6 @@
         <logback.version>1.0.13</logback.version>
         <slf4j.version>1.7.5</slf4j.version>
 
-        <commons.fileupload.version>1.3.1</commons.fileupload.version>
-        <commons.io.version>2.4</commons.io.version>
         <!-- Test -->
         <junit.version>4.11</junit.version>
         <maven.compiler.source>1.7</maven.compiler.source>
@@ -52,17 +54,35 @@
             <artifactId>tiles-extras</artifactId>
             <version>${tiles.version}</version>
         </dependency>
-
-        <!-- Apache Commons Upload -->
+        <!-- Spring Security -->
         <dependency>
-            <groupId>commons-fileupload</groupId>
-            <artifactId>commons-fileupload</artifactId>
-            <version>${commons.fileupload.version}</version>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-web</artifactId>
+            <version>${spring.security.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-config</artifactId>
+            <version>${spring.security.version}</version>
+        </dependency>
+
+
+        <!-- Spring Security JSP Taglib -->
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-taglibs</artifactId>
+            <version>${spring.security.version}</version>
         </dependency>
         <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
-            <version>${commons.io.version}</version>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-core</artifactId>
+            <version>${spring.security.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>${mysql.connector.version}</version>
         </dependency>
 
         <!-- Other Web dependencies -->
@@ -81,7 +101,7 @@
         </dependency>
         <dependency>
             <groupId>javax.servlet</groupId>
-            <artifactId>servlet-api</artifactId>
+            <artifactId>javax.servlet-api</artifactId>
             <version>${servlet.version}</version>
             <scope>provided</scope>
         </dependency>
@@ -133,13 +153,14 @@
         <!-- Hibernate -->
         <dependency>
             <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-entitymanager</artifactId>
+            <artifactId>hibernate-core</artifactId>
             <version>${hibernate.version}</version>
         </dependency>
         <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>5.1.30</version>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-entitymanager</artifactId>
+            <version>${hibernate.version}</version>
+            <!--<version>4.3.1.Final</version>-->
         </dependency>
 
         <!-- Tools -->
@@ -159,8 +180,7 @@
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-validator</artifactId>
-            <version>5.1.3.Final</version>
-            <type>jar</type>
+            <version>5.1.1.Final</version>
         </dependency>
 
         <!-- Needed for XML View (with JAXB2) -->
@@ -170,6 +190,7 @@
             <version>${spring-framework.version}</version>
         </dependency>
 
+        <!--JSON dependency-->
         <dependency>
             <groupId>org.codehaus.jackson</groupId>
             <artifactId>jackson-mapper-asl</artifactId>
@@ -185,6 +206,19 @@
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-annotations</artifactId>
             <version>2.4.1</version>
+        </dependency>
+        <!-- End of JSON dependency-->
+
+        <!-- Apache Commons Upload -->
+        <dependency>
+            <groupId>commons-fileupload</groupId>
+            <artifactId>commons-fileupload</artifactId>
+            <version>${commons.fileupload.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>${commons.io.version}</version>
         </dependency>
 
         <!-- Needed for PDF View -->

@@ -19,7 +19,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <h4>
-                            <span class="fa fa-user fa-lg"></span> 
+                            <span class="fa fa-user fa-lg"></span>
                             <spring:message code="jobSeeker.modifier" /> : ${jobSeeker.numero}
                         </h4>
                         <hr/>
@@ -27,7 +27,7 @@
                 </div>
 
                 <spring:url   value="/jobSeeker/${jobSeeker.id}/update" var="jobSeeker_update"  htmlEscape="true" />
-                <form:form method="post" enctype="multipart/form-data" commandName="jobSeeker" action="${jobSeeker_update}">
+                <form:form method="post" enctype="multipart/form-data" commandName="jobSeeker" action="${jobSeeker_update}?${_csrf.parameterName}=${_csrf.token}">
 
                     <div class="panel panel-default">
                         <div class="panel-body">
@@ -103,7 +103,7 @@
                                         <form:label for="cheque" path="">
                                             <spring:message code="jobSeeker.cheque" /> :
                                             <a href="<c:url value="/resources/documents/${jobSeeker.cheque}"/>">
-                                                <span class="glyphicon glyphicon-download"></span>    
+                                                <span class="glyphicon glyphicon-download"></span>
                                             </a>
                                         </form:label>
                                         <form:input type="file" id="cheque" path="chequeData" cssClass="filestyle" data-buttonName="btn-primary" data-size="sm" />
@@ -155,6 +155,7 @@
                                 </div>
                             </div>
                         </div>
+                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                         <div class="panel-footer">
                             <div class="row">
                                 <div class="col-md-12">

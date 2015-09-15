@@ -13,26 +13,24 @@
 <tiles:insertDefinition name="layout">
     <tiles:putAttribute name="body">
         <div class="row">
-            
             <div class="col-md-8 col-md-offset-2">
-                
                 <div class="row">
                     <div class="col-md-12">
                         <h4>
-                            <span class="fa fa-user fa-lg"></span> 
+                            <span class="fa fa-user fa-lg"></span>
                             <spring:message code="jobSeeker.nouveau" />
                         </h4>
                         <hr/>
                     </div>
-                         <div class="col-md-12">
+                    <div class="col-md-12">
                         <h4>
                             <form:errors path="*"/>
                         </h4>
                         <hr/>
                     </div>
                 </div>
-                            <spring:url   value="/jobSeeker/create" var="jobSeeker_create"  htmlEscape="true" />
-                <form:form method="post" enctype="multipart/form-data" commandName="jobSeeker" action="${jobSeeker_create}">
+                <spring:url   value="/jobSeeker/create" var="jobSeeker_create"  htmlEscape="true" />
+                <form:form method="post" enctype="multipart/form-data" commandName="jobSeeker" action="${jobSeeker_create}?${_csrf.parameterName}=${_csrf.token}">
                     <div class="panel panel-default">
                         <div class="panel-body">
                             <div class="row">
@@ -54,7 +52,7 @@
                                         <form:errors path="prenom" cssClass="text-danger"/>
                                     </div>
                                 </div>
-                                   </div>
+                            </div>
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
@@ -65,7 +63,7 @@
                                         <form:errors path="cni" cssClass="text-danger"/>
                                     </div>
                                 </div>
-                           
+
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <form:label for="email" path="">
@@ -115,7 +113,7 @@
                                             <div class="col-lg-8 ">
                                                 <div id="secteur">
                                                     <table class="table table-bordered">
-                                                       
+
                                                         <tbody data-size="${jobSeeker.secteursDemploi.size()}">
 
                                                             <c:if test="${0 le jobSeeker.secteursDemploi.size()}">
@@ -152,6 +150,7 @@
                                 </div>
                             </div>
                         </div>
+                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                         <div class="panel-footer">
                             <div class="row">
                                 <div class="col-md-12">
@@ -169,7 +168,6 @@
                             </div>
                         </div>
                     </div>
-
                 </form:form>
             </div>
         </div>

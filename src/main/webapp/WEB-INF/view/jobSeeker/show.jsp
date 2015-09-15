@@ -15,7 +15,7 @@
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 <h4>
-                    <span class="fa fa-user fa-lg"></span> 
+                    <span class="fa fa-user fa-lg"></span>
                     <spring:message code="jobSeeker.afficher" /> : ${jobSeeker.numero}
                 </h4>
                 <hr/>
@@ -44,13 +44,13 @@
                             <th>C.V.</th>
                             <td>
                                 <a href="<c:url value="/resources/documents/${jobSeeker.cv}"/>">
-                                    <span class="fa fa-download fa-lg"></span>    
+                                    <span class="fa fa-download fa-lg"></span>
                                 </a>
                             </td>
                             <th>Chèque</th>
                             <td>
                                 <a href="<c:url value="/resources/documents/${jobSeeker.cheque}"/>">
-                                    <span class="fa fa-download fa-lg"></span>    
+                                    <span class="fa fa-download fa-lg"></span>
                                 </a>
                             </td>
                         </tr>
@@ -92,6 +92,7 @@
                 <spring:url value="/jobSeeker/delete" var="jobSeeker_delete"/>
                 <form:form method="post" commandName="jobSeeker" action="${jobSeeker_delete}">
                     <form:hidden path="id"/>
+                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                     <spring:url value="/jobSeeker/" var="jobSeeker_home"/>
                     <a href="${jobSeeker_home}" class="btn btn-primary  btn-sm">
                         <span class="glyphicon glyphicon-list"></span>

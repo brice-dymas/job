@@ -21,13 +21,13 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
  *
  * @author Brice GUEMKAM <briceguemkam@gmail.com & (+237) 651-732-978>
  */
-
-
 @Controller
 @RequestMapping("/secteur")
-public class SecteurController {
+public class SecteurController
+{
 
-    public TreeMap<String, String> getBreadcrumb() {
+    public TreeMap<String, String> getBreadcrumb()
+    {
         final TreeMap<String, String> breadcrumb = new TreeMap<>();
         breadcrumb.put("breadcrumb.secteur.index", "/job/secteur/");
         return breadcrumb;
@@ -37,7 +37,8 @@ public class SecteurController {
     private ISecteurService secteurService;
 
     @RequestMapping(value = "/{id}/show", method = RequestMethod.GET)
-    public String ShowAction(@PathVariable("id") final Long id, final ModelMap model) {
+    public String ShowAction(@PathVariable("id") final Long id, final ModelMap model)
+    {
         final Secteur secteur = secteurService.findOne(id);
         model.addAttribute("secteur", secteur);
         final TreeMap<String, String> breadcrumb = getBreadcrumb();
@@ -47,8 +48,9 @@ public class SecteurController {
     }
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String indexAction(final ModelMap model, final WebRequest webRequest) {
-        
+    public String indexAction(final ModelMap model, final WebRequest webRequest)
+    {
+
         final String libelle = webRequest.getParameter("query") != null
                 ? webRequest.getParameter("query")
                 : "";
@@ -76,7 +78,8 @@ public class SecteurController {
 
     // write
     @RequestMapping(value = "/new", method = RequestMethod.GET)
-    public String newAction(final ModelMap model) {
+    public String newAction(final ModelMap model)
+    {
         model.addAttribute("secteur", new Secteur());
         final TreeMap<String, String> breadcrumb = getBreadcrumb();
         breadcrumb.put("breadcrumb.secteur.new", "");
@@ -87,12 +90,16 @@ public class SecteurController {
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public String createAction(@Valid final Secteur secteur,
             final BindingResult result, final ModelMap model,
-            final RedirectAttributes redirectAttributes) {
-        if (result.hasErrors()) {
+            final RedirectAttributes redirectAttributes)
+    {
+        if (result.hasErrors())
+        {
             model.addAttribute("error", "error");
             model.addAttribute("secteur", secteur);
             return "secteur/new";
-        } else {
+        }
+        else
+        {
             redirectAttributes.addFlashAttribute("info", "alert.success.new");
             secteurService.create(secteur);
             return "redirect:/secteur/" + secteur.getId() + "/show";
@@ -101,7 +108,8 @@ public class SecteurController {
     }
 
     @RequestMapping(value = "{id}/edit", method = RequestMethod.GET)
-    public String editAction(@PathVariable("id") final Long id, final ModelMap model) {
+    public String editAction(@PathVariable("id") final Long id, final ModelMap model)
+    {
         final Secteur secteur = secteurService.findOne(id);
         final TreeMap<String, String> breadcrumb = getBreadcrumb();
         breadcrumb.put("breadcrumb.secteur.edit", "");
@@ -113,12 +121,16 @@ public class SecteurController {
     @RequestMapping(value = "/{id}/update", method = RequestMethod.POST)
     public String updateAction(@Valid final Secteur secteur,
             @PathVariable("id") final Long id, final BindingResult result,
-            final ModelMap model, final RedirectAttributes redirectAttributes) {
-        if (result.hasErrors()) {
+            final ModelMap model, final RedirectAttributes redirectAttributes)
+    {
+        if (result.hasErrors())
+        {
             model.addAttribute("error", "error");
             model.addAttribute("secteur", secteur);
             return "secteur/edit";
-        } else {
+        }
+        else
+        {
             redirectAttributes.addFlashAttribute("info", "alert.success.new");
             secteurService.update(secteur);
             return "redirect:/secteur/" + secteur.getId() + "/show";
@@ -126,7 +138,8 @@ public class SecteurController {
     }
 
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
-    public String deleteAction(final Secteur secteur, final ModelMap model) {
+    public String deleteAction(final Secteur secteur, final ModelMap model)
+    {
         secteurService.deleteById(secteur.getId());
         return "redirect:/secteur/";
     }

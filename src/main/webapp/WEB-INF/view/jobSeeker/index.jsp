@@ -170,10 +170,6 @@
                         </div>
                 </c:if>
             </div>
-
         </div>
-
-
-
     </tiles:putAttribute>
 </tiles:insertDefinition>

@@ -16,7 +16,7 @@
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 <h4>
-                    <span class="fa fa-institution fa-lg"></span> 
+                    <span class="fa fa-institution fa-lg"></span>
                     <spring:message code="secteur.nouveau" />
                 </h4>
                 <hr/>
@@ -36,13 +36,13 @@
                                     <spring:message code="secteur.libelle" /> :
                                 </form:label>
                                 <form:input id="libelle" path="libelle" cssClass="form-control"/>
-                                <h5> 
+                                <h5>
                                     <form:errors path="libelle" cssClass="label label-danger"/>
                                 </h5>
 
                             </div>
                         </div>
-
+                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                         <div class="panel-footer">
                             <button type="submit" class="btn btn-primary btn-sm">
                                 <span class="glyphicon glyphicon-save"></span>

@@ -2,7 +2,6 @@ package com.job.persistence.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import javax.persistence.Entity;
@@ -24,9 +23,6 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
  * @author Brice GUEMKAM <briceguemkam@gmail.com & (+237) 651-732-978>
  */
 @Entity
-//@NamedQueries({
-//    @NamedQuery(name = "test", query ="SELECT j FROM JobSeeker j WHERE j.nom IN (SELECT S.libelle FROM Secteur S)" )
-//})
 public class JobSeeker
         implements Serializable
 {
@@ -38,7 +34,7 @@ public class JobSeeker
     @NotBlank(message = "{blank.message}")
     private String nom;
 
-    private  String numero;
+    private String numero;
 
     @NotBlank(message = "{blank.message}")
     private String prenom;
@@ -71,7 +67,7 @@ public class JobSeeker
 
     public JobSeeker()
     {
-        
+
         this.secteursDemploi = new ArrayList<>();
         this.contacts = new ArrayList<>();
     }
@@ -81,7 +77,8 @@ public class JobSeeker
         return numero;
     }
 
-    public void setNumero(String numero) {
+    public void setNumero(String numero)
+    {
         this.numero = numero;
     }
 
