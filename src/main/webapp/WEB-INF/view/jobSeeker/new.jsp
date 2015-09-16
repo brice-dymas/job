@@ -34,7 +34,7 @@
                     <div class="panel panel-default">
                         <div class="panel-body">
                             <div class="row">
-                                <div class="col-md-4">
+                                <div class="col-md-6">
                                     <div class="form-group">
                                         <form:label for="nom" path="">
                                             <spring:message code="jobSeeker.nom" /> :
@@ -43,7 +43,7 @@
                                         <form:errors path="nom" cssClass="text-danger"/>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-6">
                                     <div class="form-group">
                                         <form:label for="prenom" path="">
                                             <spring:message code="jobSeeker.prenom" /> :
@@ -73,9 +73,6 @@
                                         <form:errors path="email" cssClass="text-danger"/>
                                     </div>
                                 </div>
-
-
-
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <form:label for="telephone" path="">
@@ -87,6 +84,17 @@
                                 </div>
                             </div>
                             <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <form:label for="statut" path="">
+                                            <spring:message code="jobSeeker.statut" />
+                                        </form:label>
+                                        <form:select id="statut" path="statut" cssClass="form-control">
+                                            <form:options  items="${LesStatuts}" />
+                                        </form:select>
+                                        <form:errors path="statut"  cssClass="text-danger" />
+                                    </div>
+                                </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <form:label for="cv" path="">
