@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<jpa:entity-mappings jaxb-support="false" id="_14424192510541" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm orm_2_1.xsd" xmlns:java="http://jcp.org/en/jsr/detail?id=270" xmlns:jpa="http://java.sun.com/xml/ns/persistence/orm" xmlns:ns4="http://nbmodeler.java.net" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <jpa:entity jaxb-root-element="false" static-metamodel="false" abstract="false" class="Entreprise" visibile="true" minimized="false" id="_14424192510594">
+        <jpa:attributes>
+            <jpa:id name="id" attribute-type="Long" visibile="true" id="_144241925106910">
+                <jpa:column name="id" unique="false" nullable="false" insertable="true" updatable="true" table="Entreprise"/>
+                <jpa:generated-value strategy="AUTO"/>
+            </jpa:id>
+            <jpa:basic name="boitePostale" optional="false" attribute-type="String" visibile="true" id="_144241925107111">
+                <jpa:column name="boitePostale" unique="false" nullable="false" insertable="true" updatable="true" table="Entreprise" length="255"/>
+            </jpa:basic>
+            <jpa:basic name="nom" optional="false" attribute-type="String" visibile="true" id="_144241925107112">
+                <jpa:column name="nom" unique="false" nullable="false" insertable="true" updatable="true" table="Entreprise" length="255"/>
+            </jpa:basic>
+            <jpa:basic name="telephone" optional="false" attribute-type="String" visibile="true" id="_144241925107113">
+                <jpa:column name="telephone" unique="false" nullable="false" insertable="true" updatable="true" table="Entreprise" length="255"/>
+            </jpa:basic>
+            <jpa:basic name="adresse" optional="false" attribute-type="String" visibile="true" id="_144241925107114">
+                <jpa:column name="adresse" unique="false" nullable="false" insertable="true" updatable="true" table="Entreprise" length="255"/>
+            </jpa:basic>
+            <jpa:basic name="contact" optional="false" attribute-type="String" visibile="true" id="_144241925107115">
+                <jpa:column name="contact" unique="false" nullable="false" insertable="true" updatable="true" table="Entreprise" length="255"/>
+            </jpa:basic>
+        </jpa:attributes>
+        <jpa:table name="Entreprise"/>
+    </jpa:entity>
+    <jpa:entity jaxb-root-element="false" static-metamodel="false" abstract="false" class="Secteur" visibile="true" minimized="false" id="_14424192510615">
+        <jpa:attributes>
+            <jpa:id name="id" attribute-type="Long" visibile="true" id="_144241925107116">
+                <jpa:column name="id" unique="false" nullable="false" insertable="true" updatable="true" table="Secteur"/>
+                <jpa:generated-value strategy="AUTO"/>
+            </jpa:id>
+            <jpa:basic name="libelle" optional="false" attribute-type="String" visibile="true" id="_144241925107117">
+                <jpa:column name="libelle" unique="false" nullable="false" insertable="true" updatable="true" table="Secteur" length="255"/>
+            </jpa:basic>
+            <jpa:many-to-many name="jobSeekerCollection" target-entity="JobSeeker" mapped-by="secteurCollection" connected-entity-id="_14424192510617" connected-attribute-id="_144241925107432" visibile="true" id="_144241925107118"/>
+        </jpa:attributes>
+        <jpa:table name="Secteur"/>
+    </jpa:entity>
+    <jpa:entity jaxb-root-element="false" static-metamodel="false" abstract="false" class="UserRoles" visibile="true" minimized="false" id="_14424192510616">
+        <jpa:attributes>
+            <jpa:id name="userRoleId" attribute-type="Long" visibile="true" id="_144241925107219">
+                <jpa:column name="user_role_id" unique="false" nullable="false" insertable="true" updatable="true" table="user_roles"/>
+                <jpa:generated-value strategy="AUTO"/>
+            </jpa:id>
+            <jpa:basic name="role" optional="false" attribute-type="String" visibile="true" id="_144241925107220">
+                <jpa:column name="role" unique="false" nullable="false" insertable="true" updatable="true" table="user_roles" length="45"/>
+            </jpa:basic>
+            <jpa:one-to-one name="userUsername" target-entity="Users" optional="false" primaryKey="false" connected-entity-id="_14424192510618" connected-attribute-id="_144241925107537" visibile="true" id="_144241925107321">
+                <jpa:join-column name="user_username" referenced-column-name="username" unique="false" nullable="true" insertable="true" updatable="true"/>
+            </jpa:one-to-one>
+        </jpa:attributes>
+        <jpa:table name="user_roles">
+            <jpa:unique-constraint>
+                <jpa:column-name>user_username</jpa:column-name>
+            </jpa:unique-constraint>
+        </jpa:table>
+    </jpa:entity>
+    <jpa:entity jaxb-root-element="false" static-metamodel="false" abstract="false" class="JobSeeker" visibile="true" minimized="false" id="_14424192510617">
+        <jpa:attributes>
+            <jpa:id name="id" attribute-type="Long" visibile="true" id="_144241925107422">
+                <jpa:column name="id" unique="false" nullable="false" insertable="true" updatable="true" table="JobSeeker"/>
+                <jpa:generated-value strategy="AUTO"/>
+            </jpa:id>
+            <jpa:basic name="cheque" optional="true" attribute-type="String" visibile="true" id="_144241925107423">
+                <jpa:column name="cheque" unique="false" nullable="true" insertable="true" updatable="true" table="JobSeeker" length="255"/>
+            </jpa:basic>
+            <jpa:basic name="cni" optional="false" attribute-type="String" visibile="true" id="_144241925107424">
+                <jpa:column name="cni" unique="false" nullable="false" insertable="true" updatable="true" table="JobSeeker" length="255"/>
+            </jpa:basic>
+            <jpa:basic name="cv" optional="true" attribute-type="String" visibile="true" id="_144241925107425">
+                <jpa:column name="cv" unique="false" nullable="true" insertable="true" updatable="true" table="JobSeeker" length="255"/>
+            </jpa:basic>
+            <jpa:basic name="email" optional="true" attribute-type="String" visibile="true" id="_144241925107426">
+                <jpa:column name="email" unique="false" nullable="true" insertable="true" updatable="true" table="JobSeeker" length="255"/>
+            </jpa:basic>
+            <jpa:basic name="nom" optional="false" attribute-type="String" visibile="true" id="_144241925107427">
+                <jpa:column name="nom" unique="false" nullable="false" insertable="true" updatable="true" table="JobSeeker" length="255"/>
+            </jpa:basic>
+            <jpa:basic name="numero" optional="true" attribute-type="String" visibile="true" id="_144241925107428">
+                <jpa:column name="numero" unique="false" nullable="true" insertable="true" updatable="true" table="JobSeeker" length="255"/>
+            </jpa:basic>
+            <jpa:basic name="prenom" optional="false" attribute-type="String" visibile="true" id="_144241925107429">
+                <jpa:column name="prenom" unique="false" nullable="false" insertable="true" updatable="true" table="JobSeeker" length="255"/>
+            </jpa:basic>
+            <jpa:basic name="telephone" optional="false" attribute-type="String" visibile="true" id="_144241925107430">
+                <jpa:column name="telephone" unique="false" nullable="false" insertable="true" updatable="true" table="JobSeeker" length="255"/>
+            </jpa:basic>
+            <jpa:basic name="statut" optional="false" attribute-type="String" visibile="true" id="_144241925107431">
+                <jpa:column name="statut" unique="false" nullable="false" insertable="true" updatable="true" table="JobSeeker" length="255"/>
+            </jpa:basic>
+            <jpa:many-to-many name="secteurCollection" target-entity="Secteur" connected-entity-id="_14424192510615" connected-attribute-id="_144241925107118" visibile="true" id="_144241925107432">
+                <jpa:join-table name="JobSeeker_Secteur">
+                    <jpa:join-column name="JobSeeker_id" referenced-column-name="id" unique="false" nullable="true" insertable="true" updatable="true"/>
+                    <jpa:inverse-join-column name="secteursDemploi_id" referenced-column-name="id" unique="false" nullable="true" insertable="true" updatable="true"/>
+                </jpa:join-table>
+            </jpa:many-to-many>
+        </jpa:attributes>
+        <jpa:table name="JobSeeker"/>
+    </jpa:entity>
+    <jpa:entity jaxb-root-element="false" static-metamodel="false" abstract="false" class="Users" visibile="true" minimized="false" id="_14424192510618">
+        <jpa:attributes>
+            <jpa:id name="username" attribute-type="String" visibile="true" id="_144241925107533">
+                <jpa:column name="username" unique="false" nullable="false" insertable="true" updatable="true" table="users" length="45"/>
+            </jpa:id>
+            <jpa:basic name="enabled" optional="false" attribute-type="boolean" visibile="true" id="_144241925107534">
+                <jpa:column name="enabled" unique="false" nullable="false" insertable="true" updatable="true" table="users"/>
+            </jpa:basic>
+            <jpa:basic name="nom" optional="false" attribute-type="String" visibile="true" id="_144241925107535">
+                <jpa:column name="nom" unique="false" nullable="false" insertable="true" updatable="true" table="users" length="255"/>
+            </jpa:basic>
+            <jpa:basic name="password" optional="false" attribute-type="String" visibile="true" id="_144241925107536">
+                <jpa:column name="password" unique="false" nullable="false" insertable="true" updatable="true" table="users" length="255"/>
+            </jpa:basic>
+            <jpa:one-to-one name="userRoles" target-entity="UserRoles" mapped-by="userUsername" primaryKey="false" connected-entity-id="_14424192510616" connected-attribute-id="_144241925107321" visibile="true" id="_144241925107537"/>
+        </jpa:attributes>
+        <jpa:table name="users"/>
+    </jpa:entity>
+    <jpa:entity jaxb-root-element="false" static-metamodel="false" abstract="false" class="Contact" visibile="true" minimized="false" id="_14424192510619">
+        <jpa:attributes>
+            <jpa:id name="id" attribute-type="Long" visibile="true" id="_144241925107538">
+                <jpa:column name="id" unique="false" nullable="false" insertable="true" updatable="true" table="Contact"/>
+                <jpa:generated-value strategy="AUTO"/>
+            </jpa:id>
+            <jpa:basic name="adresse" optional="true" attribute-type="String" visibile="true" id="_144241925107539">
+                <jpa:column name="adresse" unique="false" nullable="true" insertable="true" updatable="true" table="Contact" length="255"/>
+            </jpa:basic>
+            <jpa:basic name="typeAdresse" optional="true" attribute-type="String" visibile="true" id="_144241925107540">
+                <jpa:column name="typeAdresse" unique="false" nullable="true" insertable="true" updatable="true" table="Contact" length="255"/>
+            </jpa:basic>
+        </jpa:attributes>
+        <jpa:table name="Contact"/>
+    </jpa:entity>
+    <jpa:diagram id="_14424192510562">
+        <plane elementRef="_14424192510541" id="_14424192510573_p">
+            <shape elementRef="_14424192510594" id="_14424192510594_gui">
+                <Bounds x="942.0" y="32.0" width="170.0" height="166.0"/>
+            </shape>
+            <shape elementRef="_14424192510615" id="_14424192510615_gui">
+                <Bounds x="423.0" y="225.0" width="181.0" height="118.0"/>
+            </shape>
+            <shape elementRef="_14424192510616" id="_14424192510616_gui">
+                <Bounds x="509.0" y="32.0" width="168.0" height="118.0"/>
+            </shape>
+            <shape elementRef="_14424192510617" id="_14424192510617_gui">
+                <Bounds x="64.0" y="32.0" width="168.0" height="278.0"/>
+            </shape>
+            <shape elementRef="_14424192510618" id="_14424192510618_gui">
+                <Bounds x="741.0" y="374.0" width="137.0" height="158.0"/>
+            </shape>
+            <shape elementRef="_14424192510619" id="_14424192510619_gui">
+                <Bounds x="1240.0" y="32.0" width="151.0" height="106.0"/>
+            </shape>
+        </plane>
+    </jpa:diagram>
+</jpa:entity-mappings>

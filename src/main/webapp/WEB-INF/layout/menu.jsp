@@ -54,6 +54,12 @@
                         <spring:message code="entreprise.liste" />
                     </a>
                 </li>
+                <li>
+                    <a href="<spring:url value="/stage/" />">
+                        <span class="fa fa-wrench"></span>
+                        <spring:message code="stage.title" />
+                    </a>
+                </li>
 
             </ul>
 

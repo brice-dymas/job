@@ -9,14 +9,14 @@
         <link href="<c:url value="/resources/css/jquery-ui.css" />" rel="stylesheet">
         <link href="<c:url value="/resources/css/jquery-ui.structure.css" />" rel="stylesheet">
         <link href="<c:url value="/resources/css/jquery-ui.theme.css" />" rel="stylesheet">
-        <link href="<c:url value="/resources/img/cami.png" />" rel="shortcut icon"  type="image/png">
+        <link href="<c:url value="/resources/img/logo.png" />" rel="shortcut icon"  type="image/png">
 
         <script src="<c:url value="/resources/js/jquery.min.js" />"></script>
     </head>
     <body class="row">
         <hr>
         <div class="text-center">
-            <img alt="cami.png" height="92" width="400" src="<c:url value="/resources/img/logo.png"/>"/>
+            <img alt="logo.png" height="92" width="400" src="<c:url value="/resources/img/logo.png"/>"/>
         </div>
         <div id="login-form">
             <br>

@@ -23,7 +23,7 @@
         <link href="<c:url value="/resources/css/jquery-ui.structure.css" />" rel="stylesheet">
         <link href="<c:url value="/resources/css/jquery-ui.theme.css" />" rel="stylesheet">
         <link href="<c:url value="/resources/css/font-awesome.min.css" />" rel="stylesheet">
-
+        <link href="<c:url value="/resources/img/logo.png" />" rel="shortcut icon"  type="image/png">
         <script src="<c:url value="/resources/js/jquery.min.js" />"></script>
 
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -45,12 +45,12 @@
                     <tiles:insertAttribute name="header" />
                 </div>
             </div>
-             <div class="row">
+            <div class="row">
                 <div class="col-lg-12">
                     <tiles:insertAttribute name="menu" />
                 </div>
             </div>
-            <div class="row">               
+            <div class="row">
                 <div class="col-lg-12">
 
                     <c:if test="${ not  empty info}">

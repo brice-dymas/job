@@ -130,18 +130,41 @@
                             <td>
                                 ${jobSeeker.email}
                             </td>
-                            <td class="text-center">
-                                <spring:url value="/jobSeeker/${jobSeeker.id}/edit" htmlEscape="true" var="jobSeeker_edit" />
-                                <a href="${jobSeeker_edit}" class="btn btn-primary btn-sm">
-                                    <span class="glyphicon glyphicon-edit"></span>
-                                    <spring:message code="action.modifier" />
-                                </a>
-                                &nbsp;&nbsp;
-                                <spring:url value="/jobSeeker/${jobSeeker.id}/show" htmlEscape="true" var="jobSeeker_show" />
-                                <a href="${jobSeeker_show}" class="btn btn-primary btn-sm">
-                                    <span class="glyphicon glyphicon-open"></span>
-                                    <spring:message code="action.detail" />
-                                </a>
+                            <td>
+
+
+                                <div class="dropdown dropdown-menu-right" style="display: inline-block !important">
+                                    <button class="btn btn-default dropdown-toogle" id="dropdown-user" data-toggle="dropdown">
+                                        <i class="glyphicon glyphicon-arrow-down"></i>
+                                        Choisissez une action
+                                        <i class="caret"></i>
+                                    </button>
+                                    <ul class="dropdown-menu" role="menu" aria-labeledby="dropdown-user">
+                                        <li>
+                                            <spring:url value="/jobSeeker/${jobSeeker.id}/show" htmlEscape="true" var="jobSeeker_show" />
+                                            <a href="${jobSeeker_show}" class="btn btn-sm btn-primary">
+                                                <span class="glyphicon glyphicon-open"></span>
+                                                <spring:message code="action.detail" />
+                                            </a>
+                                        </li>
+
+                                        <li>
+                                            <spring:url value="/jobSeeker/${jobSeeker.id}/edit" htmlEscape="true" var="jobSeeker_edit" />
+                                            <a href="${jobSeeker_edit}" class="btn btn-sm btn-primary">
+                                                <span class="glyphicon glyphicon-edit"></span>
+                                                <spring:message code="action.modifier" />
+                                            </a>
+                                        </li>
+
+                                        <li>
+                                            <spring:url value="/stage/${jobSeeker.id}/affecter" var="stage_new"/>
+                                            <a href="${stage_new}" class="btn btn-sm btn-primary">
+                                                <span class="glyphicon glyphicon-new-window"></span>
+                                                Affecter
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
                             </td>
                         </tr>
                     </c:forEach>

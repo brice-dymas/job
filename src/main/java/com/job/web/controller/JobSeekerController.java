@@ -85,7 +85,9 @@ public class JobSeekerController
                 : 20;
 
         final Page<JobSeeker> resultPage = dao.findAll(new PageRequest(page, size));
+        JobSeeker jobSeeker = new JobSeeker();
         model.addAttribute("page", page);
+        model.addAttribute("stage", jobSeeker);
         model.addAttribute("Totalpage", resultPage.getTotalPages());
         model.addAttribute("size", size);
         model.addAttribute("jobSeekers", resultPage.getContent());
@@ -222,6 +224,13 @@ public class JobSeekerController
 
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     public String deleteAction(final JobSeeker jobSeeker, final ModelMap model)
+    {
+        jobSeekerService.deleteById(jobSeeker.getId());
+        return "redirect:/jobSeeker/";
+    }
+
+    @RequestMapping(value = "/affecter", method = RequestMethod.POST)
+    public String affectAction(final JobSeeker jobSeeker, final ModelMap model)
     {
         jobSeekerService.deleteById(jobSeeker.getId());
         return "redirect:/jobSeeker/";
