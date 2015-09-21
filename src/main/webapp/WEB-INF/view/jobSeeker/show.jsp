@@ -90,7 +90,6 @@
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 <hr/>
-
                 <spring:url value="/jobSeeker/delete" var="jobSeeker_delete"/>
                 <form:form method="post" commandName="jobSeeker" action="${jobSeeker_delete}">
                     <form:hidden path="id"/>

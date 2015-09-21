@@ -12,158 +12,147 @@
 
 <tiles:insertDefinition name="layout">
     <tiles:putAttribute name="body">
-
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
-
                 <div class="row">
                     <div class="col-md-12">
                         <h4>
                             <span class="fa fa-user fa-lg"></span>
-                            <spring:message code="jobSeeker.modifier" /> : ${jobSeeker.numero}
+                            <spring:message code="stage.edit" />
+                        </h4>
+                        <hr/>
+                    </div>
+                    <div class="col-md-12">
+                        <h4>
+                            <form:errors path="*"/>
                         </h4>
                         <hr/>
                     </div>
                 </div>
-
-                <spring:url   value="/jobSeeker/${jobSeeker.id}/update" var="jobSeeker_update"  htmlEscape="true" />
-                <form:form method="post" enctype="multipart/form-data" commandName="jobSeeker" action="${jobSeeker_update}?${_csrf.parameterName}=${_csrf.token}">
-
+                <spring:url   value="/stage/${stage.id}-${stage.jobSeeker.id}/update" var="stage_create"  htmlEscape="true" />
+                <form:form method="post" commandName="stage" action="${stage_create}">
                     <div class="panel panel-default">
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <form:label for="nom" path="">
-                                            <spring:message code="jobSeeker.nom" /> :
+                                        <form:label for="dateDebut" path="">
+                                            <spring:message code="stage.dateDebut" />
                                         </form:label>
-                                        <form:input id="nom" path="nom" cssClass="form-control input-sm"/>
-                                        <form:errors path="nom" cssClass="text-danger"/>
+                                        <form:input id="dateDebut" path="dateDebut" cssClass="form-control input-sm"/>
+                                        <form:errors path="dateDebut" cssClass="text-danger"/>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <form:label for="prenom" path="">
-                                            <spring:message code="jobSeeker.prenom" /> :
+                                        <form:label for="dateFin" path="">
+                                            <spring:message code="stage.dateFin" />
                                         </form:label>
-                                        <form:input id="prenom" path="prenom" cssClass="form-control input-sm"/>
-                                        <form:errors path="prenom" cssClass="text-danger"/>
+                                        <form:input id="dateFin" path="dateFin" cssClass="form-control input-sm"/>
+                                        <form:errors path="dateFin" cssClass="text-danger"/>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-4">
+                                <div class="col-md-9">
                                     <div class="form-group">
-                                        <form:label for="cni" path="">
-                                            <spring:message code="jobSeeker.cni" /> :
+                                        <form:label for="obs" path="">
+                                            <spring:message code="stage.observation" />
                                         </form:label>
-                                        <form:input id="cni" path="cni" cssClass="form-control input-sm "/>
-                                        <form:errors path="cni" cssClass="text-danger"/>
+                                        <form:textarea id="obs" path="observation" cssClass="form-control input-sm"/>
+                                        <form:errors path="observation" cssClass="text-danger"/>
                                     </div>
                                 </div>
 
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <div class="form-group">
-                                        <form:label for="email" path="">
-                                            <spring:message code="jobSeeker.email" /> :
+                                        <form:label path="" id="statut">
+                                            <spring:message code="stage.statut" />
                                         </form:label>
-                                        <form:input id="email" path="email" cssClass="form-control input-sm"/>
-                                        <form:hidden id="numero" path="numero"/>
-                                        <form:errors path="email" cssClass="text-danger"/>
-                                    </div>
-                                </div>
-
-
-
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <form:label for="telephone" path="">
-                                            <spring:message code="jobSeeker.telephone" /> :
-                                        </form:label>
-                                        <form:input id="telephone" path="telephone" cssClass="form-control input-sm"/>
-                                        <form:errors path="telephone" cssClass="text-danger"/>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <form:label for="statut" path="">
-                                            <spring:message code="jobSeeker.statut" />
-                                        </form:label>
-                                        <form:select id="statut" path="statut" cssClass="form-control">
-                                            <form:options  items="${LesStatuts}" />
+                                        <form:select path="statut" class="form-control input-sm">
+                                            <form:option value="none" >---</form:option>
+                                            <c:forEach var="leStatut" items="${mesStatuts}">
+                                                <form:option value="${leStatut.value}">
+                                                    ${leStatut.value}
+                                                </form:option>
+                                            </c:forEach>
                                         </form:select>
-                                        <form:errors path="statut"  cssClass="text-danger" />
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <form:label for="cv" path="">
-                                            <spring:message code="jobSeeker.cv" /> :
-                                            <a href="<c:url value="/resources/documents/${jobSeeker.cv}"/>">
-                                                <span class="glyphicon glyphicon-download"></span>
-                                            </a>
-                                        </form:label>
-                                        <form:input type="file" id="cv" path="cvData" cssClass="filestyle" data-buttonName="btn-primary" data-size="sm" />
-                                    </div>
-                                </div>
-
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <form:label for="cheque" path="">
-                                            <spring:message code="jobSeeker.cheque" /> :
-                                            <a href="<c:url value="/resources/documents/${jobSeeker.cheque}"/>">
-                                                <span class="glyphicon glyphicon-download"></span>
-                                            </a>
-                                        </form:label>
-                                        <form:input type="file" id="cheque" path="chequeData" cssClass="filestyle" data-buttonName="btn-primary" data-size="sm" />
+                                        <form:errors path="statut" cssClass="text-danger"/>
                                     </div>
                                 </div>
                             </div>
+                            <hr>
+
                             <div class="row">
-                                <div class="col-md-12">
-                                    <fieldset>
-                                        <legend>Secteurs d'emploi</legend>
-                                        <div class="row">
-                                            <div class="col-lg-8 ">
-                                                <div id="secteur">
-                                                    <table class="table table-bordered">
+                                <fieldset>
+                                    <legend>
+                                        <spring:message code="stage.jobSeeker" />
+                                    </legend>
 
-                                                        <tbody data-size="${jobSeeker.secteursDemploi.size()}">
+                                </fieldset>
+                                <table class="table table-condensed table-hover table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                <span class="btn">
+                                                    <spring:message code="jobSeeker.nom" />
+                                                </span>
+                                            </th>
+                                            <th>
+                                                <span class="btn">
+                                                    <spring:message code="jobSeeker.prenom" />
+                                                </span>
+                                            </th>
+                                            <th>
+                                                <span class="btn">
+                                                    <spring:message code="jobSeeker.cni" />
+                                                </span>
+                                            </th>
+                                            <th>
+                                                <span class="btn">
+                                                    <spring:message code="jobSeeker.email" />
+                                                </span>
+                                            </th>
+                                            <th>
+                                                <span class="btn">
+                                                    <spring:message code="jobSeeker.telephone" />
+                                                </span>
+                                            </th>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>${stage.jobSeeker.nom}</td>
+                                            <td>${stage.jobSeeker.prenom}</td>
+                                            <td>${stage.jobSeeker.cni}</td>
+                                            <td>${stage.jobSeeker.email}</td>
+                                            <td>${stage.jobSeeker.telephone}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
 
-                                                            <c:if test="${0 le jobSeeker.secteursDemploi.size()}">
-
-                                                                <c:forEach items="${jobSeeker.secteursDemploi}" varStatus="status" begin="0">
-
-                                                                    <tr class="list-secteur">
-                                                                        <td>
-                                                                            <spring:bind path="secteursDemploi[${status.index}].id">
-                                                                                <form:select path="${status.expression}" cssClass="form-control input-sm" >
-                                                                                    <form:options items="${secteurs}" />
-                                                                                </form:select>
-                                                                                <form:errors path="${status.expression}" cssClass="text-danger"/>
-                                                                            </spring:bind>
-                                                                        </td>
-                                                                        <td class="row-align">
-                                                                            <button type="button" id="removeSecteurButton" class="btn btn-sm btn-default remove-secteur" >
-                                                                                <span class="glyphicon glyphicon-minus-sign"></span>
-                                                                            </button>
-                                                                        </td>
-                                                                    </tr>
-                                                                </c:forEach>
-                                                            </c:if>
-                                                        </tbody>
-                                                    </table>
-                                                    <button type="button" id="addSecteurButton" class="btn btn-sm btn-default add-secteur">
-                                                        <span class="glyphicon glyphicon-plus-sign"></span>
-                                                        <spring:message code="action.ajouter" />
-                                                    </button>
-                                                </div>
-                                            </div>
+                            <div class="row">
+                                <fieldset>
+                                    <legend>
+                                        <spring:message code="stage.entreprise" />
+                                    </legend>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <form:label for="entreprise" path="">
+                                                <spring:message code="stage.entreprise" />
+                                            </form:label>
+                                            <form:select path="entreprise.id" class="form-control input-sm">
+                                                <form:option value="">---</form:option>
+                                                <c:forEach var="entreprise" items="${entreprises}">
+                                                    <form:option value="${entreprise.key}">
+                                                        ${entreprise.value}
+                                                    </form:option>
+                                                </c:forEach>
+                                            </form:select>
+                                            <form:errors path="entreprise" cssClass="text-danger"/>
                                         </div>
-                                    </fieldset>
-                                </div>
+                                    </div>
+                                </fieldset>
                             </div>
                         </div>
                         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
@@ -174,11 +163,11 @@
                                         <span class="glyphicon glyphicon-save"></span>
                                         <spring:message code="action.enregistrer" />
                                     </button>
-                                    <spring:url value="/jobSeeker/" htmlEscape="true"
-                                                var="jobSeeker_home" />
-                                    <a href="${jobSeeker_home}" class="btn btn-sm btn-default">
+                                    <spring:url value="/stage/" htmlEscape="true"
+                                                var="stage_home" />
+                                    <a href="${stage_home}" class="btn btn-sm btn-default">
                                         <span class="glyphicon glyphicon-list"></span>
-                                        <spring:message code="jobSeeker.liste" />
+                                        <spring:message code="stage.liste" />
                                     </a>
                                 </div>
                             </div>
@@ -187,22 +176,21 @@
                 </form:form>
             </div>
         </div>
-        <script src="<c:url value="/resources/js/jquery.dynamiclist.min.js" />"></script>
         <script src="<c:url value="/resources/js/jquery-ui.js" />"></script>
         <script type="text/javascript">
-
-
             $(document).ready(function () {
 
-                $("#contact").dynamiclist({
-                    itemClass: "list-contact",
-                    addClass: "add-contact",
-                    removeClass: "remove-contact"
+                $("#dateDebut").datepicker({
+                    changeMonth: true,
+                    changeYear: true,
+                    dateFormat: "dd/mm/yy",
+                    showButtonPanel: false
                 });
-                $("#secteur").dynamiclist({
-                    itemClass: "list-secteur",
-                    addClass: "add-secteur",
-                    removeClass: "remove-secteur"
+                $("#dateFin").datepicker({
+                    changeMonth: true,
+                    changeYear: true,
+                    dateFormat: "dd/mm/yy",
+                    showButtonPanel: false
                 });
             });
         </script>

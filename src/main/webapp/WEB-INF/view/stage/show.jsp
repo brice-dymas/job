@@ -141,5 +141,29 @@
                 </table>
             </fieldset>
         </div>
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <hr/>
+                <spring:url value="/stage/delete" var="stage_delete"/>
+                <form:form method="post" commandName="stage" action="${stage_delete}">
+                    <form:hidden path="id"/>
+                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                    <spring:url value="/stage/" var="stage_home"/>
+                    <a href="${stage_home}" class="btn btn-sm  btn-primary">
+                        <span class="glyphicon glyphicon-list"></span>
+                        <spring:message code="stage.liste" />
+                    </a>
+                    <spring:url value="/stage/${stage.id}/edit" var="stage_edit"/>
+                    <a href="${stage_edit}" class="btn btn-sm  btn-warning">
+                        <span class="glyphicon glyphicon-edit"></span>
+                        <spring:message code="action.modifier" />
+                    </a>
+                    <button type="submit" class="btn btn-sm  btn-danger">
+                        <span class="glyphicon glyphicon-remove-sign"></span>
+                        <spring:message code="action.effacer" />
+                    </button>
+                </form:form>
+            </div>
+        </div>
     </tiles:putAttribute>
 </tiles:insertDefinition>

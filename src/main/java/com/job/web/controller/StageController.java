@@ -173,24 +173,28 @@ public class StageController
         return "stage/edit";
     }
 
-    @RequestMapping(value = "/{id}/update", method = RequestMethod.POST)
+    @RequestMapping(value = "/{id}-{js}/update", method = RequestMethod.POST)
     public String updateAction(final ModelMap model, @PathVariable("id") final Long id,
+            @PathVariable("js") final Long js,
             @Valid final Stage stage, final BindingResult result,
             final RedirectAttributes redirectAttributes)
     {
         System.out.println("entered update method of stage");
-        if (!result.hasErrors() && stage.getEntreprise().getId() != null)
-        {
-            redirectAttributes.addFlashAttribute("info", "alert.success.new");
-            stageService.update(stage);
-            return "redirect:/stage/" + stage.getId() + "/show";
-        }
-        else
+        final JobSeeker jobSeeker = jobSeekerService.findOne(js);
+        stage.setJobSeeker(jobSeeker);
+        if (result.hasErrors() || stage.getEntreprise().getId() == null)
         {
             System.out.println("il ya eu erreur de modification");
             model.addAttribute("stage", stage);
             model.addAttribute("error", "error");
             return "stage/edit";
+        }
+        else
+        {
+            System.out.println("idJobSeeker=" + stage.getJobSeeker().getId());
+            redirectAttributes.addFlashAttribute("info", "alert.success.new");
+            stageService.update(stage);
+            return "redirect:/stage/" + stage.getId() + "/show";
         }
     }
 
