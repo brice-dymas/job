@@ -42,19 +42,31 @@
                     </a>
                 </li>
 
-                <li>
+                <li
+                    <c:if test="${fn:containsIgnoreCase(url, 'user')}">
+                        class="active"
+                    </c:if>
+                    >
                     <a href="<spring:url value="/user/" />">
                         <span class="fa fa-android"></span>
                         <spring:message code="user.title" />
                     </a>
                 </li>
-                <li>
+                <li
+                    <c:if test="${fn:containsIgnoreCase(url, 'entreprise')}">
+                        class="active"
+                    </c:if>
+                    >
                     <a href="<spring:url value="/entreprise/" />">
                         <span class="fa fa-server"></span>
                         <spring:message code="entreprise.liste" />
                     </a>
                 </li>
-                <li>
+                <li
+                    <c:if test="${fn:containsIgnoreCase(url, 'stage')}">
+                        class="active"
+                    </c:if>
+                    >
                     <a href="<spring:url value="/stage/" />">
                         <span class="fa fa-wrench"></span>
                         <spring:message code="stage.title" />

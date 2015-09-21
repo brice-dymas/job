@@ -66,6 +66,11 @@
                             </th>
                             <th>
                                 <span class="btn">
+                                    <spring:message code="jobSeeker.statut" />
+                                </span>
+                            </th>
+                            <th>
+                                <span class="btn">
                                     <spring:message code="action.titre" />
                                 </span>
                             </th>
@@ -114,59 +119,85 @@
                 </c:if>
                 <c:if test="${jobSeekers.size() ne 0}">
                     <c:forEach items="${jobSeekers}" var="jobSeeker">
-                        <tr>
-                            <td>
-                                ${jobSeeker.numero}
-                            </td>
-                            <td>
-                                ${jobSeeker.nom}
-                            </td>
-                            <td>
-                                ${jobSeeker.prenom}
-                            </td>
-                            <td>
-                                ${jobSeeker.telephone}
-                            </td>
-                            <td>
-                                ${jobSeeker.email}
-                            </td>
-                            <td>
+                        <c:if test="${jobSeeker.statut.length()>10}">
+                            <tr class="text-danger">
+                                <td>
+                                    ${jobSeeker.numero}
+                                </td>
+                                <td>
+                                    ${jobSeeker.nom}
+                                </td>
+                                <td>
+                                    ${jobSeeker.prenom}
+                                </td>
+                                <td>
+                                    ${jobSeeker.telephone}
+                                </td>
+                                <td>
+                                    ${jobSeeker.email}
+                                </td>
+                                <td>
+                                    ${jobSeeker.statut}
+                                </td>
+                                <td>
 
-
-                                <div class="dropdown dropdown-menu-right" style="display: inline-block !important">
-                                    <button class="btn btn-default dropdown-toogle" id="dropdown-user" data-toggle="dropdown">
-                                        <i class="glyphicon glyphicon-arrow-down"></i>
-                                        Choisissez une action
-                                        <i class="caret"></i>
-                                    </button>
-                                    <ul class="dropdown-menu" role="menu" aria-labeledby="dropdown-user">
-                                        <li>
-                                            <spring:url value="/jobSeeker/${jobSeeker.id}/show" htmlEscape="true" var="jobSeeker_show" />
-                                            <a href="${jobSeeker_show}" class="btn btn-sm btn-primary">
-                                                <span class="glyphicon glyphicon-open"></span>
-                                                <spring:message code="action.detail" />
-                                            </a>
-                                        </li>
-
-                                        <li>
-                                            <spring:url value="/jobSeeker/${jobSeeker.id}/edit" htmlEscape="true" var="jobSeeker_edit" />
-                                            <a href="${jobSeeker_edit}" class="btn btn-sm btn-primary">
-                                                <span class="glyphicon glyphicon-edit"></span>
-                                                <spring:message code="action.modifier" />
-                                            </a>
-                                        </li>
-
-                                        <li>
-                                            <spring:url value="/stage/${jobSeeker.id}/affecter" var="stage_new"/>
-                                            <a href="${stage_new}" class="btn btn-sm btn-primary">
-                                                <span class="glyphicon glyphicon-new-window"></span>
-                                                Affecter
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </td>
-                        </tr>
+                                    <spring:url value="/jobSeeker/${jobSeeker.id}/show" htmlEscape="true" var="jobSeeker_show" />
+                                    <a href="${jobSeeker_show}" class="btn btn-sm btn-primary">
+                                        <span class="glyphicon glyphicon-open"></span>
+                                        <spring:message code="action.detail" />
+                                    </a> &nbsp;
+                                    <spring:url value="/jobSeeker/${jobSeeker.id}/edit" htmlEscape="true" var="jobSeeker_edit" />
+                                    <a href="${jobSeeker_edit}" class="btn btn-sm btn-primary">
+                                        <span class="glyphicon glyphicon-edit"></span>
+                                        <spring:message code="action.modifier" />
+                                    </a> &nbsp;
+                                    <spring:url value="/stage/${jobSeeker.id}/affecter" var="stage_new"/>
+                                    <a href="${stage_new}" class="btn btn-sm btn-warning">
+                                        <span class="glyphicon glyphicon-new-window"></span>
+                                        Affecter
+                                    </a>
+                                </td>
+                            </tr>
+                        </c:if>
+                        <c:if test="${jobSeeker.statut.length()<=10}">
+                            <tr>
+                                <td>
+                                    ${jobSeeker.numero}
+                                </td>
+                                <td>
+                                    ${jobSeeker.nom}
+                                </td>
+                                <td>
+                                    ${jobSeeker.prenom}
+                                </td>
+                                <td>
+                                    ${jobSeeker.telephone}
+                                </td>
+                                <td>
+                                    ${jobSeeker.email}
+                                </td>
+                                <td>
+                                    ${jobSeeker.statut}
+                                </td>
+                                <td>
+                                    <spring:url value="/jobSeeker/${jobSeeker.id}/show" htmlEscape="true" var="jobSeeker_show" />
+                                    <a href="${jobSeeker_show}" class="btn btn-sm btn-primary">
+                                        <span class="glyphicon glyphicon-open"></span>
+                                        <spring:message code="action.detail" />
+                                    </a> &nbsp;
+                                    <spring:url value="/jobSeeker/${jobSeeker.id}/edit" htmlEscape="true" var="jobSeeker_edit" />
+                                    <a href="${jobSeeker_edit}" class="btn btn-sm btn-primary">
+                                        <span class="glyphicon glyphicon-edit"></span>
+                                        <spring:message code="action.modifier" />
+                                    </a> &nbsp;
+                                    <spring:url value="/stage/${jobSeeker.id}/affecter" var="stage_new"/>
+                                    <a href="${stage_new}" class="btn btn-sm btn-primary">
+                                        <span class="glyphicon glyphicon-new-window"></span>
+                                        Affecter
+                                    </a>
+                                </td>
+                            </tr>
+                        </c:if>
                     </c:forEach>
                     </tbody>
                     </table>

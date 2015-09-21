@@ -91,7 +91,7 @@
 
                                 </fieldset>
                                 <table class="table table-condensed table-hover table-bordered">
-                                    <thead>
+                                    <thead class="bg-primary">
                                         <tr>
                                             <th>
                                                 <span class="btn">
