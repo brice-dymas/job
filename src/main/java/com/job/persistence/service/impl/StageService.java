@@ -69,6 +69,8 @@ public class StageService extends AbstractService<Stage> implements IStageServic
         toUpdate.setDateFin(stage.getDateFin());
         toUpdate.setObservation(stage.getObservation());
         toUpdate.setStatut(stage.getStatut());
+        toUpdate.setTauxHoraire(stage.getTauxHoraire());
+        toUpdate.setNombreDheureParJour(stage.getNombreDheureParJour());
         if (stage.getDateFin().after(new Date()))
         {
             jobSeeker.setStatut("Indisponible");

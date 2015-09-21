@@ -126,6 +126,8 @@ public class StageController
         final JobSeeker jobSeeker = jobSeekerService.findOne(id);
         Stage stage = new Stage();
         stage.setJobSeeker(jobSeeker);
+//        stage.setNombreDheureParJour(0);
+//        stage.setTauxHoraire(0);
         model.addAttribute("stage", stage);
         model.addAttribute("jobSeeker", jobSeeker);
         return "stage/affect";

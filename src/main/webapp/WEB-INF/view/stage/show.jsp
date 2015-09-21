@@ -9,6 +9,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <tiles:insertDefinition name="layout">
     <tiles:putAttribute name="body">
@@ -22,30 +23,28 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-8 col-md-offset-2" id="table_show">
-                <table class="table table-condensed">
-                    <thead>
-                        <tr>
-                            <th><spring:message code="stage.dateDebut" /></th>
-                            <th><spring:message code="stage.dateFin" /></th>
-                            <th><spring:message code="stage.statut" /></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>${stage.dateDebut}</td>
-                            <td>${stage.dateFin}</td>
-                            <td>${stage.statut}</td>
-                        </tr>
-                        <tr>
-                            <th><spring:message code="stage.observation" /></th>
-                        </tr>
-                        <tr>
-                            <td>${stage.observation}</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+            <table class="table table-condensed table-hover table-bordered">
+                <thead align="center" class="bg-primary">
+                    <tr align="center">
+                        <th><spring:message code="stage.dateDebut" /></th>
+                        <th><spring:message code="stage.dateFin" /></th>
+                        <th><spring:message code="stage.statut" /></th>
+                        <th><spring:message code="stage.nombreDheureParJour" /></th>
+                        <th><spring:message code="stage.tauxHoraire" /></th>
+                        <th><spring:message code="stage.observation" /></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr align="center">
+                        <td><fmt:formatDate value="${stage.dateDebut}" type="date" pattern="dd-MM-yyyy" /></td>
+                        <td><fmt:formatDate value="${stage.dateFin}" type="date" pattern="dd-MM-yyyy" /></td>
+                        <td>${stage.statut}</td>
+                        <td>${stage.nombreDheureParJour}</td>
+                        <td>${stage.tauxHoraire}</td>
+                        <td>${stage.observation}</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
         <br/>
 

@@ -15,9 +15,11 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.NumberFormat;
 
 /**
  *
@@ -50,6 +52,14 @@ public class Stage implements Serializable
     @NotBlank(message = "{blank.message}")
     @Size(max = 255, min = 8, message = "Veuillez choisir un statut")
     private String statut;
+
+    @NumberFormat(style = NumberFormat.Style.NUMBER)
+    @Min(value = 500, message = "{min.message}")
+    private int tauxHoraire;
+
+    @NumberFormat(style = NumberFormat.Style.NUMBER)
+    @Min(value = 1, message = "{min.message}")
+    private int nombreDheureParJour;
 
     @ManyToOne(targetEntity = JobSeeker.class, optional = false)
     private JobSeeker jobSeeker;
@@ -109,6 +119,26 @@ public class Stage implements Serializable
     public void setJobSeeker(JobSeeker jobSeeker)
     {
         this.jobSeeker = jobSeeker;
+    }
+
+    public int getTauxHoraire()
+    {
+        return tauxHoraire;
+    }
+
+    public void setTauxHoraire(int tauxHoraire)
+    {
+        this.tauxHoraire = tauxHoraire;
+    }
+
+    public int getNombreDheureParJour()
+    {
+        return nombreDheureParJour;
+    }
+
+    public void setNombreDheureParJour(int nombreDheureParJour)
+    {
+        this.nombreDheureParJour = nombreDheureParJour;
     }
 
     public Entreprise getEntreprise()

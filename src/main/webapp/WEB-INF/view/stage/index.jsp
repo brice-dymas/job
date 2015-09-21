@@ -75,12 +75,6 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <hr/>
-                            <spring:url value="/stage/new" htmlEscape="true" var="stage_new" />
-                            <a href="${stage_new}" class="btn btn-primary btn-sm">
-                                <span class="glyphicon glyphicon-new-window"></span>
-                                <spring:message code="action.nouveau" />
-                            </a>
-
                             <div class="pull-right">
                                 <ul class="pager">
 
@@ -135,13 +129,6 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <hr/>
-                            <spring:url value="/stage/new" htmlEscape="true" var="stage_new" />
-
-                            <a href="${stage_new}" class="btn btn-primary btn-sm">
-                                <span class="glyphicon glyphicon-new-window"></span>
-                                <spring:message code="action.nouveau" />
-                            </a>
-
                             <div class="pull-right">
                                 <ul class="pager">
 

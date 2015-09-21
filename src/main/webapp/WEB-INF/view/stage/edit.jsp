@@ -54,6 +54,26 @@
                                 </div>
                             </div>
                             <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <form:label for="nombreDheureParJour" path="">
+                                            <spring:message code="stage.nombreDheureParJour" />
+                                        </form:label>
+                                        <form:input id="nombreDheureParJour" path="nombreDheureParJour" cssClass="form-control input-sm"/>
+                                        <form:errors path="nombreDheureParJour" cssClass="text-danger"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <form:label for="tauxHoraire" path="">
+                                            <spring:message code="stage.tauxHoraire" />
+                                        </form:label>
+                                        <form:input id="tauxHoraire" path="tauxHoraire" cssClass="form-control input-sm"/>
+                                        <form:errors path="tauxHoraire" cssClass="text-danger"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
                                 <div class="col-md-9">
                                     <div class="form-group">
                                         <form:label for="obs" path="">
