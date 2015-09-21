@@ -15,7 +15,6 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -37,12 +36,12 @@ public class Stage implements Serializable
 
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "dd/MM/yyyy")
-    @NotNull(message = "{blank.message}")
+
     private Date dateDebut;
 
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "dd/MM/yyyy")
-    @NotNull(message = "{blank.message}")
+
     private Date dateFin;
 
     @NotBlank(message = "{blank.message}")
@@ -52,11 +51,9 @@ public class Stage implements Serializable
     @Size(max = 255, min = 8, message = "Veuillez choisir un statut")
     private String statut;
 
-    @NotNull
     @ManyToOne(targetEntity = JobSeeker.class, optional = false)
     private JobSeeker jobSeeker;
 
-    @NotNull(message = "entreprise.notnull")
     @ManyToOne(targetEntity = Entreprise.class, optional = false)
     private Entreprise entreprise;
 

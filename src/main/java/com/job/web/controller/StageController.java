@@ -25,6 +25,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -166,23 +167,33 @@ public class StageController
         return "stage/affect";
     }
 
-    @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public String createAction(@Valid Stage stage,
+    @RequestMapping(value = "/{id}/create", method = RequestMethod.POST)
+    public String createAction(@PathVariable("id") final Long id, @Valid Stage stage,
             final BindingResult result, final ModelMap model,
             final RedirectAttributes redirectAttributes)
     {
+        System.out.println("dans le controller /stage/id/create");
+        System.out.println("affichage du demandeur concerné");
+        System.out.println("id demandeur=" + id);
+        stage.setJobSeeker(jobSeekerService.findOne(id));
         if (result.hasErrors())
         {
             System.out.println("nul ou erreur lors de la création du stage");
-            System.out.println(stage.getDateDebut() + "-" + stage.getDateFin() + "-" + stage.getEntreprise().getId() + "-" + stage.getObservation() + "-" + stage.getStatut());
+            for (ObjectError allError : result.getAllErrors())
+            {
+                System.out.println("*** \n " + allError.getDefaultMessage());
+            }
+            System.out.println(stage.getDateDebut() + "-" + stage.getDateFin() + "-" + stage.getEntreprise().getId() + "-" + stage.getObservation() + "-" + stage.getStatut() + stage.getJobSeeker().getNom());
             model.addAttribute("error", "error");
             model.addAttribute("stage", stage);
             return "stage/affect";
         }
         else
         {
-            System.out.println("non nul");
+            System.out.println("aucune erreur.! \n lancement procedure d'enregistrement ... ");
+            System.out.println(stage.getDateDebut() + "-" + stage.getDateFin() + "-" + stage.getEntreprise().getId() + "-" + stage.getObservation() + "-" + stage.getStatut() + stage.getJobSeeker().getNom());
             redirectAttributes.addFlashAttribute("info", "alert.success.new");
+            stage.setJobSeeker(jobSeekerService.findOne(id));
             stageService.create(stage);
             return "redirect:/stage/" + stage.getId() + "/show";
 

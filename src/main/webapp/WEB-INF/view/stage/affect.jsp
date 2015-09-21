@@ -29,8 +29,8 @@
                         <hr/>
                     </div>
                 </div>
-                <spring:url   value="/stage/create" var="stage_create"  htmlEscape="true" />
-                <form:form method="post" commandName="stage" action="${stage_create}?${_csrf.parameterName}=${_csrf.token}">
+                <spring:url   value="/stage/${stage.jobSeeker.id}/create" var="stage_create"  htmlEscape="true" />
+                <form:form method="post" commandName="stage" action="${stage_create}">
                     <div class="panel panel-default">
                         <div class="panel-body">
                             <div class="row">

@@ -16,7 +16,7 @@
             <div class="col-md-8 col-md-offset-2">
                 <h4>
                     <span class="fa fa-user fa-lg"></span>
-                    <spring:message code="stage.afficher" />
+                    <spring:message code="stage.show" />
                 </h4>
                 <hr/>
             </div>
@@ -26,7 +26,7 @@
                 <table class="table table-condensed">
                     <thead>
                         <tr>
-                            <td><spring:message code="stage.dateebut" /></td>
+                            <td><spring:message code="stage.dateDebut" /></td>
                             <td><spring:message code="stage.dateFin" /></td>
                             <td><spring:message code="stage.statut" /></td>
                         </tr>
@@ -34,12 +34,12 @@
                     <tbody>
                         <tr>
                             <td>${stage.dateDebut}</td>
-                            <td>${stage.prenom}</td>
+                            <td>${stage.dateFin}</td>
                             <td>${stage.statut}</td>
                         </tr>
                         <tr>
                             <td>
-                            <td><spring:message code="stage.dateebut" /></td> :
+                            <td><spring:message code="stage.observation" /></td> :
                             ${stage.observation}
                             </td>
                         </tr>
