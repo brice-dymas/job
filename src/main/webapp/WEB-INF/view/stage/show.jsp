@@ -26,9 +26,9 @@
                 <table class="table table-condensed">
                     <thead>
                         <tr>
-                            <td><spring:message code="stage.dateDebut" /></td>
-                            <td><spring:message code="stage.dateFin" /></td>
-                            <td><spring:message code="stage.statut" /></td>
+                            <th><spring:message code="stage.dateDebut" /></th>
+                            <th><spring:message code="stage.dateFin" /></th>
+                            <th><spring:message code="stage.statut" /></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -38,16 +38,16 @@
                             <td>${stage.statut}</td>
                         </tr>
                         <tr>
-                            <td>
-                            <td><spring:message code="stage.observation" /></td> :
-                            ${stage.observation}
-                            </td>
+                            <th><spring:message code="stage.observation" /></th>
+                        </tr>
+                        <tr>
+                            <td>${stage.observation}</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
         </div>
-        <hr>
+        <br/>
 
         <div class="row">
             <fieldset>
@@ -55,7 +55,7 @@
                     <spring:message code="stage.jobSeeker" />
                 </legend>
                 <table class="table table-condensed table-hover table-bordered">
-                    <thead>
+                    <thead class="bg-primary">
                         <tr>
                             <th>
                                 <span class="btn">
@@ -101,7 +101,7 @@
                     <spring:message code="stage.entreprise" />
                 </legend>
                 <table class="table table-condensed table-hover table-bordered">
-                    <thead>
+                    <thead class="bg-primary">
                         <tr>
                             <th>
                                 <span class="btn">
@@ -125,7 +125,7 @@
                             </th>
                             <th>
                                 <span class="btn">
-                                    <spring:message code="jobSeeker.boitePostale" />
+                                    <spring:message code="entreprise.boitePostale" />
                                 </span>
                             </th>
                     </thead>

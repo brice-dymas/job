@@ -101,11 +101,16 @@
                         <spring:message code="jobSeeker.liste" />
                     </a>
                     <spring:url value="/jobSeeker/${jobSeeker.id}/edit" var="jobSeeker_edit"/>
-                    <a href="${jobSeeker_edit}" class="btn btn-default  btn-sm">
+                    <a href="${jobSeeker_edit}" class="btn btn-sm  btn-warning">
                         <span class="glyphicon glyphicon-edit"></span>
                         <spring:message code="action.modifier" />
                     </a>
-                    <button type="submit" class="btn btn-default  btn-sm">
+                    <spring:url value="/stage/${jobSeeker.id}/affecter" var="stage_new"/>
+                    <a href="${stage_new}" class="btn btn-sm btn-success">
+                        <span class="glyphicon glyphicon-new-window"></span>
+                        Affecter
+                    </a>
+                    <button type="submit" class="btn btn-sm  btn-danger">
                         <span class="glyphicon glyphicon-remove-sign"></span>
                         <spring:message code="action.effacer" />
                     </button>

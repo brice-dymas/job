@@ -47,8 +47,38 @@ public class StageService extends AbstractService<Stage> implements IStageServic
     {
         final Entreprise entreprise = entrepriseDao.findOne(stage.getEntreprise().getId());
         final JobSeeker jobSeeker = jobSeekerDao.findOne(stage.getJobSeeker().getId());
-        jobSeeker.setStatut("Indisponible");
-        jobSeekerDao.save(jobSeeker);
+        if (stage.getDateFin().after(new Date()))
+        {
+            jobSeeker.setStatut("Indisponible");
+            jobSeekerDao.save(jobSeeker);
+        }
+        stage.setJobSeeker(jobSeeker);
+        stage.setEntreprise(entreprise);
+        return stageDao.save(stage);
+    }
+
+    @Override
+    public Stage update(Stage stage)
+    {
+        final Entreprise entreprise = entrepriseDao.findOne(stage.getEntreprise().getId());
+        final JobSeeker jobSeeker = jobSeekerDao.findOne(stage.getJobSeeker().getId());
+        final Stage toUpdate = stageDao.findOne(stage.getId());
+        toUpdate.setEntreprise(entreprise);
+        toUpdate.setJobSeeker(jobSeeker);
+        toUpdate.setDateDebut(stage.getDateDebut());
+        toUpdate.setDateFin(stage.getDateFin());
+        toUpdate.setObservation(stage.getObservation());
+        toUpdate.setStatut(stage.getStatut());
+        if (stage.getDateFin().after(new Date()))
+        {
+            jobSeeker.setStatut("Indisponible");
+            jobSeekerDao.save(jobSeeker);
+        }
+        else
+        {
+            jobSeeker.setStatut("Disponible");
+            jobSeekerDao.save(jobSeeker);
+        }
         stage.setJobSeeker(jobSeeker);
         stage.setEntreprise(entreprise);
         return stageDao.save(stage);
@@ -87,15 +117,6 @@ public class StageService extends AbstractService<Stage> implements IStageServic
                 return stageDao.search(idEntreprise, "%" + nomChercheur + "%", "%" + prenomChercheur + "%", dateDebut, dateFin, new PageRequest(page, size));
             }
         }
-
-//        if (idEntreprise == -1)
-//        {
-//            return stageDao.search(nomChercheur, prenomChercheur, statut, dateDebut, dateFin, new PageRequest(page, size));
-//        }
-//        else
-//        {
-//            return stageDao.search(idEntreprise, nomChercheur, prenomChercheur, statut, dateDebut, dateFin, new PageRequest(page, size));
-//        }
     }
 
 }

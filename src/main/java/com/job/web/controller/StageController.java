@@ -25,7 +25,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -65,41 +64,6 @@ public class StageController
         model.addAttribute("entreprise", entreprise);
         model.addAttribute("jobSeeker", jobSeeker);
         return "stage/show";
-    }
-
-    @RequestMapping(value = "{id}/edit", method = RequestMethod.GET)
-    public String editAction(@PathVariable("id") final Long id,
-            final ModelMap model)
-    {
-        final Stage stage = stageService.findOne(id);
-        final Entreprise entreprise = entrepriseService.findOne(stage.getEntreprise().getId());
-        final JobSeeker jobSeeker = jobSeekerService.findOne(stage.getJobSeeker().getId());
-        stage.setEntreprise(entreprise);
-        stage.setJobSeeker(jobSeeker);
-        model.addAttribute("stage", stage);
-        return "stage/edit";
-    }
-
-    @RequestMapping(value = "/update", method = RequestMethod.POST)
-    public String updateAction(final ModelMap model,
-            @Valid final Stage stage,
-            final BindingResult result,
-            final RedirectAttributes redirectAttributes)
-    {
-        System.out.println("entered update method of stage");
-        if (result.hasErrors())
-        {
-            System.out.println("il ya eu erreur de modification");
-            model.addAttribute("stage", stage);
-            model.addAttribute("error", "error");
-            return "stage/edit";
-        }
-        else
-        {
-            redirectAttributes.addFlashAttribute("info", "alert.success.new");
-            stageService.update(stage);
-            return "redirect:/stage/" + stage.getId() + "/show";
-        }
     }
 
     @RequestMapping(method = RequestMethod.GET)
@@ -176,14 +140,9 @@ public class StageController
         System.out.println("affichage du demandeur concerné");
         System.out.println("id demandeur=" + id);
         stage.setJobSeeker(jobSeekerService.findOne(id));
-        if (result.hasErrors())
+        if (result.hasErrors() || stage.getEntreprise().getId() == null)
         {
             System.out.println("nul ou erreur lors de la création du stage");
-            for (ObjectError allError : result.getAllErrors())
-            {
-                System.out.println("*** \n " + allError.getDefaultMessage());
-            }
-            System.out.println(stage.getDateDebut() + "-" + stage.getDateFin() + "-" + stage.getEntreprise().getId() + "-" + stage.getObservation() + "-" + stage.getStatut() + stage.getJobSeeker().getNom());
             model.addAttribute("error", "error");
             model.addAttribute("stage", stage);
             return "stage/affect";
@@ -199,6 +158,40 @@ public class StageController
 
         }
 
+    }
+
+    @RequestMapping(value = "{id}/edit", method = RequestMethod.GET)
+    public String editAction(@PathVariable("id") final Long id,
+            final ModelMap model)
+    {
+        final Stage stage = stageService.findOne(id);
+        final Entreprise entreprise = entrepriseService.findOne(stage.getEntreprise().getId());
+        final JobSeeker jobSeeker = jobSeekerService.findOne(stage.getJobSeeker().getId());
+        stage.setEntreprise(entreprise);
+        stage.setJobSeeker(jobSeeker);
+        model.addAttribute("stage", stage);
+        return "stage/edit";
+    }
+
+    @RequestMapping(value = "/{id}/update", method = RequestMethod.POST)
+    public String updateAction(final ModelMap model, @PathVariable("id") final Long id,
+            @Valid final Stage stage, final BindingResult result,
+            final RedirectAttributes redirectAttributes)
+    {
+        System.out.println("entered update method of stage");
+        if (!result.hasErrors() && stage.getEntreprise().getId() != null)
+        {
+            redirectAttributes.addFlashAttribute("info", "alert.success.new");
+            stageService.update(stage);
+            return "redirect:/stage/" + stage.getId() + "/show";
+        }
+        else
+        {
+            System.out.println("il ya eu erreur de modification");
+            model.addAttribute("stage", stage);
+            model.addAttribute("error", "error");
+            return "stage/edit";
+        }
     }
 
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
