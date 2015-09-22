@@ -76,7 +76,7 @@ public class JobSeekerController
         final Page<JobSeeker> resultPage = dao.findAll(new PageRequest(page, size));
         JobSeeker jobSeeker = new JobSeeker();
         model.addAttribute("page", page);
-        model.addAttribute("stage", jobSeeker);
+        model.addAttribute("placement", jobSeeker);
         model.addAttribute("Totalpage", resultPage.getTotalPages());
         model.addAttribute("size", size);
         model.addAttribute("jobSeekers", resultPage.getContent());

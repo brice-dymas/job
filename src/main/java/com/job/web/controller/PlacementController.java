@@ -5,13 +5,13 @@
  */
 package com.job.web.controller;
 
-import com.job.persistence.dao.IStageDao;
+import com.job.persistence.dao.IPlacementDao;
 import com.job.persistence.model.Entreprise;
 import com.job.persistence.model.JobSeeker;
-import com.job.persistence.model.Stage;
+import com.job.persistence.model.Placement;
 import com.job.persistence.service.IEntrepriseService;
 import com.job.persistence.service.IJobSeekerService;
-import com.job.persistence.service.IStageService;
+import com.job.persistence.service.IPlacementService;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -39,15 +39,15 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
  * @author Brice GUEMKAM <briceguemkam@gmail.com>
  */
 @Controller
-@RequestMapping("/stage")
-public class StageController
+@RequestMapping("/placement")
+public class PlacementController
 {
 
     @Autowired
-    IStageDao dao;
+    IPlacementDao dao;
 
     @Autowired
-    IStageService stageService;
+    IPlacementService placementService;
 
     @Autowired
     IJobSeekerService jobSeekerService;
@@ -59,16 +59,16 @@ public class StageController
     public String ShowAction(@PathVariable("id") final Long id,
             final ModelMap model)
     {
-        final Stage stage = stageService.findOne(id);
-        final Entreprise entreprise = entrepriseService.findOne(stage.getEntreprise().getId());
-        final JobSeeker jobSeeker = jobSeekerService.findOne(stage.getJobSeeker().getId());
-        stage.setEntreprise(entreprise);
-        stage.setJobSeeker(jobSeeker);
+        final Placement placement = placementService.findOne(id);
+        final Entreprise entreprise = entrepriseService.findOne(placement.getEntreprise().getId());
+        final JobSeeker jobSeeker = jobSeekerService.findOne(placement.getJobSeeker().getId());
+        placement.setEntreprise(entreprise);
+        placement.setJobSeeker(jobSeeker);
 
-        model.addAttribute("stage", stage);
+        model.addAttribute("placement", placement);
         model.addAttribute("entreprise", entreprise);
         model.addAttribute("jobSeeker", jobSeeker);
-        return "stage/show";
+        return "placement/show";
     }
 
     @RequestMapping(method = RequestMethod.GET)
@@ -79,14 +79,14 @@ public class StageController
         final Integer size = webRequest.getParameter("size") != null
                 ? Integer.valueOf(webRequest.getParameter("size")) : 20;
 
-        Stage stage = new Stage();
-        final Page<Stage> resultPage = dao.findAll(new PageRequest(page, size));
+        Placement placement = new Placement();
+        final Page<Placement> resultPage = dao.findAll(new PageRequest(page, size));
         model.addAttribute("page", page);
         model.addAttribute("Totalpage", resultPage.getTotalPages());
         model.addAttribute("size", size);
-        model.addAttribute("stage", stage);
-        model.addAttribute("stages", resultPage.getContent());
-        return "stage/index";
+        model.addAttribute("placement", placement);
+        model.addAttribute("placements", resultPage.getContent());
+        return "placement/index";
     }
 
     @RequestMapping(value = "/search", method = RequestMethod.GET)
@@ -120,7 +120,7 @@ public class StageController
         dateDebut = parsedDateFrom(dateDebuString, "2010/01/01", dateFormatter);
         dateFin = parsedDateFrom(dateFinString, "2020/12/31", dateFormatter);
 
-        final Page<Stage> resultPage = stageService.search(idEntreprise, nom, prenom, statut, dateDebut, dateFin, page, size);
+        final Page<Placement> resultPage = placementService.search(idEntreprise, nom, prenom, statut, dateDebut, dateFin, page, size);
         model.addAttribute("querydatedebut", dateDebuString);
         model.addAttribute("querydatefin", dateFinString);
         model.addAttribute("querynom", nom);
@@ -129,39 +129,39 @@ public class StageController
         model.addAttribute("page", page);
         model.addAttribute("Totalpage", resultPage.getTotalPages());
         model.addAttribute("size", size);
-        model.addAttribute("stages", resultPage.getContent());
-        return "stage/search";
+        model.addAttribute("placements", resultPage.getContent());
+        return "placement/search";
     }
 
     @RequestMapping(value = "/{id}/affecter", method = RequestMethod.GET)
     public String affectAction(@PathVariable("id") final Long id, final ModelMap model)
     {
         final JobSeeker jobSeeker = jobSeekerService.findOne(id);
-        Stage stage = new Stage();
-        stage.setJobSeeker(jobSeeker);
-        model.addAttribute("stage", stage);
+        Placement placement = new Placement();
+        placement.setJobSeeker(jobSeeker);
+        model.addAttribute("placement", placement);
         model.addAttribute("jobSeeker", jobSeeker);
-        return "stage/affect";
+        return "placement/affect";
     }
 
     @RequestMapping(value = "/{id}/create", method = RequestMethod.POST)
-    public String createAction(@PathVariable("id") final Long id, @Valid Stage stage,
+    public String createAction(@PathVariable("id") final Long id, @Valid Placement placement,
             final BindingResult result, final ModelMap model,
             final RedirectAttributes redirectAttributes)
     {
-        stage.setJobSeeker(jobSeekerService.findOne(id));
-        if (result.hasErrors() || stage.getEntreprise().getId() == null)
+        placement.setJobSeeker(jobSeekerService.findOne(id));
+        if (result.hasErrors() || placement.getEntreprise().getId() == null)
         {
             model.addAttribute("error", "error");
-            model.addAttribute("stage", stage);
-            return "stage/affect";
+            model.addAttribute("placement", placement);
+            return "placement/affect";
         }
         else
         {
             redirectAttributes.addFlashAttribute("info", "alert.success.new");
-            stage.setJobSeeker(jobSeekerService.findOne(id));
-            stageService.create(stage);
-            return "redirect:/stage/" + stage.getId() + "/show";
+            placement.setJobSeeker(jobSeekerService.findOne(id));
+            placementService.create(placement);
+            return "redirect:/placement/" + placement.getId() + "/show";
 
         }
 
@@ -171,44 +171,44 @@ public class StageController
     public String editAction(@PathVariable("id") final Long id,
             final ModelMap model)
     {
-        final Stage stage = stageService.findOne(id);
-        final Entreprise entreprise = entrepriseService.findOne(stage.getEntreprise().getId());
-        final JobSeeker jobSeeker = jobSeekerService.findOne(stage.getJobSeeker().getId());
-        stage.setEntreprise(entreprise);
-        stage.setJobSeeker(jobSeeker);
-        model.addAttribute("stage", stage);
-        return "stage/edit";
+        final Placement placement = placementService.findOne(id);
+        final Entreprise entreprise = entrepriseService.findOne(placement.getEntreprise().getId());
+        final JobSeeker jobSeeker = jobSeekerService.findOne(placement.getJobSeeker().getId());
+        placement.setEntreprise(entreprise);
+        placement.setJobSeeker(jobSeeker);
+        model.addAttribute("placement", placement);
+        return "placement/edit";
     }
 
     @RequestMapping(value = "/{id}-{js}/update", method = RequestMethod.POST)
     public String updateAction(final ModelMap model, @PathVariable("id") final Long id,
             @PathVariable("js") final Long js,
-            @Valid final Stage stage, final BindingResult result,
+            @Valid final Placement placement, final BindingResult result,
             final RedirectAttributes redirectAttributes)
     {
         final JobSeeker jobSeeker = jobSeekerService.findOne(js);
-        stage.setJobSeeker(jobSeeker);
-        if (result.hasErrors() || stage.getEntreprise().getId() == null)
+        placement.setJobSeeker(jobSeeker);
+        if (result.hasErrors() || placement.getEntreprise().getId() == null)
         {
             System.out.println("il ya eu erreur de modification");
-            model.addAttribute("stage", stage);
+            model.addAttribute("placement", placement);
             model.addAttribute("error", "error");
-            return "stage/edit";
+            return "placement/edit";
         }
         else
         {
             redirectAttributes.addFlashAttribute("info", "alert.success.new");
-            stageService.update(stage);
-            return "redirect:/stage/" + stage.getId() + "/show";
+            placementService.update(placement);
+            return "redirect:/placement/" + placement.getId() + "/show";
         }
     }
 
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
-    public String deleteAction(final Stage stage, final ModelMap model)
+    public String deleteAction(final Placement placement, final ModelMap model)
     {
-        Stage stageToDelete = stageService.findOne(stage.getId());
-        stageService.delete(stageToDelete);
-        return "redirect:/stage/";
+        Placement placementToDelete = placementService.findOne(placement.getId());
+        placementService.delete(placementToDelete);
+        return "redirect:/placement/";
     }
 
     @ModelAttribute("entreprises")
@@ -258,7 +258,7 @@ public class StageController
             }
             catch (ParseException ex1)
             {
-                Logger.getLogger(StageController.class.getName()).log(Level.SEVERE, null, ex1);
+                Logger.getLogger(PlacementController.class.getName()).log(Level.SEVERE, null, ex1);
             }
         }
         return result;

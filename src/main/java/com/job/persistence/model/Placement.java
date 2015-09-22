@@ -29,7 +29,7 @@ import org.springframework.format.annotation.NumberFormat;
 //@NamedQueries({
 //    @NamedQuery(name = "s",query = )
 //})
-public class Stage implements Serializable
+public class Placement implements Serializable
 {
 
     @Id
@@ -65,7 +65,7 @@ public class Stage implements Serializable
     @ManyToOne(targetEntity = Entreprise.class, optional = false)
     private Entreprise entreprise;
 
-    public Stage()
+    public Placement()
     {
     }
 
@@ -183,7 +183,7 @@ public class Stage implements Serializable
         {
             return false;
         }
-        final Stage other = (Stage) obj;
+        final Placement other = (Placement) obj;
         if (this.id != other.id)
         {
             return false;

@@ -65,13 +65,13 @@
                     </a>
                 </li>
                 <li
-                    <c:if test="${fn:containsIgnoreCase(url, 'stage')}">
+                    <c:if test="${fn:containsIgnoreCase(url, 'placement')}">
                         class="active"
                     </c:if>
                     >
-                    <a href="<spring:url value="/stage/" />">
+                    <a href="<spring:url value="/placement/" />">
                         <span class="fa fa-briefcase"></span>
-                        <spring:message code="stage.title" />
+                        <spring:message code="placement.title" />
                     </a>
                 </li>
 

@@ -104,8 +104,8 @@
                         <span class="glyphicon glyphicon-edit"></span>
                         <spring:message code="action.modifier" />
                     </a>
-                    <spring:url value="/stage/${jobSeeker.id}/affecter" var="stage_new"/>
-                    <a href="${stage_new}" class="btn btn-sm btn-success">
+                    <spring:url value="/placement/${jobSeeker.id}/affecter" var="placement_new"/>
+                    <a href="${placement_new}" class="btn btn-sm btn-success">
                         <span class="glyphicon glyphicon-new-window"></span>
                         Affecter
                     </a>

@@ -6,7 +6,7 @@
 package com.job.persistence.service;
 
 import com.job.persistence.IOperations;
-import com.job.persistence.model.Stage;
+import com.job.persistence.model.Placement;
 import java.util.Date;
 import org.springframework.data.domain.Page;
 
@@ -14,10 +14,10 @@ import org.springframework.data.domain.Page;
  *
  * @author Brice GUEMKAM <briceguemkam@gmail.com>
  */
-public interface IStageService extends IOperations<Stage>
+public interface IPlacementService extends IOperations<Placement>
 {
 
-    Page<Stage> search(long idEntreprise,
+    Page<Placement> search(long idEntreprise,
             String nomChercheur, String prenomChercheur, String statut,
             Date dateDebut, Date dateFin, int page, Integer size);
 }

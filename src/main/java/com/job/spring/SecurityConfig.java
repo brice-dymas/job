@@ -46,7 +46,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
                 .antMatchers("/jobSeeker/**").authenticated()
                 .antMatchers("/secteur/**").authenticated()
                 .antMatchers("/entreprise/**").authenticated()
-                .antMatchers("/stage/**").authenticated()
+                .antMatchers("/placement/**").authenticated()
                 .antMatchers("/user/**/edit").access("hasRole('ROLE_ADMIN')")
                 .antMatchers("/user/**/editSimpleUser").authenticated()
                 .antMatchers("/user/**/update").authenticated()

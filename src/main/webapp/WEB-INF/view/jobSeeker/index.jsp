@@ -151,8 +151,8 @@
                                         <span class="glyphicon glyphicon-edit"></span>
                                         <spring:message code="action.modifier" />
                                     </a> &nbsp;
-                                    <spring:url value="/stage/${jobSeeker.id}/affecter" var="stage_new"/>
-                                    <a href="${stage_new}" class="btn btn-sm btn-warning">
+                                    <spring:url value="/placement/${jobSeeker.id}/affecter" var="placement_new"/>
+                                    <a href="${placement_new}" class="btn btn-sm btn-warning">
                                         <span class="glyphicon glyphicon-new-window"></span>
                                         Affecter
                                     </a>
@@ -190,8 +190,8 @@
                                         <span class="glyphicon glyphicon-edit"></span>
                                         <spring:message code="action.modifier" />
                                     </a> &nbsp;
-                                    <spring:url value="/stage/${jobSeeker.id}/affecter" var="stage_new"/>
-                                    <a href="${stage_new}" class="btn btn-sm btn-primary">
+                                    <spring:url value="/placement/${jobSeeker.id}/affecter" var="placement_new"/>
+                                    <a href="${placement_new}" class="btn btn-sm btn-primary">
                                         <span class="glyphicon glyphicon-new-window"></span>
                                         Affecter
                                     </a>

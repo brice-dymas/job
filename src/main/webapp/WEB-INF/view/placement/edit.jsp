@@ -18,7 +18,7 @@
                     <div class="col-md-12">
                         <h4>
                             <span class="fa fa-user fa-lg"></span>
-                            <spring:message code="stage.edit" />
+                            <spring:message code="placement.edit" />
                         </h4>
                         <hr/>
                     </div>
@@ -29,15 +29,15 @@
                         <hr/>
                     </div>
                 </div>
-                <spring:url   value="/stage/${stage.id}-${stage.jobSeeker.id}/update" var="stage_create"  htmlEscape="true" />
-                <form:form method="post" commandName="stage" action="${stage_create}">
+                <spring:url   value="/placement/${placement.id}-${placement.jobSeeker.id}/update" var="placement_create"  htmlEscape="true" />
+                <form:form method="post" commandName="placement" action="${placement_create}">
                     <div class="panel panel-default">
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <form:label for="dateDebut" path="">
-                                            <spring:message code="stage.dateDebut" />
+                                            <spring:message code="placement.dateDebut" />
                                         </form:label>
                                         <form:input id="dateDebut" path="dateDebut" cssClass="form-control input-sm"/>
                                         <form:errors path="dateDebut" cssClass="text-danger"/>
@@ -46,7 +46,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <form:label for="dateFin" path="">
-                                            <spring:message code="stage.dateFin" />
+                                            <spring:message code="placement.dateFin" />
                                         </form:label>
                                         <form:input id="dateFin" path="dateFin" cssClass="form-control input-sm"/>
                                         <form:errors path="dateFin" cssClass="text-danger"/>
@@ -57,7 +57,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <form:label for="nombreDheureParJour" path="">
-                                            <spring:message code="stage.nombreDheureParJour" />
+                                            <spring:message code="placement.nombreDheureParJour" />
                                         </form:label>
                                         <form:input id="nombreDheureParJour" path="nombreDheureParJour" cssClass="form-control input-sm"/>
                                         <form:errors path="nombreDheureParJour" cssClass="text-danger"/>
@@ -66,7 +66,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <form:label for="tauxHoraire" path="">
-                                            <spring:message code="stage.tauxHoraire" />
+                                            <spring:message code="placement.tauxHoraire" />
                                         </form:label>
                                         <form:input id="tauxHoraire" path="tauxHoraire" cssClass="form-control input-sm"/>
                                         <form:errors path="tauxHoraire" cssClass="text-danger"/>
@@ -77,7 +77,7 @@
                                 <div class="col-md-9">
                                     <div class="form-group">
                                         <form:label for="obs" path="">
-                                            <spring:message code="stage.observation" />
+                                            <spring:message code="placement.observation" />
                                         </form:label>
                                         <form:textarea id="obs" path="observation" cssClass="form-control input-sm"/>
                                         <form:errors path="observation" cssClass="text-danger"/>
@@ -87,7 +87,7 @@
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <form:label path="" id="statut">
-                                            <spring:message code="stage.statut" />
+                                            <spring:message code="placement.statut" />
                                         </form:label>
                                         <form:select path="statut" class="form-control input-sm">
                                             <form:option value="none" >---</form:option>
@@ -106,7 +106,7 @@
                             <div class="row">
                                 <fieldset>
                                     <legend>
-                                        <spring:message code="stage.jobSeeker" />
+                                        <spring:message code="placement.jobSeeker" />
                                     </legend>
 
                                 </fieldset>
@@ -141,11 +141,11 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td>${stage.jobSeeker.nom}</td>
-                                            <td>${stage.jobSeeker.prenom}</td>
-                                            <td>${stage.jobSeeker.cni}</td>
-                                            <td>${stage.jobSeeker.email}</td>
-                                            <td>${stage.jobSeeker.telephone}</td>
+                                            <td>${placement.jobSeeker.nom}</td>
+                                            <td>${placement.jobSeeker.prenom}</td>
+                                            <td>${placement.jobSeeker.cni}</td>
+                                            <td>${placement.jobSeeker.email}</td>
+                                            <td>${placement.jobSeeker.telephone}</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -154,12 +154,12 @@
                             <div class="row">
                                 <fieldset>
                                     <legend>
-                                        <spring:message code="stage.entreprise" />
+                                        <spring:message code="placement.entreprise" />
                                     </legend>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <form:label for="entreprise" path="">
-                                                <spring:message code="stage.entreprise" />
+                                                <spring:message code="placement.entreprise" />
                                             </form:label>
                                             <form:select path="entreprise.id" class="form-control input-sm">
                                                 <form:option value="">---</form:option>
@@ -183,11 +183,11 @@
                                         <span class="glyphicon glyphicon-save"></span>
                                         <spring:message code="action.enregistrer" />
                                     </button>
-                                    <spring:url value="/stage/" htmlEscape="true"
-                                                var="stage_home" />
-                                    <a href="${stage_home}" class="btn btn-sm btn-default">
+                                    <spring:url value="/placement/" htmlEscape="true"
+                                                var="placement_home" />
+                                    <a href="${placement_home}" class="btn btn-sm btn-default">
                                         <span class="glyphicon glyphicon-list"></span>
-                                        <spring:message code="stage.liste" />
+                                        <spring:message code="placement.liste" />
                                     </a>
                                 </div>
                             </div>

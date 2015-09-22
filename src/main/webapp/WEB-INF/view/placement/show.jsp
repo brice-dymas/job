@@ -17,7 +17,7 @@
             <div class="col-md-8 col-md-offset-2">
                 <h4>
                     <span class="fa fa-user fa-lg"></span>
-                    <spring:message code="stage.show" />
+                    <spring:message code="placement.show" />
                 </h4>
                 <hr/>
             </div>
@@ -26,22 +26,22 @@
             <table class="table table-condensed table-hover table-bordered">
                 <thead align="center" class="bg-primary">
                     <tr align="center">
-                        <th><spring:message code="stage.dateDebut" /></th>
-                        <th><spring:message code="stage.dateFin" /></th>
-                        <th><spring:message code="stage.statut" /></th>
-                        <th><spring:message code="stage.nombreDheureParJour" /></th>
-                        <th><spring:message code="stage.tauxHoraire" /></th>
-                        <th><spring:message code="stage.observation" /></th>
+                        <th><spring:message code="placement.dateDebut" /></th>
+                        <th><spring:message code="placement.dateFin" /></th>
+                        <th><spring:message code="placement.statut" /></th>
+                        <th><spring:message code="placement.nombreDheureParJour" /></th>
+                        <th><spring:message code="placement.tauxHoraire" /></th>
+                        <th><spring:message code="placement.observation" /></th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr align="center">
-                        <td><fmt:formatDate value="${stage.dateDebut}" type="date" pattern="dd-MM-yyyy" /></td>
-                        <td><fmt:formatDate value="${stage.dateFin}" type="date" pattern="dd-MM-yyyy" /></td>
-                        <td>${stage.statut}</td>
-                        <td>${stage.nombreDheureParJour}</td>
-                        <td>${stage.tauxHoraire}</td>
-                        <td>${stage.observation}</td>
+                        <td><fmt:formatDate value="${placement.dateDebut}" type="date" pattern="dd-MM-yyyy" /></td>
+                        <td><fmt:formatDate value="${placement.dateFin}" type="date" pattern="dd-MM-yyyy" /></td>
+                        <td>${placement.statut}</td>
+                        <td>${placement.nombreDheureParJour}</td>
+                        <td>${placement.tauxHoraire}</td>
+                        <td>${placement.observation}</td>
                     </tr>
                 </tbody>
             </table>
@@ -51,7 +51,7 @@
         <div class="row">
             <fieldset>
                 <legend>
-                    <spring:message code="stage.jobSeeker" />
+                    <spring:message code="placement.jobSeeker" />
                 </legend>
                 <table class="table table-condensed table-hover table-bordered">
                     <thead class="bg-primary">
@@ -84,11 +84,11 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td>${stage.jobSeeker.nom}</td>
-                            <td>${stage.jobSeeker.prenom}</td>
-                            <td>${stage.jobSeeker.cni}</td>
-                            <td>${stage.jobSeeker.email}</td>
-                            <td>${stage.jobSeeker.telephone}</td>
+                            <td>${placement.jobSeeker.nom}</td>
+                            <td>${placement.jobSeeker.prenom}</td>
+                            <td>${placement.jobSeeker.cni}</td>
+                            <td>${placement.jobSeeker.email}</td>
+                            <td>${placement.jobSeeker.telephone}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -97,7 +97,7 @@
         <div class="row">
             <fieldset>
                 <legend>
-                    <spring:message code="stage.entreprise" />
+                    <spring:message code="placement.entreprise" />
                 </legend>
                 <table class="table table-condensed table-hover table-bordered">
                     <thead class="bg-primary">
@@ -130,11 +130,11 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td>${stage.entreprise.nom}</td>
-                            <td>${stage.entreprise.adresse}</td>
-                            <td>${stage.entreprise.telephone}</td>
-                            <td>${stage.entreprise.contact}</td>
-                            <td>${stage.entreprise.boitePostale}</td>
+                            <td>${placement.entreprise.nom}</td>
+                            <td>${placement.entreprise.adresse}</td>
+                            <td>${placement.entreprise.telephone}</td>
+                            <td>${placement.entreprise.contact}</td>
+                            <td>${placement.entreprise.boitePostale}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -143,17 +143,17 @@
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 <hr/>
-                <spring:url value="/stage/delete" var="stage_delete"/>
-                <form:form method="post" commandName="stage" action="${stage_delete}">
+                <spring:url value="/placement/delete" var="placement_delete"/>
+                <form:form method="post" commandName="placement" action="${placement_delete}">
                     <form:hidden path="id"/>
                     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                    <spring:url value="/stage/" var="stage_home"/>
-                    <a href="${stage_home}" class="btn btn-sm  btn-primary">
+                    <spring:url value="/placement/" var="placement_home"/>
+                    <a href="${placement_home}" class="btn btn-sm  btn-primary">
                         <span class="glyphicon glyphicon-list"></span>
-                        <spring:message code="stage.liste" />
+                        <spring:message code="placement.liste" />
                     </a>
-                    <spring:url value="/stage/${stage.id}/edit" var="stage_edit"/>
-                    <a href="${stage_edit}" class="btn btn-sm  btn-warning">
+                    <spring:url value="/placement/${placement.id}/edit" var="placement_edit"/>
+                    <a href="${placement_edit}" class="btn btn-sm  btn-warning">
                         <span class="glyphicon glyphicon-edit"></span>
                         <spring:message code="action.modifier" />
                     </a>
