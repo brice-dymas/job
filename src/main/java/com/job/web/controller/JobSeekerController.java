@@ -101,8 +101,9 @@ public class JobSeekerController
                 ? webRequest.getParameter("querynumero")
                 : "";
         final String statut = webRequest.getParameter("querystatut") != null
-                ? webRequest.getParameter("querystatut")
-                : "Disponible";
+                && !webRequest.getParameter("querystatut").equals("")
+                        ? webRequest.getParameter("querystatut")
+                        : "";
         final Integer page = webRequest.getParameter("page") != null
                 ? Integer.valueOf(webRequest.getParameter("page"))
                 : 0;

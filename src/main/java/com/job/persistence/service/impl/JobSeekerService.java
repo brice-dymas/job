@@ -64,11 +64,11 @@ public class JobSeekerService
     {
         if (secteur == -1)
         {
-            return dao.searchJobSeeker("%" + nomJobSeeker + "%", "%" + prenomJobSeeker + "%", "%" + numeroJobSeeker + "%", statut, new PageRequest(page, size));
+            return dao.searchJobSeeker("%" + nomJobSeeker + "%", "%" + prenomJobSeeker + "%", "%" + numeroJobSeeker + "%", statut + "%", new PageRequest(page, size));
         }
         else
         {
-            return dao.searchJobSeeker("%" + nomJobSeeker + "%", "%" + prenomJobSeeker + "%", "%" + numeroJobSeeker + "%", secteur, statut, new PageRequest(page, size));
+            return dao.searchJobSeeker("%" + nomJobSeeker + "%", "%" + prenomJobSeeker + "%", "%" + numeroJobSeeker + "%", secteur, statut + "%", new PageRequest(page, size));
         }
     }
 
