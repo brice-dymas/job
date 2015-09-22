@@ -93,41 +93,13 @@ public class StageService extends AbstractService<Stage> implements IStageServic
         System.out.println("dans la couche service voici les param \n" + param);
         if (idEntreprise == -1)
         {
-            return stageDao.search("%" + nomChercheur + "%", "%" + statut + "%", new PageRequest(page, size));
+            return stageDao.search("%" + nomChercheur + "%", "%" + statut + "%", dateDebut, dateFin, new PageRequest(page, size));
         }
         else
         {
-            return stageDao.search(idEntreprise, "%" + nomChercheur + "%", "%" + statut + "%", new PageRequest(page, size));
+            return stageDao.search(idEntreprise, "%" + nomChercheur + "%", "%" + statut + "%", dateDebut, dateFin, new PageRequest(page, size));
         }
 
-//        if (statut.length() > 4)
-//        {
-//            System.out.println("recherche avec statut(" + statut + ")");
-//            if (idEntreprise == -1)
-//            {
-//                System.out.println("recherche avec statut(" + statut + ") sans entreprise");
-//                return stageDao.search("%" + nomChercheur + "%", "%" + prenomChercheur + "%", "%" + statut + "%", dateDebut, dateFin, new PageRequest(page, size));
-//            }
-//            else
-//            {
-//                System.out.println("recherche avec statut(" + statut + ") et entreprise " + idEntreprise);
-//                return stageDao.search(idEntreprise, "%" + nomChercheur + "%", "%" + prenomChercheur + "%", "%" + statut + "%", dateDebut, dateFin, new PageRequest(page, size));
-//            }
-//        }
-//        else
-//        {
-//            System.out.println("recherche sans statut");
-//            if (idEntreprise == -1)
-//            {
-//                System.out.println("recherche sans statut et sans entreprise");
-//                return stageDao.search("%" + nomChercheur + "%", "%" + prenomChercheur + "%", dateDebut, dateFin, new PageRequest(page, size));
-//            }
-//            else
-//            {
-//                System.out.println("recherche sans statut et avec entreprise " + idEntreprise);
-//                return stageDao.search(idEntreprise, "%" + nomChercheur + "%", "%" + prenomChercheur + "%", dateDebut, dateFin, new PageRequest(page, size));
-//            }
-//        }
     }
 
 }
