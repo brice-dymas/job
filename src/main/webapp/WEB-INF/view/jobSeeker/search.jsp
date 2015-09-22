@@ -31,7 +31,7 @@
                         <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="?queryprenom=${queryprenom}&querynom=${querynom}&querysecteur=${querysecteur}&querystatut=${querystatut}&querystatut=${querystatut}&querynumero=${querynumero}&size=2">2</a></li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="?queryprenom=${queryprenom}&querynom=${querynom}&querysecteur=${querysecteur}&querystatut=${querystatut}&querynumero=${querynumero}&size=2">2</a></li>
                         <li role="presentation"><a role="menuitem" tabindex="-1" href="?queryprenom=${queryprenom}&querynom=${querynom}&querysecteur=${querysecteur}&querystatut=${querystatut}&querynumero=${querynumero}&size=5">5</a></li>
                         <li role="presentation"><a role="menuitem" tabindex="-1" href="?queryprenom=${queryprenom}&querynom=${querynom}&querysecteur=${querysecteur}&querystatut=${querystatut}&querynumero=${querynumero}&size=10">10</a></li>
                         <li role="presentation"><a role="menuitem" tabindex="-1" href="?queryprenom=${queryprenom}&querynom=${querynom}&querysecteur=${querysecteur}&querystatut=${querystatut}&querynumero=${querynumero}&size=20">20</a></li>
@@ -243,8 +243,9 @@
                     </div>
                     <hr/>
                     <button class="btn btn-default btn-sm">
-                        <span class="glyphicon glyphicon-search"></span> <spring:message code="search"/></button>
-                        <spring:url value="/jobSeeker/" htmlEscape="true" var="jobSeeker_home" />
+                        <span class="glyphicon glyphicon-search"></span> <spring:message code="search"/>
+                    </button>
+                    <spring:url value="/jobSeeker/" htmlEscape="true" var="jobSeeker_home" />
                     <a href="${jobSeeker_home}" class="btn btn-default btn-sm">
                         <span class="glyphicon glyphicon-refresh"></span>
                         <spring:message code="search.delete" />

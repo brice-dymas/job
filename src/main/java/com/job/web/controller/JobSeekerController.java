@@ -13,7 +13,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.TreeMap;
 import javax.servlet.ServletContext;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,13 +39,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class JobSeekerController
 {
 
-    public TreeMap<String, String> getBreadcrumb()
-    {
-        final TreeMap<String, String> breadcrumb = new TreeMap<String, String>();
-        breadcrumb.put("breadcrumb.jobSeeker.index", "/job/jobSeeker/");
-        return breadcrumb;
-    }
-
     @Autowired
     IJobSeekerDao dao;
 
@@ -68,9 +60,6 @@ public class JobSeekerController
     {
         final JobSeeker jobSeeker = jobSeekerService.findOne(id);
         model.addAttribute("jobSeeker", jobSeeker);
-        final TreeMap<String, String> breadcrumb = getBreadcrumb();
-        breadcrumb.put("breadcrumb.jobSeeker.show", "");
-        model.addAttribute("breadcrumbs", breadcrumb);
         return "jobSeeker/show";
     }
 
@@ -146,9 +135,6 @@ public class JobSeekerController
         job.getSecteursDemploi().add(new Secteur());
         job.getContacts().add(new Contact());
         model.addAttribute("jobSeeker", job);
-        final TreeMap<String, String> breadcrumb = getBreadcrumb();
-        breadcrumb.put("breadcrumb.jobSeeker.new", "");
-        model.addAttribute("breadcrumbs", breadcrumb);
         return "jobSeeker/new";
     }
 
@@ -187,9 +173,6 @@ public class JobSeekerController
             final ModelMap model)
     {
         final JobSeeker jobSeeker = jobSeekerService.findOne(id);
-        final TreeMap<String, String> breadcrumb = getBreadcrumb();
-        breadcrumb.put("breadcrumb.jobSeeker.edit", "");
-        model.addAttribute("breadcrumbs", breadcrumb);
         model.addAttribute("jobSeeker", jobSeeker);
         return "jobSeeker/edit";
     }
@@ -224,13 +207,6 @@ public class JobSeekerController
 
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     public String deleteAction(final JobSeeker jobSeeker, final ModelMap model)
-    {
-        jobSeekerService.deleteById(jobSeeker.getId());
-        return "redirect:/jobSeeker/";
-    }
-
-    @RequestMapping(value = "/affecter", method = RequestMethod.POST)
-    public String affectAction(final JobSeeker jobSeeker, final ModelMap model)
     {
         jobSeekerService.deleteById(jobSeeker.getId());
         return "redirect:/jobSeeker/";

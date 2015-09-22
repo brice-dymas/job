@@ -17,10 +17,7 @@
             <div class="col-md-9">
 
                 <div>
-                    <h4>
-                        <span class="fa fa-user fa-lg"></span>
-                        <spring:message code="jobSeeker.liste" />
-                    </h4>
+                    <h3><spring:message code="stage.liste" /></h3>
                     <hr/>
                 </div>
 
@@ -31,13 +28,12 @@
                         <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="?queryprenom=${queryprenom}&querynom=${querynom}&querysecteur=${querysecteur}&querystatut=${querystatut}&querystatut=${querystatut}&querynumero=${querynumero}&size=2">2</a></li>
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="?queryprenom=${queryprenom}&querynom=${querynom}&querysecteur=${querysecteur}&querystatut=${querystatut}&querynumero=${querynumero}&size=5">5</a></li>
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="?queryprenom=${queryprenom}&querynom=${querynom}&querysecteur=${querysecteur}&querystatut=${querystatut}&querynumero=${querynumero}&size=10">10</a></li>
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="?queryprenom=${queryprenom}&querynom=${querynom}&querysecteur=${querysecteur}&querystatut=${querystatut}&querynumero=${querynumero}&size=20">20</a></li>
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="?queryprenom=${queryprenom}&querynom=${querynom}&querysecteur=${querysecteur}&querystatut=${querystatut}&querynumero=${querynumero}&size=30">30</a></li>
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="?queryprenom=${queryprenom}&querynom=${querynom}&querysecteur=${querysecteur}&querystatut=${querystatut}&querynumero=${querynumero}&size=40">40</a></li>
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="?queryprenom=${queryprenom}&querynom=${querynom}&querysecteur=${querysecteur}&querystatut=${querystatut}&querynumero=${querynumero}&size=50">50</a></li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="?&queryentreprise=${queryentreprise}&querynom=${querynom}&querystatut=${querystatut}&querydatedebut=${querydatedebut}&querydatefin=${querydatefin}&size=5">5</a></li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="?&queryentreprise=${queryentreprise}&querynom=${querynom}&querystatut=${querystatut}&querydatedebut=${querydatedebut}&querydatefin=${querydatefin}&size=10">10</a></li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="?&queryentreprise=${queryentreprise}&querynom=${querynom}&querystatut=${querystatut}&querydatedebut=${querydatedebut}&querydatefin=${querydatefin}&size=20">20</a></li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="?&queryentreprise=${queryentreprise}&querynom=${querynom}&querystatut=${querystatut}&querydatedebut=${querydatedebut}&querydatefin=${querydatefin}&size=30">30</a></li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="?&queryentreprise=${queryentreprise}&querynom=${querynom}&querystatut=${querystatut}&querydatedebut=${querydatedebut}&querydatefin=${querydatefin}&size=40">40</a></li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="?&queryentreprise=${queryentreprise}&querynom=${querynom}&querystatut=${querystatut}&querydatedebut=${querydatedebut}&querydatefin=${querydatefin}&size=50">50</a></li>
                     </ul>
                 </div>
                 <table class="table table-condensed table-hover table-bordered">
@@ -45,23 +41,17 @@
                         <tr>
                             <th>
                                 <span class="btn">
-                                    <spring:message code="jobSeeker.numero" />
+                                    <spring:message code="stage.jobSeeker" />
                                 </span>
                             </th>
                             <th>
                                 <span class="btn">
-                                    <spring:message code="jobSeeker.nom" />
-                                </span>
-                            </th>
-
-                            <th>
-                                <span class="btn">
-                                    <spring:message code="jobSeeker.prenom" />
+                                    <spring:message code="stage.entreprise" />
                                 </span>
                             </th>
                             <th>
                                 <span class="btn">
-                                    <spring:message code="jobSeeker.telephone" />
+                                    <spring:message code="stage.statut" />
                                 </span>
                             </th>
                             <th>
@@ -72,7 +62,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <c:if test="${jobSeekers.size() eq 0}">
+                        <c:if test="${stages.size() eq 0}">
                             <tr>
                                 <td class="text-center text-warning" colspan="4">
                                     <spring:message code="empty.data" />
@@ -85,18 +75,6 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <hr/>
-                            <spring:url value="/jobSeeker/new" htmlEscape="true" var="jobSeeker_new" />
-                            <a href="${jobSeeker_new}" class="btn btn-primary btn-sm">
-                                <span class="glyphicon glyphicon-new-window"></span>
-                                <spring:message code="action.nouveau" />
-                            </a>
-                            &nbsp;&nbsp;
-                            <spring:url value="/jobSeeker/${jobSeeker.id}/show" htmlEscape="true" var="jobSeeker_show" />
-                            <a href="${jobSeeker_show}" class="btn btn-primary btn-sm">
-                                <span class="glyphicon glyphicon-open"></span>
-                                <spring:message code="action.detail" />
-                            </a>
-
                             <div class="pull-right">
                                 <ul class="pager">
 
@@ -118,30 +96,27 @@
                         </div>
                     </div>
                 </c:if>
-                <c:if test="${jobSeekers.size() ne 0}">
-                    <c:forEach items="${jobSeekers}" var="jobSeeker">
+                <c:if test="${stages.size() ne 0}">
+                    <c:forEach items="${stages}" var="stage">
                         <tr>
                             <td>
-                                ${jobSeeker.numero}
+                                ${stage.jobSeeker.nom}
                             </td>
                             <td>
-                                ${jobSeeker.nom}
+                                ${stage.entreprise.nom}
                             </td>
                             <td>
-                                ${jobSeeker.prenom}
-                            </td>
-                            <td>
-                                ${jobSeeker.telephone}
+                                ${stage.statut}
                             </td>
                             <td class="text-center">
-                                <spring:url value="/jobSeeker/${jobSeeker.id}/edit" htmlEscape="true" var="jobSeeker_edit" />
-                                <a href="${jobSeeker_edit}" class="btn btn-primary btn-sm">
+                                <spring:url value="/stage/${stage.id}/edit" htmlEscape="true" var="stage_edit" />
+                                <a href="${stage_edit}" class="btn btn-primary btn-sm">
                                     <span class="glyphicon glyphicon-edit"></span>
                                     <spring:message code="action.modifier" />
                                 </a>
                                 &nbsp;&nbsp;
-                                <spring:url value="/jobSeeker/${jobSeeker.id}/show" htmlEscape="true" var="jobSeeker_show" />
-                                <a href="${jobSeeker_show}" class="btn btn-primary btn-sm">
+                                <spring:url value="/stage/${stage.id}/show" htmlEscape="true" var="stage_show" />
+                                <a href="${stage_show}" class="btn btn-primary btn-sm">
                                     <span class="glyphicon glyphicon-open"></span>
                                     <spring:message code="action.detail" />
                                 </a>
@@ -154,27 +129,20 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <hr/>
-                            <spring:url value="/jobSeeker/new" htmlEscape="true" var="jobSeeker_new" />
-                            <a href="${jobSeeker_new}" class="btn btn-primary btn-sm">
-                                <span class="glyphicon glyphicon-new-window"></span>
-                                <spring:message code="action.nouveau" />
-                            </a>
-                            &nbsp;&nbsp;
-
                             <div class="pull-right">
                                 <ul class="pager">
 
-                                    <li><a href="?queryprenom=${queryprenom}&querynom=${querynom}&querysecteur=${querysecteur}&querystatut=${querystatut}&querynumero=${querynumero}&page=0&size=${size}" <c:if test="${page eq 0}">class ="btn btn-sm disabled"</c:if>>
+                                    <li><a href="?&queryentreprise=${queryentreprise}&querynom=${querynom}&querystatut=${querystatut}&querydatedebut=${querydatedebut}&querydatefin=${querydatefin}&page=0&size=${size}" <c:if test="${page eq 0}">class ="btn btn-sm disabled"</c:if>>
                                                 <span class="glyphicon glyphicon-fast-backward"></span>
                                             </a></li>
-                                        <li><a href="?queryprenom=${queryprenom}&querynom=${querynom}&querysecteur=${querysecteur}&querystatut=${querystatut}&querynumero=${querynumero}&page=${page-1}&size=${size}" <c:if test="${page eq 0}">class ="btn btn-sm disabled"</c:if>>
+                                        <li><a href="?&queryentreprise=${queryentreprise}&querynom=${querynom}&querystatut=${querystatut}&querydatedebut=${querydatedebut}&querydatefin=${querydatefin}&page=${page-1}&size=${size}"  <c:if test="${page eq 0}">class ="btn btn-sm disabled"</c:if>>
                                                 <span class="glyphicon glyphicon-backward"></span>
                                             </a></li>
                                         <li><input type="text" class="pager_detail text-center" readonly value="${page+1}/${Totalpage}"/></li>
-                                    <li><a href="?queryprenom=${queryprenom}&querynom=${querynom}&querysecteur=${querysecteur}&querystatut=${querystatut}&querynumero=${querynumero}&page=${page+1}&size=${size}" <c:if test="${page+1 eq Totalpage}">class ="btn btn-sm disabled"</c:if>>
+                                    <li><a href="?&queryentreprise=${queryentreprise}&querynom=${querynom}&querystatut=${querystatut}&querydatedebut=${querydatedebut}&querydatefin=${querydatefin}&page=${page+1}&size=${size}"  <c:if test="${page+1 eq Totalpage}">class ="btn btn-sm disabled"</c:if>>
                                                 <span class="glyphicon glyphicon-forward"></span>
                                             </a></li>
-                                        <li><a href="?queryprenom=${queryprenom}&querynom=${querynom}&querysecteur=${querysecteur}&querystatut=${querystatut}&querynumero=${querynumero}&page=${Totalpage-1}&size=${size}" <c:if test="${page+1 eq Totalpage}">class ="btn btn-sm disabled"</c:if>>
+                                        <li><a href="?&queryentreprise=${queryentreprise}&querynom=${querynom}&querystatut=${querystatut}&querydatedebut=${querydatedebut}&querydatefin=${querydatefin}&page=${Totalpage-1}&size=${size}"  <c:if test="${page+1 eq Totalpage}">class ="btn btn-sm disabled"</c:if>>
                                                 <span class="glyphicon glyphicon-fast-forward"></span>
                                             </a></li>
                                     </ul>
@@ -185,73 +153,89 @@
             </div>
             <div class="col-md-3">
                 <div>
-                    <h4>
-                        <span class="fa fa-search fa-lg"></span>
+                    <h3>
                         <spring:message code="action.rechercher" />
-                    </h4>
+                    </h3>
                     <hr/>
                 </div>
-                <spring:url value="/jobSeeker/search" var="jobSeeker_home"
+                <spring:url value="/stage/search" var="stage_search"
                             htmlEscape="true" />
+                <form:form method="get" commandName="appelOffre" action="${stage_search}">
 
-                <form:form method="get" commandName="jobSeeker" action="${jobSeeker_home}">
-                    <div class="form-group">
-                        <label>
-                            <spring:message code="jobSeeker.secteur" />
-                        </label>
-                        <select name="querysecteur" class="form-control input-sm">
-                            <option value="">---</option>
-                            <c:forEach var="secteur" items="${secteurs}">
-
-                                <option value="${secteur.key}"
-                                        <c:if test="${secteur.key eq querysecteur}">
-                                            selected
-                                        </c:if>
-                                        >
-                                    ${secteur.value}
-                                </option>
-                            </c:forEach>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>
-                            <spring:message code="jobSeeker.statut" />
-                        </label>
-                        <select name="querystatut" class="form-control input-sm">
-                            <option value="">---</option>
-                            <c:forEach var="statutChercheur" items="${LesStatuts}">
-                                <option value="${statutChercheur.value}">
-                                    ${statutChercheur.value}
-                                </option>
-                            </c:forEach>
-                        </select>
-                    </div>
                     <div class="form-group">
                         <label>
                             <spring:message code="jobSeeker.nom" />
                         </label>
                         <input type="text" value="${querynom}" class="form-control input-sm" name="querynom"/>
+                    </div>
+                    <div class="form-group">
                         <label>
-                            <spring:message code="jobSeeker.prenom" />
+                            <spring:message code="entreprise.nom" />
                         </label>
-                        <input type="text" value="${queryprenom}" class="form-control input-sm" name="queryprenom"/>
+
+                        <select name="queryentreprise" class="form-control input-sm">
+                            <option value="">---</option>
+                            <c:forEach var="entreprise" items="${entreprises}">
+                                <option value="${entreprise.key}"
+                                        <c:if test="${entreprise.key eq queryentreprise}">
+                                            selected
+                                        </c:if>
+                                        >
+                                    ${entreprise.value}
+                                </option>
+                            </c:forEach>
+                        </select>
+                    </div>
+                    <div class="form-group">
                         <label>
-                            <spring:message code="jobSeeker.numero" />
+                            <spring:message code="stage.statut" />
                         </label>
-                        <input type="text" value="${querynumero}" class="form-control input-sm" name="querynumero"/>
-                        <input type="hidden" value="${size}" name="size"/>
+                        <select name="querystatut" class="form-control input-sm">
+                            <option value="" >---</option>
+                            <c:forEach var="leStatut" items="${mesStatuts}">
+                                <option value="${leStatut.value}" >
+                                    ${leStatut.value}
+                                </option>
+                            </c:forEach>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            <spring:message code="stage.dateDebut" />
+                        </label>
+                        <input id="dateDebut" type="text" value="${querydatedebut}" class="form-control input-sm" name="querydatedebut"/>
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            <spring:message code="stage.dateFin" />
+                        </label>
+                        <input id="dateFin" type="text" value="${querydatefin}" class="form-control input-sm" name="querydatefin"/>
                     </div>
                     <hr/>
                     <button class="btn btn-default btn-sm">
-                        <span class="glyphicon glyphicon-search"></span> <spring:message code="search"/></button>
-                        <spring:url value="/jobSeeker/" htmlEscape="true" var="jobSeeker_home" />
-                    <a href="${jobSeeker_home}" class="btn btn-default btn-sm">
+                        <span class="glyphicon glyphicon-search">
+                            <spring:message code="action.rechercher"/>
+                        </span>
+                    </button>
+                    <spring:url value="/stage/" htmlEscape="true" var="stage_home" />
+                    <a href="${stage_home}" class="btn btn-default btn-sm">
                         <span class="glyphicon glyphicon-refresh"></span>
                         <spring:message code="search.delete" />
                     </a>
-
                 </form:form>
             </div>
         </div>
+
+        <script src="<c:url value="/resources/js/jquery-ui.js" />"></script>
+        <script type="text/javascript">
+            $(function () {
+                $("#dateDebut, #dateFin").datepicker({
+                    changeMonth: true,
+                    changeYear: true,
+                    dateFormat: "yy/mm/dd",
+                    showButtonPanel: false
+                }).datepicker("option", "showAnim", "clip");
+            });
+        </script>
     </tiles:putAttribute>
 </tiles:insertDefinition>

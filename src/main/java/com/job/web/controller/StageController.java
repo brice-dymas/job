@@ -5,6 +5,7 @@
  */
 package com.job.web.controller;
 
+import com.job.persistence.dao.IStageDao;
 import com.job.persistence.model.Entreprise;
 import com.job.persistence.model.JobSeeker;
 import com.job.persistence.model.Stage;
@@ -22,6 +23,7 @@ import java.util.logging.Logger;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -40,6 +42,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @RequestMapping("/stage")
 public class StageController
 {
+
+    @Autowired
+    IStageDao dao;
 
     @Autowired
     IStageService stageService;
@@ -69,9 +74,26 @@ public class StageController
     @RequestMapping(method = RequestMethod.GET)
     public String indexAction(final ModelMap model, final WebRequest webRequest)
     {
+        final Integer page = webRequest.getParameter("page") != null
+                ? Integer.valueOf(webRequest.getParameter("page")) : 0;
+        final Integer size = webRequest.getParameter("size") != null
+                ? Integer.valueOf(webRequest.getParameter("size")) : 20;
+
+        Stage stage = new Stage();
+        final Page<Stage> resultPage = dao.findAll(new PageRequest(page, size));
+        model.addAttribute("page", page);
+        model.addAttribute("Totalpage", resultPage.getTotalPages());
+        model.addAttribute("size", size);
+        model.addAttribute("stage", stage);
+        model.addAttribute("stages", resultPage.getContent());
+        return "stage/index";
+    }
+
+    @RequestMapping(value = "/search", method = RequestMethod.GET)
+    public String searchAction(final ModelMap model, final WebRequest webRequest)
+    {
         Date dateDebut, dateFin;
         SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy/MM/dd");
-//        SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy");
         final Long idEntreprise = (webRequest.getParameter("queryentreprise") != null
                 && !webRequest.getParameter("queryentreprise").equals(""))
                         ? Long.valueOf(webRequest.getParameter("queryentreprise"))
@@ -80,25 +102,25 @@ public class StageController
                 ? webRequest.getParameter("querynom") : "";
         final String prenom = nom;
         final String statut = webRequest.getParameter("querystatut") != null
-                ? webRequest.getParameter("querystatut") : "";
+                && !webRequest.getParameter("querystatut").equals("")
+                        ? webRequest.getParameter("querystatut") : "";
 
         // POur la date
-        final String dateDebuString = (webRequest.getParameter("querydatedebut") != null)
+        final String dateDebuString = webRequest.getParameter("querydatedebut") != null
                 ? webRequest.getParameter("querydatedebut")
-                : "2010/01/01";
+                : "";
         final String dateFinString = webRequest.getParameter("querydatefin") != null
                 ? webRequest.getParameter("querydatefin")
-                : "2020/12/31";
+                : "";
         final Integer page = webRequest.getParameter("page") != null
                 ? Integer.valueOf(webRequest.getParameter("page")) : 0;
         final Integer size = webRequest.getParameter("size") != null
-                ? Integer.valueOf(webRequest.getParameter("size")) : 5;
+                ? Integer.valueOf(webRequest.getParameter("size")) : 20;
 
         dateDebut = parsedDateFrom(dateDebuString, "2010/01/01", dateFormatter);
         dateFin = parsedDateFrom(dateFinString, "2020/12/31", dateFormatter);
 
         final Page<Stage> resultPage = stageService.search(idEntreprise, nom, prenom, statut, dateDebut, dateFin, page, size);
-//        final Page<Stage> resultPage = stageService.findPaginated(page, size);
         System.out.println("result list has " + resultPage.getContent().size() + " element");
         model.addAttribute("querydatedebut", dateDebuString);
         model.addAttribute("querydatefin", dateFinString);
@@ -109,15 +131,7 @@ public class StageController
         model.addAttribute("Totalpage", resultPage.getTotalPages());
         model.addAttribute("size", size);
         model.addAttribute("stages", resultPage.getContent());
-        return "stage/index";
-    }
-
-    @RequestMapping(value = "/new", method = RequestMethod.GET)
-    public String newAction(Stage stage, final ModelMap model)
-    {
-//        Stage stage = new Stage();
-        model.addAttribute("stage", stage);
-        return "stage/new";
+        return "stage/search";
     }
 
     @RequestMapping(value = "/{id}/affecter", method = RequestMethod.GET)
@@ -126,8 +140,6 @@ public class StageController
         final JobSeeker jobSeeker = jobSeekerService.findOne(id);
         Stage stage = new Stage();
         stage.setJobSeeker(jobSeeker);
-//        stage.setNombreDheureParJour(0);
-//        stage.setTauxHoraire(0);
         model.addAttribute("stage", stage);
         model.addAttribute("jobSeeker", jobSeeker);
         return "stage/affect";
@@ -138,21 +150,15 @@ public class StageController
             final BindingResult result, final ModelMap model,
             final RedirectAttributes redirectAttributes)
     {
-        System.out.println("dans le controller /stage/id/create");
-        System.out.println("affichage du demandeur concerné");
-        System.out.println("id demandeur=" + id);
         stage.setJobSeeker(jobSeekerService.findOne(id));
         if (result.hasErrors() || stage.getEntreprise().getId() == null)
         {
-            System.out.println("nul ou erreur lors de la création du stage");
             model.addAttribute("error", "error");
             model.addAttribute("stage", stage);
             return "stage/affect";
         }
         else
         {
-            System.out.println("aucune erreur.! \n lancement procedure d'enregistrement ... ");
-            System.out.println(stage.getDateDebut() + "-" + stage.getDateFin() + "-" + stage.getEntreprise().getId() + "-" + stage.getObservation() + "-" + stage.getStatut() + stage.getJobSeeker().getNom());
             redirectAttributes.addFlashAttribute("info", "alert.success.new");
             stage.setJobSeeker(jobSeekerService.findOne(id));
             stageService.create(stage);

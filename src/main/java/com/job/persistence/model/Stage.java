@@ -38,12 +38,10 @@ public class Stage implements Serializable
 
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "dd/MM/yyyy")
-
     private Date dateDebut;
 
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "dd/MM/yyyy")
-
     private Date dateFin;
 
     @NotBlank(message = "{blank.message}")
