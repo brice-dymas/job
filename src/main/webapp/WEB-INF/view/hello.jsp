@@ -64,20 +64,20 @@
                 <spring:url value="/user/delete" var="user_delete"/>
                 <form:form method="post" commandName="user" action="${user_delete}">
 
-                    <spring:url value="/user/" var="user_home"/>
-                    <a href="${user_home}" class="btn btn-primary  btn-primary">
-                        <span class="glyphicon glyphicon-list"></span>
-                        <spring:message code="user.liste" />
+                    <form:hidden path="id"/>
+                    <spring:url value="/user/${user.id}/editSimpleUser" var="user_edit"/>
+                    <a href="${user_edit}" class="btn btn-default  btn-warning">
+                        <span class="glyphicon glyphicon-edit"></span>
+                        <spring:message code="action.modifier" />
                     </a>
                     <sec:authorize access="hasRole('ROLE_ADMIN')" >
-                        <form:hidden path="id"/>
-                        <spring:url value="/user/${user.id}/edit" var="user_edit"/>
-                        <a href="${user_edit}" class="btn btn-default  btn-warning">
-                            <span class="glyphicon glyphicon-edit"></span>
-                            <spring:message code="action.modifier" />
-                        </a>
                         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 
+                        <spring:url value="/user/" var="user_home"/>
+                        <a href="${user_home}" class="btn btn-primary  btn-primary">
+                            <span class="glyphicon glyphicon-list"></span>
+                            <spring:message code="user.liste" />
+                        </a>
                         <c:if test="${not user.user.enabled}" >
                             <button type="submit" class="btn btn-default  btn-success">
                                 <span class="glyphicon glyphicon-thumbs-up"></span>

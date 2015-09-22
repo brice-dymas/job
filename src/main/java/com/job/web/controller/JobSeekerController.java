@@ -86,8 +86,6 @@ public class JobSeekerController
     @RequestMapping(value = "/search", method = RequestMethod.GET)
     public String searchAction(final ModelMap model, final WebRequest webRequest)
     {
-        System.out.println("dans search.jsp");
-
         final long secteur = webRequest.getParameter("querysecteur") != null && !webRequest.getParameter("querysecteur").equals("")
                 ? Long.valueOf(webRequest.getParameter("querysecteur"))
                 : -1;
@@ -111,11 +109,7 @@ public class JobSeekerController
                 ? Integer.valueOf(webRequest.getParameter("size"))
                 : 20;
 
-        System.out.println("Les parametres de recherche sont nom=" + nom + " secteur=" + secteur + " statut=" + statut + " numéro=" + numero + " size=" + size);
-        //Page<JobSeeker> resultPage = dao.findAll(new PageRequest(page, size));
         Page<JobSeeker> resultPage = jobSeekerService.search(nom, prenom, numero, secteur, statut, page, size);
-        System.out.println("taille resultPage is empty ? = " + resultPage.getContent().isEmpty());
-
         model.addAttribute("querynom", nom);
         model.addAttribute("queryprenom", prenom);
         model.addAttribute("querynumero", numero);

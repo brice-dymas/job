@@ -58,15 +58,12 @@ public class UserController
         final Integer page = webRequest.getParameter("page") != null ? Integer.valueOf(webRequest.getParameter("page")) : 0;
         final Integer size = webRequest.getParameter("size") != null ? Integer.valueOf(webRequest.getParameter("size")) : 55;
 
-        System.out.println("querynom = " + nom);
-
         final User user = new User();
         user.setNom(nom);
         final Role role = new Role();
         role.setUser(user);
 
         final Page<Role> resultPage = roleService.retrieveUsers(nom, page, size);
-        System.out.println("taille users =" + resultPage.getContent().size());
         model.addAttribute("page", page);
         model.addAttribute("user", role);
         model.addAttribute("Totalpage", resultPage.getTotalPages());
@@ -96,19 +93,17 @@ public class UserController
             final BindingResult result, final ModelMap model,
             final RedirectAttributes redirectAttributes)
     {
-        System.out.println("nous somme dans le USER_controlleur  ");
         if (result.hasErrors())
         {
-            System.out.println("il ya ereur");
             model.addAttribute("error", "error");
             model.addAttribute("user", role);
             return "user/new";
         }
-        if (!role.getUser().getPassword().equals(role.getUser().getConfirmPassword()))
+        if (role.getUser().getPassword().length() < 3 | !role.getUser().getPassword().equals(role.getUser().getConfirmPassword()))
         {
             System.out.println("mots de passe not identiques: password=" + role.getUser().getPassword() + " et confirm=" + role.getUser().getConfirmPassword());
             model.addAttribute("user", role);
-            model.addAttribute("password.error", "password.error");
+            model.addAttribute("passwordError", "passwordError");
             return "user/new";
         }
         else
@@ -118,7 +113,6 @@ public class UserController
             {
                 redirectAttributes.addFlashAttribute("info", "alert.success.new");
                 role.getUser().setEnabled(true);
-                System.out.println("depuis controller: role=" + role.getRole());
                 roleService.createRole(role);
                 return "redirect:/user/" + role.getId() + "/show";
             }
@@ -148,8 +142,6 @@ public class UserController
         {
             roleToDelete.getUser().setEnabled(true);
         }
-
-        System.out.println("deleteAction of a user =" + roleToDelete.getId() + " -Role=" + roleToDelete.getRole() + " username=" + roleToDelete.getUser().getUsername() + " enabled=" + roleToDelete.getUser().isEnabled());
         roleService.updateUser(roleToDelete);
         return "redirect:/user/";
     }
@@ -201,11 +193,21 @@ public class UserController
             final Role role, final BindingResult result,
             final RedirectAttributes redirectAttributes)
     {
-        redirectAttributes.addFlashAttribute("info", "alert.success.new");
-        System.out.println("in controller user role= " + role.getRole());
-        final Role roleUpdated = roleService.updateUser(role);
-        System.out.println("là c sur tout va bien et le role nouveau c " + roleUpdated.getRole());
-        return "redirect:/welcome";
+        if (role.getUser().getPassword().length() < 3 | !role.getUser().getPassword().equals(role.getUser().getConfirmPassword()))
+        {
+            System.out.println("mots de passe not identiques: password=" + role.getUser().getPassword() + " et confirm=" + role.getUser().getConfirmPassword());
+            model.addAttribute("passwordError", "passwordError");
+            model.addAttribute("user", role);
+            return "user/edit";
+        }
+        else
+        {
+            redirectAttributes.addFlashAttribute("info", "alert.success.new");
+            System.out.println("in controller user role= " + role.getRole());
+            final Role roleUpdated = roleService.updateUser(role);
+            System.out.println("là c sur tout va bien et le role nouveau c " + roleUpdated.getRole());
+            return "redirect:/welcome";
+        }
 
     }
 
@@ -223,10 +225,10 @@ public class UserController
             model.addAttribute("user", role);
             return "user/edit";
         }
-        if (!role.getUser().getPassword().equals(role.getUser().getConfirmPassword()))
+        if (role.getUser().getPassword().length() < 3 | !role.getUser().getPassword().equals(role.getUser().getConfirmPassword()))
         {
             System.out.println("mots de passe not identiques: password=" + role.getUser().getPassword() + " et confirm=" + role.getUser().getConfirmPassword());
-            model.addAttribute("password.error", "password.error");
+            model.addAttribute("passwordError", "passwordError");
             model.addAttribute("user", role);
             return "user/edit";
         }

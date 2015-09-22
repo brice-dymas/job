@@ -3,7 +3,6 @@ package com.job.web.controller;
 import com.job.persistence.model.Secteur;
 import com.job.persistence.service.ISecteurService;
 import java.util.List;
-import java.util.TreeMap;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -26,13 +25,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class SecteurController
 {
 
-    public TreeMap<String, String> getBreadcrumb()
-    {
-        final TreeMap<String, String> breadcrumb = new TreeMap<>();
-        breadcrumb.put("breadcrumb.secteur.index", "/job/secteur/");
-        return breadcrumb;
-    }
-
     @Autowired
     private ISecteurService secteurService;
 
@@ -41,9 +33,6 @@ public class SecteurController
     {
         final Secteur secteur = secteurService.findOne(id);
         model.addAttribute("secteur", secteur);
-        final TreeMap<String, String> breadcrumb = getBreadcrumb();
-        breadcrumb.put("breadcrumb.secteur.show", "");
-        model.addAttribute("breadcrumbs", breadcrumb);
         return "secteur/show";
     }
 
@@ -63,10 +52,6 @@ public class SecteurController
 
         final List<Secteur> secteurs = secteurService.findAll();
         Page<Secteur> resultPage = secteurService.findByName("%" + libelle + "%", new PageRequest(page, size));
-        final TreeMap<String, String> breadcrumb = getBreadcrumb();
-
-        breadcrumb.put("breadcrumb.secteur.index", "");
-        model.addAttribute("breadcrumbs", breadcrumb);
 
         model.addAttribute("query", libelle);
         model.addAttribute("page", page);
@@ -81,9 +66,6 @@ public class SecteurController
     public String newAction(final ModelMap model)
     {
         model.addAttribute("secteur", new Secteur());
-        final TreeMap<String, String> breadcrumb = getBreadcrumb();
-        breadcrumb.put("breadcrumb.secteur.new", "");
-        model.addAttribute("breadcrumbs", breadcrumb);
         return "secteur/new";
     }
 
@@ -111,9 +93,6 @@ public class SecteurController
     public String editAction(@PathVariable("id") final Long id, final ModelMap model)
     {
         final Secteur secteur = secteurService.findOne(id);
-        final TreeMap<String, String> breadcrumb = getBreadcrumb();
-        breadcrumb.put("breadcrumb.secteur.edit", "");
-        model.addAttribute("breadcrumbs", breadcrumb);
         model.addAttribute("secteur", secteur);
         return "secteur/edit";
     }

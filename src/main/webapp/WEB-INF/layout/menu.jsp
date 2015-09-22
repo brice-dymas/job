@@ -41,24 +41,26 @@
                         <spring:message code="jobSeeker.liste" />
                     </a>
                 </li>
+                <sec:authorize access="hasRole('ROLE_ADMIN')">
+                    <li
+                        <c:if test="${fn:containsIgnoreCase(url, 'user')}">
+                            class="active"
+                        </c:if>
+                        >
+                        <a href="<spring:url value="/user/" />">
+                            <span class="fa fa-user-plus"></span>
+                            <spring:message code="user.title" />
+                        </a>
+                    </li>
+                </sec:authorize>
 
-                <li
-                    <c:if test="${fn:containsIgnoreCase(url, 'user')}">
-                        class="active"
-                    </c:if>
-                    >
-                    <a href="<spring:url value="/user/" />">
-                        <span class="fa fa-android"></span>
-                        <spring:message code="user.title" />
-                    </a>
-                </li>
                 <li
                     <c:if test="${fn:containsIgnoreCase(url, 'entreprise')}">
                         class="active"
                     </c:if>
                     >
                     <a href="<spring:url value="/entreprise/" />">
-                        <span class="fa fa-server"></span>
+                        <span class="fa fa-building-o"></span>
                         <spring:message code="entreprise.liste" />
                     </a>
                 </li>
@@ -68,7 +70,7 @@
                     </c:if>
                     >
                     <a href="<spring:url value="/stage/" />">
-                        <span class="fa fa-wrench"></span>
+                        <span class="fa fa-briefcase"></span>
                         <spring:message code="stage.title" />
                     </a>
                 </li>

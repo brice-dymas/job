@@ -56,12 +56,8 @@ public class EntrepriseController
                 ? Integer.valueOf(webRequest.getParameter("size"))
                 : 20;
 
-//        final List<Entreprise> entreprises = entrepriseService.findAll();
-        System.out.println("param: nom=" + nom + " adresse=" + adresse);
         Page<Entreprise> resultPage = entrepriseService.search("%" + nom + "%", "%" + adresse + "%", page, size);
-        System.out.println("total element=" + resultPage.getContent().size());
         Entreprise entreprise = new Entreprise();
-
         model.addAttribute("entreprise", entreprise);
         model.addAttribute("page", page);
         model.addAttribute("Totalpage", resultPage.getTotalPages());

@@ -121,7 +121,6 @@ public class StageController
         dateFin = parsedDateFrom(dateFinString, "2020/12/31", dateFormatter);
 
         final Page<Stage> resultPage = stageService.search(idEntreprise, nom, prenom, statut, dateDebut, dateFin, page, size);
-        System.out.println("result list has " + resultPage.getContent().size() + " element");
         model.addAttribute("querydatedebut", dateDebuString);
         model.addAttribute("querydatefin", dateFinString);
         model.addAttribute("querynom", nom);
@@ -187,7 +186,6 @@ public class StageController
             @Valid final Stage stage, final BindingResult result,
             final RedirectAttributes redirectAttributes)
     {
-        System.out.println("entered update method of stage");
         final JobSeeker jobSeeker = jobSeekerService.findOne(js);
         stage.setJobSeeker(jobSeeker);
         if (result.hasErrors() || stage.getEntreprise().getId() == null)
@@ -199,7 +197,6 @@ public class StageController
         }
         else
         {
-            System.out.println("idJobSeeker=" + stage.getJobSeeker().getId());
             redirectAttributes.addFlashAttribute("info", "alert.success.new");
             stageService.update(stage);
             return "redirect:/stage/" + stage.getId() + "/show";

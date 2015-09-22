@@ -22,7 +22,7 @@ public class HomeController
     @RequestMapping(value = "/index.html", method = RequestMethod.GET)
     public String homeAction(final ModelMap model)
     {
-        return "secteur/";
+        return "jobSeeker/";
     }
 
     @Autowired
@@ -31,7 +31,6 @@ public class HomeController
     @RequestMapping(value = "/welcome**", method = RequestMethod.GET)
     public ModelAndView welcomePage()
     {
-
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String name = auth.getName(); //get logged in username
         final Role user = roleService.retrieveAUser(name);
@@ -44,7 +43,6 @@ public class HomeController
 
     }
 
-//Spring Security see this :
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public ModelAndView login(
             @RequestParam(value = "error", required = false) String error,

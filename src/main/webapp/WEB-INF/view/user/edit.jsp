@@ -41,7 +41,6 @@
                                 <fieldset class="form-group divider">
                                     <legend class=" text-center btn-primary">
                                         <spring:message code="user.infos" />
-
                                     </legend>
 
                                     <div class="row">

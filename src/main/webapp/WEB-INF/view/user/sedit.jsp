@@ -26,7 +26,6 @@
                 <h4>
                     <form:errors path="*"/>
                 </h4>
-                <hr/>
             </div>
         </div>
 
@@ -37,7 +36,6 @@
                 <form:form method="post" commandName="user" action="${user_update}?${_csrf.parameterName}=${_csrf.token}">
                     <div class="panel panel-default">
                         <div class="panel-body">
-                            <hr/>
                             <fieldset class="form-group divider">
                                 <legend class=" text-center btn-primary">
                                     <b><spring:message code="security.infos" /></b>
