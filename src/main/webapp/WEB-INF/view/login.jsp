@@ -81,13 +81,6 @@
                                 </b>
                             </button>
                         </div>
-                        <div class="form-group">
-                            <a href="<c:url value='/'/>" class="btn btn-primary btn-block text-center">
-                                <b>
-                                    Annuler
-                                </b>
-                            </a>
-                        </div>
                         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
                     </footer>
                 </form>
