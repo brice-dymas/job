@@ -21,7 +21,8 @@ public interface IPlacementService extends IOperations<Placement>
             String nomChercheur, String prenomChercheur, String statut,
             Date dateDebut, Date dateFin, int page, Integer size);
 
-    Page<Placement> filterbyJobSeekerID(final long id, int page, Integer size);
+    Page<Placement> filterbyJobSeekerID(final long id, long idEntreprise,
+            Date dateDebut, Date dateFin, int page, Integer size);
 
     Page<Placement> filterbyEntrepriseID(final long id, String nomChercheur,
             String statut, int page, Integer size);

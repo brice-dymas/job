@@ -103,9 +103,9 @@ public class PlacementService extends AbstractService<Placement> implements IPla
     }
 
     @Override
-    public Page<Placement> filterbyJobSeekerID(long id, int page, Integer size)
+    public Page<Placement> filterbyJobSeekerID(long id, long idEntreprise, Date dateDebut, Date dateFin, int page, Integer size)
     {
-        return placementDao.filterbyJobSeekerID(id, new PageRequest(page, size));
+        return placementDao.filterbyJobSeekerID(id, idEntreprise, dateDebut, dateFin, new PageRequest(page, size));
     }
 
     @Override
