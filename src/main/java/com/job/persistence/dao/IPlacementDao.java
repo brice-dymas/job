@@ -30,6 +30,14 @@ public interface IPlacementDao extends JpaRepository<Placement, Long>, JpaSpecif
             @Param("statut") String statut, @Param("dateDebut") Date dateDebut,
             @Param("dateFin") Date dateFin, Pageable pageable);
 
+    @Query("SELECT P FROM Placement P WHERE P.jobSeeker.id=:id")
+    Page<Placement> filterbyJobSeekerID(@Param("id") final long id, Pageable pagable);
+
+    @Query("SELECT P FROM Placement P JOIN P.jobSeeker J WHERE P.entreprise.id=:id "
+            + " AND J.nom LIKE :nom AND P.statut LIKE :statut")
+    Page<Placement> filterbyEntrepriseID(@Param("id") final long id, @Param("nom") String nomChercheur,
+            @Param("statut") String statut, Pageable pagable);
+
     // This works!
     @Query("SELECT S FROM Placement S WHERE S.jobSeeker.nom LIKE :nom "
             + " AND S.statut LIKE :statut AND S.dateDebut >= :dateDebut "

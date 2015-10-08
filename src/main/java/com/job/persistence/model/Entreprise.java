@@ -6,11 +6,14 @@
 package com.job.persistence.model;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import org.hibernate.validator.constraints.NotBlank;
 
 /**
@@ -54,6 +57,9 @@ public class Entreprise implements Serializable
     @NotBlank(message = "{blank.message}")
     private String numeroPersonneAContacter;
 
+    @OneToMany(targetEntity = Placement.class, fetch = FetchType.LAZY)
+    List<Placement> placements;
+
     public Entreprise()
     {
     }
@@ -96,6 +102,16 @@ public class Entreprise implements Serializable
     public void setBoitePostale(String boitePostale)
     {
         this.boitePostale = boitePostale;
+    }
+
+    public List<Placement> getPlacements()
+    {
+        return placements;
+    }
+
+    public void setPlacements(List<Placement> placements)
+    {
+        this.placements = placements;
     }
 
     public String getTelephone()

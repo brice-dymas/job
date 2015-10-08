@@ -6,13 +6,18 @@
 package com.job.web.controller;
 
 import com.job.persistence.model.Entreprise;
+import com.job.persistence.model.Placement;
 import com.job.persistence.service.IEntrepriseService;
+import com.job.persistence.service.IPlacementService;
+import java.util.HashMap;
+import java.util.Map;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -31,11 +36,33 @@ public class EntrepriseController
     @Autowired
     private IEntrepriseService entrepriseService;
 
+    @Autowired
+    IPlacementService placementService;
+
     @RequestMapping(value = "/{id}/show", method = RequestMethod.GET)
-    public String ShowAction(@PathVariable("id") final Long id, final ModelMap model)
+    public String ShowAction(@PathVariable("id") final Long id, final ModelMap model, final WebRequest webRequest)
     {
+
+        final String nom = webRequest.getParameter("querynom") != null
+                ? webRequest.getParameter("querynom") : "";
+        final String statut = webRequest.getParameter("querystatut") != null
+                && !webRequest.getParameter("querystatut").equals("")
+                        ? webRequest.getParameter("querystatut") : "";
+        final Integer page = webRequest.getParameter("page") != null
+                ? Integer.valueOf(webRequest.getParameter("page"))
+                : 0;
+        final Integer size = webRequest.getParameter("size") != null
+                ? Integer.valueOf(webRequest.getParameter("size"))
+                : 20;
         final Entreprise entreprise = entrepriseService.findOne(id);
+        Page<Placement> resultPage = placementService.filterbyEntrepriseID(id, nom, statut, page, size);
         model.addAttribute("entreprise", entreprise);
+        model.addAttribute("placements", resultPage.getContent());
+        model.addAttribute("querynom", nom);
+        model.addAttribute("querystatut", statut);
+        model.addAttribute("page", page);
+        model.addAttribute("Totalpage", resultPage.getTotalPages());
+        model.addAttribute("size", size);
         return "entreprise/show";
     }
 
@@ -127,5 +154,15 @@ public class EntrepriseController
     {
         entrepriseService.deleteById(entreprise.getId());
         return "redirect:/entreprise/";
+    }
+
+    @ModelAttribute("mesStatuts")
+    public Map<Long, String> populateStatutFields()
+    {
+        final Map<Long, String> results = new HashMap<>();
+        results.put(1L, "En attente");
+        results.put(2L, "En Cours d'execution");
+        results.put(3L, "Stage termine");
+        return results;
     }
 }

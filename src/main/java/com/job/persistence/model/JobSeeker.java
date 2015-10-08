@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import static javax.persistence.FetchType.EAGER;
 import static javax.persistence.FetchType.LAZY;
 import javax.persistence.GeneratedValue;
@@ -47,6 +48,9 @@ public class JobSeeker
 
     @NotBlank(message = "{blank.message}")
     private String statut;
+
+    @OneToMany(targetEntity = Placement.class, fetch = FetchType.LAZY)
+    List<Placement> placements;
 
     @Email
     private String email;
