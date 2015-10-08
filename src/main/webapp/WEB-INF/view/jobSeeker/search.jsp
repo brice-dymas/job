@@ -144,6 +144,11 @@
                                 <a href="${jobSeeker_show}" class="btn btn-primary btn-sm">
                                     <span class="glyphicon glyphicon-open"></span>
                                     <spring:message code="action.detail" />
+                                </a> &nbsp;
+                                <spring:url value="/placement/${jobSeeker.id}/affecter" var="placement_new"/>
+                                <a href="${placement_new}" class="btn btn-sm btn-warning">
+                                    <span class="glyphicon glyphicon-new-window"></span>
+                                    Affecter
                                 </a>
                             </td>
                         </tr>

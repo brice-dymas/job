@@ -44,4 +44,17 @@ public class EntrepriseService extends AbstractService<Entreprise> implements IE
         return entrepriseDao.search(nom, adresse, new PageRequest(page, size));
     }
 
+    @Override
+    public Entreprise update(Entreprise entity)
+    {
+        Entreprise entreprise = entrepriseDao.findOne(entity.getId());
+        entreprise.setAdresse(entity.getAdresse());
+        entreprise.setBoitePostale(entity.getBoitePostale());
+        entreprise.setContact(entity.getContact());
+        entreprise.setNom(entity.getNom());
+        entreprise.setNumeroPersonneAContacter(entity.getNumeroPersonneAContacter());
+        entreprise.setTelephone(entity.getTelephone());
+        return entrepriseDao.save(entreprise);
+    }
+
 }

@@ -18,7 +18,6 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -63,28 +62,43 @@ public class JobSeekerController
         return "jobSeeker/show";
     }
 
+    /**
+     * *
+     * @RequestMapping(value = "/", method = RequestMethod.GET) public String
+     * indexAction(final ModelMap model, final WebRequest webRequest) { final
+     * Integer page = webRequest.getParameter("page") != null ?
+     * Integer.valueOf(webRequest.getParameter("page")) : 0; final Integer size
+     * = webRequest.getParameter("size") != null ?
+     * Integer.valueOf(webRequest.getParameter("size")) : 20;
+     *
+     * final Page<JobSeeker> resultPage = dao.findAll(new PageRequest(page,
+     * size)); JobSeeker jobSeeker = new JobSeeker(); model.addAttribute("page",
+     * page); model.addAttribute("placement", jobSeeker);
+     * model.addAttribute("Totalpage", resultPage.getTotalPages());
+     * model.addAttribute("size", size); model.addAttribute("jobSeekers",
+     * resultPage.getContent()); return "jobSeeker/index"; } *
+     */
+    /**
+     *
+     * @param model
+     * @param webRequest
+     * @return
+     * @RequestMapping (value = "/", method = RequestMethod.GET) public String
+     * indexAction(final ModelMap model, final WebRequest webRequest) { final
+     * Integer page = webRequest.getParameter("page") != null ?
+     * Integer.valueOf(webRequest.getParameter("page")) : 0; final Integer size
+     * = webRequest.getParameter("size") != null ?
+     * Integer.valueOf(webRequest.getParameter("size")) : 20;
+     *
+     * final Page<JobSeeker> resultPage = dao.findAll(new PageRequest(page,
+     * size)); JobSeeker jobSeeker = new JobSeeker(); model.addAttribute("page",
+     * page); model.addAttribute("placement", jobSeeker);
+     * model.addAttribute("Totalpage", resultPage.getTotalPages());
+     * model.addAttribute("size", size); model.addAttribute("jobSeekers",
+     * resultPage.getContent()); return "jobSeeker/index"; }
+     */
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String indexAction(final ModelMap model, final WebRequest webRequest)
-    {
-        final Integer page = webRequest.getParameter("page") != null
-                ? Integer.valueOf(webRequest.getParameter("page"))
-                : 0;
-        final Integer size = webRequest.getParameter("size") != null
-                ? Integer.valueOf(webRequest.getParameter("size"))
-                : 20;
-
-        final Page<JobSeeker> resultPage = dao.findAll(new PageRequest(page, size));
-        JobSeeker jobSeeker = new JobSeeker();
-        model.addAttribute("page", page);
-        model.addAttribute("placement", jobSeeker);
-        model.addAttribute("Totalpage", resultPage.getTotalPages());
-        model.addAttribute("size", size);
-        model.addAttribute("jobSeekers", resultPage.getContent());
-        return "jobSeeker/index";
-    }
-
-    @RequestMapping(value = "/search", method = RequestMethod.GET)
-    public String searchAction(final ModelMap model, final WebRequest webRequest)
     {
         final long secteur = webRequest.getParameter("querysecteur") != null && !webRequest.getParameter("querysecteur").equals("")
                 ? Long.valueOf(webRequest.getParameter("querysecteur"))
@@ -119,9 +133,39 @@ public class JobSeekerController
         model.addAttribute("Totalpage", resultPage.getTotalPages());
         model.addAttribute("size", size);
         model.addAttribute("jobSeekers", resultPage.getContent());
-        return "jobSeeker/search";
+        return "jobSeeker/index";
     }
 
+    /**
+     * @RequestMapping(value = "/search", method = RequestMethod.GET) public
+     * String searchAction(final ModelMap model, final WebRequest webRequest) {
+     * final long secteur = webRequest.getParameter("querysecteur") != null &&
+     * !webRequest.getParameter("querysecteur").equals("") ?
+     * Long.valueOf(webRequest.getParameter("querysecteur")) : -1; final String
+     * nom = webRequest.getParameter("querynom") != null ?
+     * webRequest.getParameter("querynom") : ""; final String prenom =
+     * webRequest.getParameter("queryprenom") != null ?
+     * webRequest.getParameter("queryprenom") : ""; final String numero =
+     * webRequest.getParameter("querynumero") != null ?
+     * webRequest.getParameter("querynumero") : ""; final String statut =
+     * webRequest.getParameter("querystatut") != null &&
+     * !webRequest.getParameter("querystatut").equals("") ?
+     * webRequest.getParameter("querystatut") : ""; final Integer page =
+     * webRequest.getParameter("page") != null ?
+     * Integer.valueOf(webRequest.getParameter("page")) : 0; final Integer size
+     * = webRequest.getParameter("size") != null ?
+     * Integer.valueOf(webRequest.getParameter("size")) : 20;
+     *
+     * Page<JobSeeker> resultPage = jobSeekerService.search(nom, prenom, numero,
+     * secteur, statut, page, size); model.addAttribute("querynom", nom);
+     * model.addAttribute("queryprenom", prenom);
+     * model.addAttribute("querynumero", numero);
+     * model.addAttribute("querysecteur", secteur);
+     * model.addAttribute("querystatut", statut); model.addAttribute("page",
+     * page); model.addAttribute("Totalpage", resultPage.getTotalPages());
+     * model.addAttribute("size", size); model.addAttribute("jobSeekers",
+     * resultPage.getContent()); return "jobSeeker/search"; } *
+     */
     // write
     @RequestMapping(value = "/new", method = RequestMethod.GET)
     public String newAction(final ModelMap model)
@@ -276,7 +320,7 @@ public class JobSeekerController
     {
         Map<Long, String> statuts = new HashMap<>();
         statuts.put(1L, "Disponible");
-        statuts.put(2L, "Indisponible");
+        statuts.put(2L, "Deja Place");
         return statuts;
     }
 }

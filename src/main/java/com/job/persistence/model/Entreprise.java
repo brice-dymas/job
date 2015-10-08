@@ -51,6 +51,9 @@ public class Entreprise implements Serializable
     @NotBlank(message = "{blank.message}")
     private String contact;
 
+    @NotBlank(message = "{blank.message}")
+    private String numeroPersonneAContacter;
+
     public Entreprise()
     {
     }
@@ -73,6 +76,16 @@ public class Entreprise implements Serializable
     public void setNom(String nom)
     {
         this.nom = nom;
+    }
+
+    public String getNumeroPersonneAContacter()
+    {
+        return numeroPersonneAContacter;
+    }
+
+    public void setNumeroPersonneAContacter(String numeroPersonneAContacter)
+    {
+        this.numeroPersonneAContacter = numeroPersonneAContacter;
     }
 
     public String getBoitePostale()

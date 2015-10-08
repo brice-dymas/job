@@ -23,7 +23,6 @@ import java.util.logging.Logger;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -71,25 +70,42 @@ public class PlacementController
         return "placement/show";
     }
 
-    @RequestMapping(method = RequestMethod.GET)
-    public String indexAction(final ModelMap model, final WebRequest webRequest)
-    {
-        final Integer page = webRequest.getParameter("page") != null
-                ? Integer.valueOf(webRequest.getParameter("page")) : 0;
-        final Integer size = webRequest.getParameter("size") != null
-                ? Integer.valueOf(webRequest.getParameter("size")) : 20;
+    /**
+     * *
+     * @RequestMapping(method = RequestMethod.GET) public String
+     * indexAction(final ModelMap model, final WebRequest webRequest) { final
+     * Integer page = webRequest.getParameter("page") != null ?
+     * Integer.valueOf(webRequest.getParameter("page")) : 0; final Integer size
+     * = webRequest.getParameter("size") != null ?
+     * Integer.valueOf(webRequest.getParameter("size")) : 20;
+     *
+     * Placement placement = new Placement(); final Page<Placement> resultPage =
+     * dao.findAll(new PageRequest(page, size)); model.addAttribute("page",
+     * page); model.addAttribute("Totalpage", resultPage.getTotalPages());
+     * model.addAttribute("size", size); model.addAttribute("placement",
+     * placement); model.addAttribute("placements", resultPage.getContent());
+     * return "placement/index";
+    }**
+     */
 
-        Placement placement = new Placement();
-        final Page<Placement> resultPage = dao.findAll(new PageRequest(page, size));
-        model.addAttribute("page", page);
-        model.addAttribute("Totalpage", resultPage.getTotalPages());
-        model.addAttribute("size", size);
-        model.addAttribute("placement", placement);
-        model.addAttribute("placements", resultPage.getContent());
-        return "placement/index";
-    }
-
-    @RequestMapping(value = "/search", method = RequestMethod.GET)
+    /**
+     *
+     * @param model
+     * @RequestMapping (method = RequestMethod.GET) public String
+     * indexAction(final ModelMap model, final WebRequest webRequest) { final
+     * Integer page = webRequest.getParameter("page") != null ?
+     * Integer.valueOf(webRequest.getParameter("page")) : 0; final Integer size
+     * = webRequest.getParameter("size") != null ?
+     * Integer.valueOf(webRequest.getParameter("size")) : 20;
+     *
+     * Placement placement = new Placement(); final Page<Placement> resultPage =
+     * dao.findAll(new PageRequest(page, size)); model.addAttribute("page",
+     * page); model.addAttribute("Totalpage", resultPage.getTotalPages());
+     * model.addAttribute("size", size); model.addAttribute("placement",
+     * placement); model.addAttribute("placements", resultPage.getContent());
+     * return "placement/index"; }
+     */
+    @RequestMapping(value = "/", method = RequestMethod.GET)
     public String searchAction(final ModelMap model, final WebRequest webRequest)
     {
         Date dateDebut, dateFin;
@@ -130,7 +146,7 @@ public class PlacementController
         model.addAttribute("Totalpage", resultPage.getTotalPages());
         model.addAttribute("size", size);
         model.addAttribute("placements", resultPage.getContent());
-        return "placement/search";
+        return "placement/index";
     }
 
     @RequestMapping(value = "/{id}/affecter", method = RequestMethod.GET)

@@ -10,11 +10,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <tiles:insertDefinition name="layout">
     <tiles:putAttribute name="body">
         <div class="row">
-            <div class="col-md-9">
+            <div class="col-md-12">
 
                 <div>
                     <h3><spring:message code="placement.liste" /></h3>
@@ -51,6 +52,16 @@
                             </th>
                             <th>
                                 <span class="btn">
+                                    <spring:message code="placement.dateDebut" />
+                                </span>
+                            </th>
+                            <th>
+                                <span class="btn">
+                                    <spring:message code="placement.dateFin" />
+                                </span>
+                            </th>
+                            <th>
+                                <span class="btn">
                                     <spring:message code="placement.statut" />
                                 </span>
                             </th>
@@ -64,7 +75,7 @@
                     <tbody>
                         <c:if test="${placements.size() eq 0}">
                             <tr>
-                                <td class="text-center text-warning" colspan="4">
+                                <td class="text-center text-danger" colspan="4">
                                     <spring:message code="empty.data" />
                                 </td>
                             </tr>
@@ -106,6 +117,12 @@
                                 ${placement.entreprise.nom}
                             </td>
                             <td>
+                                <fmt:formatDate value="${placement.dateDebut}" pattern="dd-MM-yyyy"/>
+                            </td>
+                            <td>
+                                <fmt:formatDate value="${placement.dateFin}" pattern="dd-MM-yyyy"/>
+                            </td>
+                            <td>
                                 ${placement.statut}
                             </td>
                             <td class="text-center">
@@ -135,7 +152,7 @@
                                     <li><a href="?&queryentreprise=${queryentreprise}&querynom=${querynom}&querystatut=${querystatut}&querydatedebut=${querydatedebut}&querydatefin=${querydatefin}&page=0&size=${size}" <c:if test="${page eq 0}">class ="btn btn-sm disabled"</c:if>>
                                                 <span class="glyphicon glyphicon-fast-backward"></span>
                                             </a></li>
-                                        <li><a href="?&queryentreprise=${queryentreprise}&querynom=${querynom}&querystatut=${querystatut}&querydatedebut=${querydatedebut}&querydatefin=${querydatefin}&page=${page-1}&size=${size}"  <c:if test="${page eq 0}">class ="btn btn-sm disabled"</c:if>>
+                                        <li><a href="?&queryentreprise=${queryentreprise}&querynom=${querynom}&querystatut=${querystatut}&querydatedebut=${querydatedebut}&querydatefin=${querydatefin}&page=0&size=${size}"  <c:if test="${page eq 0}">class ="btn btn-sm disabled"</c:if>>
                                                 <span class="glyphicon glyphicon-backward"></span>
                                             </a></li>
                                         <li><input type="text" class="pager_detail text-center" readonly value="${page+1}/${Totalpage}"/></li>
@@ -147,95 +164,16 @@
                                             </a></li>
                                     </ul>
                                 </div>
-                            </div>
+                            <spring:url value="/placement/search" var="placement_search"
+                                        htmlEscape="true" />
+                            <a href="${placement_search}" class="btn btn-primary btn-sm">
+                                <span class="glyphicon glyphicon-search"></span>
+                                <spring:message code="action.rechercher" />
+                            </a>
                         </div>
+                    </div>
                 </c:if>
             </div>
-            <div class="col-md-3">
-                <div>
-                    <h3>
-                        <spring:message code="action.rechercher" />
-                    </h3>
-                    <hr/>
-                </div>
-                <spring:url value="/placement/" var="placement_search"
-                            htmlEscape="true" />
-                <form:form method="get" commandName="appelOffre" action="${placement_search}">
-
-                    <div class="form-group">
-                        <label>
-                            <spring:message code="jobSeeker.nom" />
-                        </label>
-                        <input type="text" value="${querynom}" class="form-control input-sm" name="querynom"/>
-                    </div>
-                    <div class="form-group">
-                        <label>
-                            <spring:message code="entreprise.nom" />
-                        </label>
-
-                        <select name="queryentreprise" class="form-control input-sm">
-                            <option value="">---</option>
-                            <c:forEach var="entreprise" items="${entreprises}">
-                                <option value="${entreprise.key}"
-                                        <c:if test="${entreprise.key eq queryentreprise}">
-                                            selected
-                                        </c:if>
-                                        >
-                                    ${entreprise.value}
-                                </option>
-                            </c:forEach>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>
-                            <spring:message code="placement.statut" />
-                        </label>
-                        <select name="querystatut" class="form-control input-sm">
-                            <option value="" >---</option>
-                            <c:forEach var="leStatut" items="${mesStatuts}">
-                                <option value="${leStatut.value}" >
-                                    ${leStatut.value}
-                                </option>
-                            </c:forEach>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>
-                            <spring:message code="placement.dateDebut" />
-                        </label>
-                        <input id="dateDebut" type="text" value="${querydatedebut}" class="form-control input-sm" name="querydatedebut"/>
-                    </div>
-                    <div class="form-group">
-                        <label>
-                            <spring:message code="placement.dateFin" />
-                        </label>
-                        <input id="dateFin" type="text" value="${querydatefin}" class="form-control input-sm" name="querydatefin"/>
-                    </div>
-                    <hr/>
-                    <button class="btn btn-default btn-sm">
-                        <span class="glyphicon glyphicon-search">
-                            <spring:message code="action.rechercher"/>
-                        </span>
-                    </button>
-                    <spring:url value="/placement/" htmlEscape="true" var="placement_home" />
-                    <a href="${placement_home}" class="btn btn-default btn-sm">
-                        <span class="glyphicon glyphicon-refresh"></span>
-                        <spring:message code="search.delete" />
-                    </a>
-                </form:form>
-            </div>
         </div>
-
-        <script src="<c:url value="/resources/js/jquery-ui.js" />"></script>
-        <script type="text/javascript">
-            $(function () {
-                $("#dateDebut, #dateFin").datepicker({
-                    changeMonth: true,
-                    changeYear: true,
-                    dateFormat: "yy/mm/dd",
-                    showButtonPanel: false
-                }).datepicker("option", "showAnim", "clip");
-            });
-        </script>
     </tiles:putAttribute>
 </tiles:insertDefinition>

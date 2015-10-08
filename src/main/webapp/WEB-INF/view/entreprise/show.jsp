@@ -46,29 +46,33 @@
                             <th><spring:message code="entreprise.contact" /> : </th>
                             <td>${entreprise.contact}</td>
                         </tr>
+                        <tr>
+                            <th><spring:message code="entreprise.numeroPersonneAContacter" /> : </th>
+                            <td>${entreprise.numeroPersonneAContacter}</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
         </div>
 
         <div class="row">
-            <div class="col-md-4 col-md-offset-4">
+            <div class="col-md-8 col-md-offset-4">
                 <hr/>
                 <spring:url value="/entreprise/delete" var="entreprise_delete"/>
                 <form:form method="post" commandName="entreprise" action="${entreprise_delete}">
                     <form:hidden path="id"/>
                     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                     <spring:url value="/entreprise/" var="entreprise_home"/>
-                    <a href="${entreprise_home}" class="btn btn-primary  btn-sm">
+                    <a href="${entreprise_home}" class="btn btn-default btn-primary">
                         <span class="glyphicon glyphicon-list"></span>
                         <spring:message code="entreprise.liste" />
                     </a>
                     <spring:url value="/entreprise/${entreprise.id}/edit" var="entreprise_edit"/>
-                    <a href="${entreprise_edit}" class="btn btn-default  btn-sm">
+                    <a href="${entreprise_edit}" class="btn btn-default  btn-warning">
                         <span class="glyphicon glyphicon-edit"></span>
                         <spring:message code="action.modifier" />
                     </a>
-                    <button type="submit" class="btn btn-default  btn-sm">
+                    <button type="submit" class="btn btn-default  btn-danger">
                         <span class="glyphicon glyphicon-remove-sign"></span>
                         <spring:message code="action.effacer" />
                     </button>

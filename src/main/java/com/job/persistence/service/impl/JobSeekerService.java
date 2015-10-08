@@ -62,13 +62,14 @@ public class JobSeekerService
     public Page<JobSeeker> search(String nomJobSeeker, String prenomJobSeeker, String numeroJobSeeker,
             long secteur, String statut, int page, Integer size)
     {
+        System.out.println("statut=" + statut);
         if (secteur == -1)
         {
             return dao.searchJobSeeker("%" + nomJobSeeker + "%", "%" + prenomJobSeeker + "%", "%" + numeroJobSeeker + "%", statut + "%", new PageRequest(page, size));
         }
         else
         {
-            return dao.searchJobSeeker("%" + nomJobSeeker + "%", "%" + prenomJobSeeker + "%", "%" + numeroJobSeeker + "%", secteur, statut + "%", new PageRequest(page, size));
+            return dao.searchJobSeeker("%" + nomJobSeeker + "%", "%" + prenomJobSeeker + "%", "%" + numeroJobSeeker + "%", secteur, "%" + statut + "%", new PageRequest(page, size));
         }
     }
 

@@ -44,16 +44,16 @@
                     <form:hidden path="id"/>
                     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                     <spring:url value="/secteur/" var="secteur_home"/>
-                    <a href="${secteur_home}" class="btn btn-primary  btn-sm">
+                    <a href="${secteur_home}" class="btn btn-default btn-primary">
                         <span class="glyphicon glyphicon-list"></span>
                         <spring:message code="secteur.liste" />
                     </a>
                     <spring:url value="/secteur/${secteur.id}/edit" var="secteur_edit"/>
-                    <a href="${secteur_edit}" class="btn btn-default  btn-sm">
+                    <a href="${secteur_edit}" class="btn btn-default  btn-warning">
                         <span class="glyphicon glyphicon-edit"></span>
                         <spring:message code="action.modifier" />
                     </a>
-                    <button type="submit" class="btn btn-default  btn-sm">
+                    <button type="submit" class="btn btn-default  btn-danger">
                         <span class="glyphicon glyphicon-remove-sign"></span>
                         <spring:message code="action.effacer" />
                     </button>

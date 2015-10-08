@@ -49,7 +49,7 @@ public class PlacementService extends AbstractService<Placement> implements IPla
         final JobSeeker jobSeeker = jobSeekerDao.findOne(placement.getJobSeeker().getId());
         if (placement.getDateFin().after(new Date()))
         {
-            jobSeeker.setStatut("Indisponible");
+            jobSeeker.setStatut("Déjà Placé");
             jobSeekerDao.save(jobSeeker);
         }
         placement.setJobSeeker(jobSeeker);
@@ -73,7 +73,7 @@ public class PlacementService extends AbstractService<Placement> implements IPla
         toUpdate.setNombreDheureParJour(placement.getNombreDheureParJour());
         if (placement.getDateFin().after(new Date()))
         {
-            jobSeeker.setStatut("Indisponible");
+            jobSeeker.setStatut("Déjà Placé");
             jobSeekerDao.save(jobSeeker);
         }
         else
