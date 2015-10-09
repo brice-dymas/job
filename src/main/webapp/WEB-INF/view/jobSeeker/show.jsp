@@ -37,6 +37,12 @@
                         Placements du Chercheur
                     </a>
                 </li>
+                <li>
+                    <a href="#documents" data-toggle="tab">
+                        <i class="fa fa-users"></i>
+                        Documents Du Chercheur
+                    </a>
+                </li>
             </ul>
             <div class="tab-content clearfix">
                 <div class="tab-pane" id="profil">
@@ -69,22 +75,6 @@
                                         <td>${jobSeeker.telephone}</td>
                                         <th><spring:message code="jobSeeker.statut" /></th>
                                         <td>${jobSeeker.statut}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>C.V.</th>
-                                        <td>
-                                            <a href="<c:url value="/resources/documents/${jobSeeker.cv}"/>">
-                                                <span class="fa fa-download fa-lg"></span>
-                                                ${jobSeeker.cv}
-                                            </a>
-                                        </td>
-                                        <th>Chèque</th>
-                                        <td>
-                                            <a href="<c:url value="/resources/documents/${jobSeeker.cheque}"/>">
-                                                <span class="fa fa-download fa-lg"></span>
-                                                ${jobSeeker.cheque}
-                                            </a>
-                                        </td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -357,6 +347,25 @@
                             </fieldset>
                         </div>
                     </div>
+                </div>
+                <div class="tab-pane" id="documents">
+                    <hr>
+                    <ul>
+
+                        <li>
+                            <a href="<c:url value="/resources/documents/${jobSeeker.cv}"/>">
+                                <span class="fa fa-download fa-lg"></span>
+                                ${jobSeeker.cv}
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="<c:url value="/resources/documents/${jobSeeker.cheque}"/>">
+                                <span class="fa fa-download fa-lg"></span>
+                                ${jobSeeker.cheque}
+                            </a>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
