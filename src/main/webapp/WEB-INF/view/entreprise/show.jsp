@@ -82,7 +82,7 @@
                             <tr>
                                 <th>
                                     <span class="btn">
-                                        <spring:message code="placement.jobSeeker" />
+                                        <spring:message code="placement.entreprise" />
                                     </span>
                                 </th>
                                 <th>
@@ -146,7 +146,7 @@
                         <c:forEach items="${placements}" var="placement">
                             <tr>
                                 <td>
-                                    ${placement.jobSeeker.nom}
+                                    ${placement.entreprise.nom}
                                 </td>
                                 <td>
                                     <fmt:formatDate value="${placement.dateDebut}" pattern="dd-MM-yyyy"  />
