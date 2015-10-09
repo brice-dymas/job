@@ -148,6 +148,12 @@
                 </div>
                 <div class="tab-pane active" id="placements">
                     <br/>
+                    <table>
+                        <tr>
+                            <th><spring:message code="jobSeeker.nom" /> : </th> &nbsp; &nbsp;
+                            <td>${jobSeeker.nom} ${jobSeeker.prenom}  </td> 
+                        </tr>
+                    </table>
                     <hr>
                     <div class="row">
                         <div class="col-md-9">
