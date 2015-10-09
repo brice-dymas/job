@@ -10,18 +10,33 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <tiles:insertDefinition name="layout">
     <tiles:putAttribute name="body">
+        <c:set var="url" value="${pageContext.request.requestURI}" />
         <div id="gmailTab" class="container-fluid">
             <ul class="nav nav-pills">
-                <li class="active">
+                <li
+                    <c:if test="${fn:endsWith(url, 'show')}">
+                        class="active"
+                    </c:if>
+                    >
                     <a href="#profil" data-toggle="tab">
                         <i class="fa fa-inbox"></i>
-                        profil
+                        Profil du Chercheur
                     </a>
                 </li>
-                <li><a href="#placements" data-toggle="tab"><i class="fa fa-users"></i> Placements</a>
+                <li
+                    <c:if test="${fn:containsIgnoreCase(url, '?query')}">
+                        class="active"
+                    </c:if>
+                    >
+                    <a href="#placements" data-toggle="tab">
+                        <i class="fa fa-users"></i>
+                        Placements du Chercheur
+                    </a>
+                </li>
             </ul>
             <div class="tab-content clearfix">
                 <div class="tab-pane" id="profil">
