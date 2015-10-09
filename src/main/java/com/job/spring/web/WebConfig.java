@@ -137,6 +137,7 @@ public class WebConfig
             "WEB-INF/messages/jobSeeker/messages",
             "WEB-INF/messages/entreprise/messages",
             "WEB-INF/messages/placement/messages",
+            "WEB-INF/messages/typeDocument/messages",
             "WEB-INF/messages/user/messages"
         });
         return messageSource;

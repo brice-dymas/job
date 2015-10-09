@@ -60,6 +60,16 @@
                         <spring:message code="placement" />
                     </a>
                 </li>
+                <li
+                    <c:if test="${fn:containsIgnoreCase(url, 'typeDocument')}">
+                        class="active"
+                    </c:if>
+                    >
+                    <a href="<spring:url value="/typeDocument/" />">
+                        <span class="fa fa-digg"></span>
+                        <spring:message code="typeDocument" />
+                    </a>
+                </li>
                 <sec:authorize access="hasRole('ROLE_ADMIN')">
                     <li
                         <c:if test="${fn:containsIgnoreCase(url, 'user')}">
