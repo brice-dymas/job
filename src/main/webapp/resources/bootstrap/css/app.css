@@ -3,7 +3,7 @@ To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
 and open the template in the editor.
 */
-/* 
+/*
     Created on : Dec 22, 2014, 10:30:23 PM
     Author     : gervais
 */
@@ -13,7 +13,7 @@ body {
     font-family: Ubuntu;
     font-size: 12px;
 
-        padding-top: 20px;
+    padding-top: 20px;
     padding-bottom: 20px;
 }
 
@@ -51,11 +51,43 @@ body {
 
 /* Show page */
 #table_show .table tr{
-    
+
     border-style: hidden;
 }
 
 .row-align{
     vertical-align: middle;
     text-align: center;
+}
+
+/*Pour la disposition en onglet dans jobseeker/show*/
+monBody {
+    padding: 20px;
+}
+#gmailTab .tab-content {
+    border-top: 5px solid chartreuse;
+    border-bottom: 5px solid chartreuse;
+    border-left: 5px solid chartreuse;
+    border-right: 5px solid chartreuse;
+    color: #1c1c1c;
+    background-color: #ffffff;
+    padding: 5px 15px;
+}
+#gmailTab .nav-pills > li > a {
+    border-radius: 0.5;
+    background-color: #269abc;
+    background-color: #0078a3;
+}
+#gmailTab .nav-pills > li.active > a,
+#gmailTab .nav-pills > li.active > a:focus,
+#gmailTab .nav-pills > li.active > a:hover {
+    border-top: 6px solid chartreuse;
+    border-bottom: 6px solid chartreuse;
+    border-right:  6px solid chartreuse;
+    border-left:  6px solid chartreuse
+}
+@media (max-width: 767px) {
+    .nav-pills > li {
+        float: none;
+    }
 }

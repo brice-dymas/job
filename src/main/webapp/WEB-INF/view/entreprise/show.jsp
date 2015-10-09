@@ -198,55 +198,66 @@
                                     </div>
                                 </div>
                             </div>
-
-
-                    </div>
-                </fieldset>
-                <div class="col-md-3">
-                    <fieldset>
-                        <legend>
-                            <h3>
-                            <spring:message code="action.rechercher" />
-                        </h3>
-                    </legend>
-                    <hr>
-                    <spring:url value="/entreprise/${entreprise.id}/show" var="placement_search"
-                                htmlEscape="true" />
-                    <form:form method="get" commandName="entreprise" action="${placement_search}">
-                        <div class="form-group">
-                            <label>
-                                <spring:message code="jobSeeker.nom" />
-                            </label>
-                            <input type="text" value="${querynom}" class="form-control input-sm" name="querynom"/>
-                        </div>
-                        <div class="form-group">
-                            <label>
-                                <spring:message code="placement.statut" />
-                            </label>
-                            <select name="querystatut" class="form-control input-sm">
-                                <option value="" >---</option>
-                                <c:forEach var="leStatut" items="${mesStatuts}">
-                                    <option value="${leStatut.value}" >
-                                        ${leStatut.value}
-                                    </option>
-                                </c:forEach>
-                            </select>
-                        </div>
-                        <hr/>
-                        <button class="btn btn-default btn-sm">
-                            <span class="glyphicon glyphicon-search">
-                                <spring:message code="action.rechercher"/>
-                            </span>
-                        </button>
-                        <spring:url value="/entreprise/${entreprise.id}/show" htmlEscape="true" var="placement_home" />
-                        <a href="${placement_home}" class="btn btn-default btn-sm">
-                            <span class="glyphicon glyphicon-refresh"></span>
-                            <spring:message code="search.delete" />
-                        </a>
-                    </form:form>
-                </fieldset>
+                    </c:if>
             </div>
-        </c:if>
+        </fieldset>
+        <div class="col-md-3">
+            <fieldset>
+                <legend>
+                    <h3>
+                        <spring:message code="action.rechercher" />
+                    </h3>
+                </legend>
+                <hr>
+                <spring:url value="/entreprise/${entreprise.id}/show" var="placement_search"
+                            htmlEscape="true" />
+                <form:form method="get" commandName="entreprise" action="${placement_search}">
+                    <div class="form-group">
+                        <label>
+                            <spring:message code="jobSeeker.nom" />
+                        </label>
+                        <input type="text" value="${querynom}" class="form-control input-sm" name="querynom"/>
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            <spring:message code="placement.statut" />
+                        </label>
+                        <select name="querystatut" class="form-control input-sm">
+                            <option value="" >---</option>
+                            <c:forEach var="leStatut" items="${mesStatuts}">
+                                <option value="${leStatut.value}" >
+                                    ${leStatut.value}
+                                </option>
+                            </c:forEach>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            <spring:message code="placement.dateDebut" />
+                        </label>
+                        <input id="dateDebut" type="text" value="${querydatedebut}" class="form-control input-sm" name="querydatedebut"/>
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            <spring:message code="placement.dateFin" />
+                        </label>
+                        <input id="dateFin" type="text" value="${querydatefin}" class="form-control input-sm" name="querydatefin"/>
+                    </div>
+                    <hr/>
+                    <button class="btn btn-default btn-sm">
+                        <span class="glyphicon glyphicon-search">
+                            <spring:message code="action.rechercher"/>
+                        </span>
+                    </button>
+                    <spring:url value="/entreprise/${entreprise.id}/show" htmlEscape="true" var="placement_home" />
+                    <a href="${placement_home}" class="btn btn-default btn-sm">
+                        <span class="glyphicon glyphicon-refresh"></span>
+                        <spring:message code="search.delete" />
+                    </a>
+                </form:form>
+            </fieldset>
+        </div>
+
     </div>
     <hr>
     <div class="row">
@@ -272,5 +283,18 @@
             </form:form>
         </div>
     </div>
+
+
+    <script src="<c:url value="/resources/js/jquery-ui.js" />"></script>
+    <script type="text/javascript">
+        $(function () {
+            $("#dateDebut, #dateFin").datepicker({
+                changeMonth: true,
+                changeYear: true,
+                dateFormat: "yy/mm/dd",
+                showButtonPanel: false
+            }).datepicker("option", "showAnim", "clip");
+        });
+    </script>
 </tiles:putAttribute>
 </tiles:insertDefinition>

@@ -2,17 +2,26 @@ package com.job.web.controller;
 
 import com.job.persistence.dao.IJobSeekerDao;
 import com.job.persistence.model.Contact;
+import com.job.persistence.model.Entreprise;
 import com.job.persistence.model.JobSeeker;
+import com.job.persistence.model.Placement;
 import com.job.persistence.model.Secteur;
 import com.job.persistence.service.IContactService;
+import com.job.persistence.service.IEntrepriseService;
 import com.job.persistence.service.IJobSeekerService;
+import com.job.persistence.service.IPlacementService;
 import com.job.persistence.service.ISecteurService;
 import java.io.File;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletContext;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +48,13 @@ public class JobSeekerController
 {
 
     @Autowired
+    IEntrepriseService entrepriseService;
+
+    @Autowired
     IJobSeekerDao dao;
+
+    @Autowired
+    IPlacementService placementService;
 
     @Autowired
     private ServletContext servletContext;
@@ -55,29 +70,43 @@ public class JobSeekerController
 
     @RequestMapping(value = "/{id}/show", method = RequestMethod.GET)
     public String ShowAction(@PathVariable("id") final Long id,
-            final ModelMap model)
+            final ModelMap model, final WebRequest webRequest)
     {
+
+        Date dateDebut, dateFin;
+        SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy/MM/dd");
+        final Long idEntreprise = (webRequest.getParameter("queryentreprise") != null
+                && !webRequest.getParameter("queryentreprise").equals(""))
+                        ? Long.valueOf(webRequest.getParameter("queryentreprise"))
+                        : -1;
+        // POur la date
+        final String dateDebuString = webRequest.getParameter("querydatedebut") != null
+                ? webRequest.getParameter("querydatedebut")
+                : "";
+        final String dateFinString = webRequest.getParameter("querydatefin") != null
+                ? webRequest.getParameter("querydatefin")
+                : "";
+        final Integer page = webRequest.getParameter("page") != null
+                ? Integer.valueOf(webRequest.getParameter("page")) : 0;
+        final Integer size = webRequest.getParameter("size") != null
+                ? Integer.valueOf(webRequest.getParameter("size")) : 20;
+
+        dateDebut = parsedDateFrom(dateDebuString, "2000/01/01", dateFormatter);
+        dateFin = parsedDateFrom(dateFinString, "2090/12/31", dateFormatter);
         final JobSeeker jobSeeker = jobSeekerService.findOne(id);
+        final Page<Placement> resultPage = placementService.filterbyJobSeekerID(id, idEntreprise, dateDebut, dateFin, page, size);
+
+        model.addAttribute("querydatedebut", dateDebuString);
+        model.addAttribute("querydatefin", dateFinString);
+        model.addAttribute("queryentreprise", idEntreprise);
         model.addAttribute("jobSeeker", jobSeeker);
+        model.addAttribute("page", page);
+        model.addAttribute("Totalpage", resultPage.getTotalPages());
+        model.addAttribute("size", size);
+        model.addAttribute("placements", resultPage.getContent());
         return "jobSeeker/show";
     }
 
-    /**
-     * *
-     * @RequestMapping(value = "/", method = RequestMethod.GET) public String
-     * indexAction(final ModelMap model, final WebRequest webRequest) { final
-     * Integer page = webRequest.getParameter("page") != null ?
-     * Integer.valueOf(webRequest.getParameter("page")) : 0; final Integer size
-     * = webRequest.getParameter("size") != null ?
-     * Integer.valueOf(webRequest.getParameter("size")) : 20;
-     *
-     * final Page<JobSeeker> resultPage = dao.findAll(new PageRequest(page,
-     * size)); JobSeeker jobSeeker = new JobSeeker(); model.addAttribute("page",
-     * page); model.addAttribute("placement", jobSeeker);
-     * model.addAttribute("Totalpage", resultPage.getTotalPages());
-     * model.addAttribute("size", size); model.addAttribute("jobSeekers",
-     * resultPage.getContent()); return "jobSeeker/index"; } *
-     */
     /**
      *
      * @param model
@@ -136,36 +165,6 @@ public class JobSeekerController
         return "jobSeeker/index";
     }
 
-    /**
-     * @RequestMapping(value = "/search", method = RequestMethod.GET) public
-     * String searchAction(final ModelMap model, final WebRequest webRequest) {
-     * final long secteur = webRequest.getParameter("querysecteur") != null &&
-     * !webRequest.getParameter("querysecteur").equals("") ?
-     * Long.valueOf(webRequest.getParameter("querysecteur")) : -1; final String
-     * nom = webRequest.getParameter("querynom") != null ?
-     * webRequest.getParameter("querynom") : ""; final String prenom =
-     * webRequest.getParameter("queryprenom") != null ?
-     * webRequest.getParameter("queryprenom") : ""; final String numero =
-     * webRequest.getParameter("querynumero") != null ?
-     * webRequest.getParameter("querynumero") : ""; final String statut =
-     * webRequest.getParameter("querystatut") != null &&
-     * !webRequest.getParameter("querystatut").equals("") ?
-     * webRequest.getParameter("querystatut") : ""; final Integer page =
-     * webRequest.getParameter("page") != null ?
-     * Integer.valueOf(webRequest.getParameter("page")) : 0; final Integer size
-     * = webRequest.getParameter("size") != null ?
-     * Integer.valueOf(webRequest.getParameter("size")) : 20;
-     *
-     * Page<JobSeeker> resultPage = jobSeekerService.search(nom, prenom, numero,
-     * secteur, statut, page, size); model.addAttribute("querynom", nom);
-     * model.addAttribute("queryprenom", prenom);
-     * model.addAttribute("querynumero", numero);
-     * model.addAttribute("querysecteur", secteur);
-     * model.addAttribute("querystatut", statut); model.addAttribute("page",
-     * page); model.addAttribute("Totalpage", resultPage.getTotalPages());
-     * model.addAttribute("size", size); model.addAttribute("jobSeekers",
-     * resultPage.getContent()); return "jobSeeker/search"; } *
-     */
     // write
     @RequestMapping(value = "/new", method = RequestMethod.GET)
     public String newAction(final ModelMap model)
@@ -322,5 +321,48 @@ public class JobSeekerController
         statuts.put(1L, "Disponible");
         statuts.put(2L, "Deja Place");
         return statuts;
+    }
+
+    @ModelAttribute("entreprises")
+    public Map<Long, String> populateMaterielFields()
+    {
+        final Map<Long, String> results = new HashMap<>();
+        final List<Entreprise> entreprises = entrepriseService.findAll();
+        for (Entreprise entreprise : entreprises)
+        {
+            results.put(entreprise.getId(), entreprise.getNom() + " - " + entreprise.getAdresse());
+        }
+        return results;
+    }
+
+    /**
+     * Pour Convertir une chaine de charactères en java.util.Date suivant un
+     * format donné
+     *
+     * @exception ParseException
+     * @param dateFormat : le format de sortie de la date
+     * @param dateString : la chaine de charactères à convertir en date
+     * @return result: la java.util.Date obtenue après conversion
+     */
+    private Date parsedDateFrom(String dateString, String dateLimite, SimpleDateFormat dateFormat)
+    {
+        Date result = new Date();
+        SimpleDateFormat dateFormatter = dateFormat;
+        try
+        {
+            result = dateFormatter.parse(dateString);
+        }
+        catch (ParseException ex)
+        {
+            try
+            {
+                result = dateFormatter.parse(dateLimite);
+            }
+            catch (ParseException ex1)
+            {
+                Logger.getLogger(JobSeekerController.class.getName()).log(Level.SEVERE, null, ex1);
+            }
+        }
+        return result;
     }
 }
