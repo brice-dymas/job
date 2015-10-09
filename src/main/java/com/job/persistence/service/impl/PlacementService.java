@@ -116,12 +116,17 @@ public class PlacementService extends AbstractService<Placement> implements IPla
         }
     }
 
+//    @Override
+//    public Page<Placement> filterbyEntrepriseID(long id, String nomChercheur,
+//            String statut, int page, Integer size)
+//    {
+//
+//        return placementDao.filterbyEntrepriseID(id, "%" + nomChercheur + "%", "%" + statut + "%", new PageRequest(page, size));
+//    }
     @Override
-    public Page<Placement> filterbyEntrepriseID(long id, String nomChercheur,
-            String statut, int page, Integer size)
+    public Page<Placement> filterbyEntrepriseID(long id, String nomChercheur, String statut, Date dateDebut, Date dateFin, int page, Integer size)
     {
-
-        return placementDao.filterbyEntrepriseID(id, "%" + nomChercheur + "%", "%" + statut + "%", new PageRequest(page, size));
+        return placementDao.filterbyEntrepriseID(id, "%" + nomChercheur + "%", "%" + statut + "%", dateDebut, dateFin, new PageRequest(page, size));
     }
 
 }
