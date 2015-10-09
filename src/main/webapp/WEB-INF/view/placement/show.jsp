@@ -151,12 +151,18 @@
                     <a href="${placement_home}" class="btn btn-sm  btn-primary">
                         <span class="glyphicon glyphicon-list"></span>
                         <spring:message code="placement.liste" />
-                    </a>
+                    </a>&nbsp;&nbsp;
+                    <spring:url value="/jobSeeker/${placement.jobSeeker.id}/show" htmlEscape="true" var="jobSeeker_show" />
+                    <a href="${jobSeeker_show}" class="btn btn-sm btn-success">
+                        <span class="glyphicon glyphicon-backward"></span>
+                        <spring:message code="placement.jobSeeker" />
+                    </a> &nbsp;&nbsp;
                     <spring:url value="/placement/${placement.id}/edit" var="placement_edit"/>
                     <a href="${placement_edit}" class="btn btn-sm  btn-warning">
                         <span class="glyphicon glyphicon-edit"></span>
                         <spring:message code="action.modifier" />
                     </a>
+                    &nbsp;&nbsp;
                     <button type="submit" class="btn btn-sm  btn-danger">
                         <span class="glyphicon glyphicon-remove-sign"></span>
                         <spring:message code="action.effacer" />

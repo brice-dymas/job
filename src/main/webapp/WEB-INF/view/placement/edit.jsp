@@ -182,13 +182,18 @@
                                     <button type="submit" class="btn btn-sm btn-primary">
                                         <span class="glyphicon glyphicon-save"></span>
                                         <spring:message code="action.enregistrer" />
-                                    </button>
+                                    </button>&nbsp;&nbsp;
                                     <spring:url value="/placement/" htmlEscape="true"
                                                 var="placement_home" />
                                     <a href="${placement_home}" class="btn btn-sm btn-default">
                                         <span class="glyphicon glyphicon-list"></span>
                                         <spring:message code="placement.liste" />
-                                    </a>
+                                    </a>&nbsp;&nbsp;
+                                    <spring:url value="/jobSeeker/${placement.jobSeeker.id}/show" htmlEscape="true" var="jobSeeker_show" />
+                                    <a href="${jobSeeker_show}" class="btn btn-sm btn-success">
+                                        <span class="glyphicon glyphicon-backward"></span>
+                                        <spring:message code="placement.jobSeeker" />
+                                    </a> &nbsp;&nbsp;
                                 </div>
                             </div>
                         </div>

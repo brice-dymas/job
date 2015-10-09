@@ -116,7 +116,7 @@
                                     ${user_var.user.username}
                                 </td>
 
-                                <td class="text-center">
+                                <td>
                                     <sec:authorize access="hasRole('ROLE_ADMIN')" >
                                         <spring:url value="/user/${user_var.id}/edit" htmlEscape="true" var="user_edit" />
                                         <a href="${user_edit}" class="btn btn-primary btn-sm">
@@ -145,7 +145,7 @@
                                     ${user_var.user.username}
                                 </td>
 
-                                <td class="text-center">
+                                <td>
                                     <sec:authorize access="hasRole('ROLE_ADMIN')" >
                                         <spring:url value="/user/${user_var.id}/edit" htmlEscape="true" var="user_edit" />
                                         <a href="${user_edit}" class="btn btn-primary btn-sm">

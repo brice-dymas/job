@@ -108,7 +108,7 @@
                             <td>
                                 ${placement.statut}
                             </td>
-                            <td class="text-center">
+                            <td>
                                 <spring:url value="/placement/${placement.id}/edit" htmlEscape="true" var="placement_edit" />
                                 <a href="${placement_edit}" class="btn btn-primary btn-sm">
                                     <span class="glyphicon glyphicon-edit"></span>

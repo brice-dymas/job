@@ -30,6 +30,15 @@
                         <span class="fa fa-institution"></span>
                         <spring:message code="secteur.liste" />
                     </a>
+                </li><li
+                    <c:if test="${fn:containsIgnoreCase(url, 'entreprise')}">
+                        class="active"
+                    </c:if>
+                    >
+                    <a href="<spring:url value="/entreprise/" />">
+                        <span class="fa fa-building-o"></span>
+                        <spring:message code="entreprise" />
+                    </a>
                 </li>
                 <li
                     <c:if test="${fn:containsIgnoreCase(url, 'jobSeeker')}">
@@ -39,6 +48,16 @@
                     <a href="<spring:url value="/jobSeeker/" />">
                         <span class="fa fa-user"></span>
                         <spring:message code="jobSeeker.liste" />
+                    </a>
+                </li>
+                <li
+                    <c:if test="${fn:containsIgnoreCase(url, 'placement')}">
+                        class="active"
+                    </c:if>
+                    >
+                    <a href="<spring:url value="/placement/" />">
+                        <span class="fa fa-briefcase"></span>
+                        <spring:message code="placement" />
                     </a>
                 </li>
                 <sec:authorize access="hasRole('ROLE_ADMIN')">
@@ -53,27 +72,6 @@
                         </a>
                     </li>
                 </sec:authorize>
-
-                <li
-                    <c:if test="${fn:containsIgnoreCase(url, 'entreprise')}">
-                        class="active"
-                    </c:if>
-                    >
-                    <a href="<spring:url value="/entreprise/" />">
-                        <span class="fa fa-building-o"></span>
-                        <spring:message code="entreprise.liste" />
-                    </a>
-                </li>
-                <li
-                    <c:if test="${fn:containsIgnoreCase(url, 'placement')}">
-                        class="active"
-                    </c:if>
-                    >
-                    <a href="<spring:url value="/placement/" />">
-                        <span class="fa fa-briefcase"></span>
-                        <spring:message code="placement.title" />
-                    </a>
-                </li>
 
             </ul>
 

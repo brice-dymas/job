@@ -13,7 +13,7 @@
 
                 <div>
                     <h4>
-                        <span class="fa fa-institution fa-lg"></span> 
+                        <span class="fa fa-institution fa-lg"></span>
                         <spring:message code="secteur.liste" />
                     </h4>
                     <hr/>
@@ -85,7 +85,7 @@
                             <td>
                                 ${secteur.libelle}
                             </td>
-                            <td class="text-center">
+                            <td>
                                 <spring:url value="/secteur/${secteur.id}/edit" htmlEscape="true" var="secteur_edit" />
                                 <a href="${secteur_edit}" class="btn btn-primary btn-sm">
                                     <span class="glyphicon glyphicon-edit"></span>
@@ -138,7 +138,7 @@
             <div class="col-md-3">
                 <div>
                     <h4>
-                        <span class="fa fa-search fa-lg"></span> 
+                        <span class="fa fa-search fa-lg"></span>
                         <spring:message code="action.rechercher" />
                     </h4>
                     <hr/>

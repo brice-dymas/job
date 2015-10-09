@@ -133,7 +133,7 @@
                             <td>
                                 ${jobSeeker.telephone}
                             </td>
-                            <td class="text-center">
+                            <td>
                                 <spring:url value="/jobSeeker/${jobSeeker.id}/edit" htmlEscape="true" var="jobSeeker_edit" />
                                 <a href="${jobSeeker_edit}" class="btn btn-primary btn-sm">
                                     <span class="glyphicon glyphicon-edit"></span>
